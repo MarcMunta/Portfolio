@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', checkVisibility);
 });
 
-document.querySelector('.viewButton').addEventListener('click', function() {
+document.querySelector('.viewButton').addEventListener('click', function () {
     var imagenes = document.getElementById('imagenes');
     var span = this.querySelector('span');
-    
+
     if (imagenes.style.display === "none" || imagenes.style.display === "") {
         imagenes.style.display = "block"; // Mostrar imágenes
         span.textContent = 'ver menos'; // Cambiar texto a "ver menos"
@@ -67,3 +67,18 @@ function closeModal() {
     var modal = document.getElementById("imageModal");
     modal.style.display = "none";
 }
+
+// Espera a que el DOM esté completamente cargado
+window.addEventListener('DOMContentLoaded', () => {
+    const hamburgerLabel = document.querySelector('.hamburger input');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Agrega un event listener para detectar el cambio de estado del input checkbox
+    hamburgerLabel.addEventListener('change', () => {
+        if (hamburgerLabel.checked) {
+            navLinks.classList.add('show');
+        } else {
+            navLinks.classList.remove('show');
+        }
+    });
+});

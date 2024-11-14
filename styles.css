@@ -110,9 +110,13 @@ a:hover {
 }
 
 .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.nav-links.show {
+    max-height: 500px; /* Ajusta este valor según la altura del contenido */
 }
 
 .nav-links li a {
@@ -156,7 +160,47 @@ a:hover {
     transform: translateY(0);
 }
 
-/* BOTON */
+/* BOTON MENU IDIOMAS */
+.hamburger {
+    cursor: pointer;
+}
+
+.hamburger input {
+    display: none;
+}
+
+.hamburger svg {
+    /* The size of the SVG defines the overall size */
+    height: 3em;
+    /* Define the transition for transforming the SVG */
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line {
+    fill: none;
+    stroke: white;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    /* Define the transition for transforming the Stroke */
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line-top-bottom {
+    stroke-dasharray: 12 63;
+}
+
+.hamburger input:checked+svg {
+    transform: rotate(-45deg);
+}
+
+.hamburger input:checked+svg .line-top-bottom {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: -32.42;
+}
+
+/* BOTON VIEW*/
 .viewButton {
     --fs: 1.25em;
     --col1: honeydew;
@@ -344,7 +388,8 @@ a:hover {
 
 /*IMAGENES*/
 #imagenes {
-    display: none; /* Ocultar la sección de imágenes inicialmente */
+    display: none;
+    /* Ocultar la sección de imágenes inicialmente */
 }
 
 .imagenes-section {
@@ -362,8 +407,10 @@ a:hover {
 .imagenes-row {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Espacio entre las imágenes */
-    margin-bottom: 20px; /* Espacio entre las filas */
+    gap: 15px;
+    /* Espacio entre las imágenes */
+    margin-bottom: 20px;
+    /* Espacio entre las filas */
 }
 
 .imagen {
@@ -376,7 +423,8 @@ a:hover {
 }
 
 .imagen:hover {
-    transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+    transform: scale(1.05);
+    /* Efecto de zoom al pasar el ratón */
 }
 
 .imagenes-ultima {
@@ -385,17 +433,20 @@ a:hover {
 }
 
 .imagenes-ultima img {
-    max-width: 600px; /* Imagen más grande a la derecha */
+    max-width: 600px;
+    /* Imagen más grande a la derecha */
 }
 
 @media (max-width: 768px) {
     .imagenes-row {
         flex-direction: column;
-        gap: 10px; /* Reduce el espacio entre imágenes en pantallas pequeñas */
+        gap: 10px;
+        /* Reduce el espacio entre imágenes en pantallas pequeñas */
     }
 
     .imagen {
-        max-width: 100%; /* Asegura que las imágenes no sean más grandes que su contenedor */
+        max-width: 100%;
+        /* Asegura que las imágenes no sean más grandes que su contenedor */
     }
 }
 
