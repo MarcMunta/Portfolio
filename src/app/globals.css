@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 242 84% 62%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 224 71% 15%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 214 32% 92%;
+  --muted-foreground: 222 13% 45%;
+  --accent: 226 70% 95%;
+  --accent-foreground: 224 71% 15%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 242 84% 62%;
+  --radius: 1.2rem;
+  --primary-rgb: 88 101 242;
+  --glow: 228 56% 95%;
+}
+
+.dark {
+  --background: 228 47% 7%;
+  --foreground: 214 32% 96%;
+  --card: 228 47% 11%;
+  --card-foreground: 214 32% 96%;
+  --popover: 228 47% 11%;
+  --popover-foreground: 214 32% 96%;
+  --primary: 242 84% 62%;
+  --primary-foreground: 228 47% 11%;
+  --secondary: 219 28% 18%;
+  --secondary-foreground: 214 32% 96%;
+  --muted: 222 25% 16%;
+  --muted-foreground: 214 32% 72%;
+  --accent: 215 25% 20%;
+  --accent-foreground: 214 32% 96%;
+  --border: 222 25% 16%;
+  --input: 222 25% 16%;
+  --ring: 242 84% 62%;
+  --glow: 230 55% 8%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased min-h-screen;
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    @apply text-foreground transition-colors;
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
+  }
+}
+
+@layer components {
+  .marquee {
+    @apply flex whitespace-nowrap will-change-transform;
+  }
+
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
