@@ -45,7 +45,7 @@ export function HeroSection() {
                 </MagneticButton>
                 <MagneticButton asChild variant="outline">
                   <Link
-                    href="/Portfolio/Marc-Muntane-Clara-CV.pdf"
+                    href="/Marc-Muntane-Clara-CV.pdf"
                     download="Marc-Muntane-Clara-CV.pdf"
                     className="inline-flex items-center gap-2"
                   >
