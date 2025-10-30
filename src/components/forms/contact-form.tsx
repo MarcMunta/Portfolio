@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
+import { Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,36 +21,11 @@ const createContactSchema = (messages: { errors: { name: string; email: string; 
 
 export type ContactFormValues = z.infer<ReturnType<typeof createContactSchema>>;
 
-type FormStatus = "idle" | "sending" | "success" | "error";
+const CONTACT_EMAIL = "marcmclara@gmail.com";
 
 export function ContactForm() {
   const { contactForm } = useTranslations();
   const schema = React.useMemo(() => createContactSchema(contactForm), [contactForm]);
-
-  const [status, setStatus] = React.useState<FormStatus>("idle");
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-  const [lastSubmission, setLastSubmission] = React.useState<ContactFormValues | null>(null);
-  const resetTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const scheduleReset = React.useCallback((delay: number) => {
-    if (resetTimer.current) {
-      clearTimeout(resetTimer.current);
-    }
-
-    resetTimer.current = setTimeout(() => {
-      setStatus("idle");
-      setErrorMessage(null);
-      resetTimer.current = null;
-    }, delay);
-  }, []);
-
-  React.useEffect(() => {
-    return () => {
-      if (resetTimer.current) {
-        clearTimeout(resetTimer.current);
-      }
-    };
-  }, []);
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(schema),
@@ -61,49 +36,21 @@ export function ContactForm() {
     },
   });
 
-  const onSubmit = async (values: ContactFormValues) => {
-    setStatus("sending");
-    setErrorMessage(null);
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      if (!response.ok) {
-        const data = (await response.json().catch(() => null)) as { error?: unknown } | null;
-        const rawMessage = typeof data?.error === "string" ? data.error : "";
-        
-        // Mensaje más específico basado en el código de estado
-        if (response.status === 500 && rawMessage.includes("not configured")) {
-          throw new Error("Servicio de email en configuración. Por favor, contacta directamente en marcmclara@gmail.com");
-        }
-        
-        throw new Error(rawMessage || "Error al enviar el mensaje. Inténtalo de nuevo.");
-      }
-
-      setStatus("success");
-      setLastSubmission(values);
+  const onSubmit = (values: ContactFormValues) => {
+    // Construir el mailto con los datos del formulario
+    const subject = encodeURIComponent(`Contacto desde portfolio - ${values.name}`);
+    const body = encodeURIComponent(
+      `Nombre: ${values.name}\nEmail: ${values.email}\n\nMensaje:\n${values.message}`
+    );
+    
+    // Abrir el cliente de correo con los datos prellenados
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    
+    // Limpiar el formulario después de abrir mailto
+    setTimeout(() => {
       form.reset();
-      scheduleReset(4000);
-    } catch (error) {
-      console.error("Contact form submission failed", error);
-      const rawMessage = error instanceof Error && error.message !== "Failed to send message" ? error.message : "";
-      const message = rawMessage && rawMessage !== "Email service not configured" ? rawMessage : contactForm.feedback.error;
-      setErrorMessage(message);
-      setStatus("error");
-      scheduleReset(5000);
-    }
+    }, 500);
   };
-
-  const isSubmitting = form.formState.isSubmitting || status === "sending";
-  const successFeedback = React.useMemo(() => {
-    if (!lastSubmission) return "";
-    const firstName = lastSubmission.name.split(" ")[0] ?? "";
-    return contactForm.feedback.success.replace("{{name}}", firstName);
-  }, [contactForm.feedback.success, lastSubmission]);
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -145,31 +92,16 @@ export function ContactForm() {
         />
         {form.formState.errors.message ? (
           <p className="text-xs text-red-500">{form.formState.errors.message.message}</p>
-        ) : null}
+          ) : null}
       </div>
       <div className="flex items-center justify-between gap-4">
-        <Button type="submit" disabled={isSubmitting} className="min-w-[160px]">
-          {status === "sending"
-            ? contactForm.submitSending
-            : status === "success"
-              ? contactForm.submitSuccess
-              : contactForm.submitIdle}
+        <Button type="submit" className="min-w-[160px] gap-2">
+          <Mail className="h-4 w-4" />
+          {contactForm.submitIdle}
         </Button>
-        <motion.span
-          role="status"
-          aria-live="polite"
-          initial={false}
-          animate={{ opacity: status === "idle" ? 0 : 1, y: status === "idle" ? -6 : 0 }}
-          className="text-sm text-muted-foreground"
-        >
-          {status === "success"
-            ? successFeedback
-            : status === "error"
-              ? errorMessage ?? contactForm.feedback.error
-              : status === "sending"
-                ? contactForm.feedback.sending
-                : ""}
-        </motion.span>
+        <span className="text-xs text-muted-foreground">
+          Se abrirá tu cliente de correo
+        </span>
       </div>
     </form>
   );
