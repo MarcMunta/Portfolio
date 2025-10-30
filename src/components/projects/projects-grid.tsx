@@ -49,7 +49,6 @@ export function ProjectsGrid() {
                 ? "border-primary bg-primary/10 text-primary"
                 : "border-border/80 text-muted-foreground hover:text-foreground",
             )}
-            aria-pressed={activeFilter === filter}
           >
             {filterLabels[filter]}
           </button>

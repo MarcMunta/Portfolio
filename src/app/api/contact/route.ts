@@ -2,6 +2,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+const DEFAULT_RECIPIENT = "marcmclara@gmail.com";
+
 const contactSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
@@ -66,7 +68,7 @@ export async function POST(request: Request) {
   }
 
   const { name, email, message } = result.data;
-  const toAddress = process.env.CONTACT_RECIPIENT ?? "marcmclara@gmail.com";
+  const toAddress = process.env.CONTACT_RECIPIENT ?? DEFAULT_RECIPIENT;
   const fromAddress = process.env.SMTP_FROM ?? process.env.SMTP_USER ?? "noreply@example.com";
 
   const plainText = [
@@ -107,3 +109,4 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ success: true });
 }
+

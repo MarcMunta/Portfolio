@@ -28,14 +28,46 @@ const esProjects: Project[] = [
       "Implementación de pfSense como firewall perimetral, configuración de Active Directory para gestión centralizada de usuarios, y despliegue de servidores web y proxy con documentación técnica detallada.",
       "Integración de sistema Arduino para automatización de control de accesos físicos, con documentación completa para futuras expansiones y mantenimiento.",
     ],
-    cover: "/Portfolio/images/sintesis.svg",
+    cover: "/Portfolio/images/projects/trabajo-sintesis-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/sintesis-documentacion.svg", alt: "Esquema de redes para el trabajo de síntesis" },
-      { src: "/Portfolio/images/sintesis-servicios.svg", alt: "Resumen de servicios configurados con pfSense y Active Directory" },
-      { src: "/Portfolio/images/sintesis-arduino.svg", alt: "Módulo Arduino para control de accesos" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-arduino.jpg", alt: "Detalle macro de una placa Arduino conectada" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-cabling.jpg", alt: "Panel de parcheo con cableado de red organizado" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-datacenter.jpg", alt: "Rack de servidores iluminado durante las pruebas" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-documentation.jpg", alt: "Documentación técnica del despliegue en pantalla" },
     ],
     links: {
       case: "https://marcmuntane.com/wp-content/uploads/2025/01/SINTESIS-v8.pdf",
+    },
+  },
+  {
+    slug: "sostenibilidad_v1",
+    name: "Sostenibilidad v1",
+    tagline: "Pequeña web informativa sobre hábitos sostenibles",
+    role: "Estudiante DAW",
+    category: "web",
+    categoryLabel: "Web",
+    stack: ["HTML", "CSS", "JavaScript"],
+    highlights: [
+      "Contenido educativo sobre sostenibilidad",
+      "Diseño responsive y accesible",
+      "Estructura simple y mantenible",
+    ],
+    summary:
+      "Proyecto sencillo orientado a divulgar prácticas de sostenibilidad con una interfaz clara, responsive y fácil de mantener.",
+    description: [
+      "Estructuré el contenido en secciones breves y directas (energía, residuos, movilidad) para facilitar la lectura.",
+      "Apliqué estilos con CSS moderno cuidando contraste, tipografía y jerarquía visual.",
+      "Preparé la base para futuras mejoras como formularios y recursos descargables.",
+    ],
+    cover: "/Portfolio/images/projects/sostenibilidad-cover.jpg",
+    gallery: [
+      { src: "/Portfolio/images/projects/sostenibilidad-hands.jpg", alt: "Manos sosteniendo una planta joven como símbolo de sostenibilidad" },
+      { src: "/Portfolio/images/projects/sostenibilidad-actions.jpg", alt: "Personas coordinando tareas sostenibles con notas y portátiles" },
+      { src: "/Portfolio/images/projects/sostenibilidad-dashboard.jpg", alt: "Panel con métricas ambientales que inspiran mejoras digitales" },
+    ],
+    links: {
+      live: "https://marcmunta.github.io/Sostenibilidad_v1/",
+      repo: "https://github.com/MarcMunta/Sostenibilidad_v1",
     },
   },
   {
@@ -58,11 +90,11 @@ const esProjects: Project[] = [
       "Definí reglas de cortafuegos, DHCP y DNS para ofrecer servicios centralizados y mantener trazabilidad sobre el tráfico.",
       "Validé la conectividad con diferentes equipos de la red, documentando incidencias y resoluciones para futuras iteraciones.",
     ],
-    cover: "/Portfolio/images/firewall.svg",
+    cover: "/Portfolio/images/projects/firewall-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/firewall-dashboard.svg", alt: "Panel de pfSense con reglas de firewall" },
-      { src: "/Portfolio/images/firewall-dhcp.svg", alt: "Configuración de DHCP y DNS dentro de pfSense" },
-      { src: "/Portfolio/images/firewall-test.svg", alt: "Pruebas de conectividad desde la red LAN" },
+      { src: "/Portfolio/images/projects/firewall-monitoring.jpg", alt: "Pantallas con monitorización de seguridad y alertas activas" },
+      { src: "/Portfolio/images/projects/firewall-traffic.jpg", alt: "Representación digital de un firewall protegiendo tráfico de red" },
+      { src: "/Portfolio/images/projects/firewall-cover.jpg", alt: "Ilustración de candado y circuitos destacando la ciberseguridad" },
     ],
     links: {
       case: "https://marcmuntane.com/wp-content/uploads/2025/02/Firewall.pdf",
@@ -88,11 +120,11 @@ const esProjects: Project[] = [
       "Integro formularios accesibles, enlaces a redes y un mapa embebido para contextualizar la ubicación y disponibilidad.",
       "Mantengo actualizados los recursos descargables, incluyendo CV y documentación técnica generada durante el grado superior.",
     ],
-    cover: "/Portfolio/images/curriculum.svg",
+    cover: "/Portfolio/images/projects/curriculum-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/curriculum-home.svg", alt: "Vista general de la home de marcmuntane.com" },
-      { src: "/Portfolio/images/curriculum-sobre-mi.svg", alt: "Sección Sobre mí con biografía y galería" },
-      { src: "/Portfolio/images/curriculum-contacto.svg", alt: "Página de contacto con formulario y ubicación" },
+      { src: "/Portfolio/images/projects/curriculum-wireframes.jpg", alt: "Wireframes y mockups del portfolio personal" },
+      { src: "/Portfolio/images/projects/curriculum-desk.jpg", alt: "Mesa de trabajo con portátil y notas de diseño" },
+      { src: "/Portfolio/images/projects/curriculum-cover.jpg", alt: "Vista del portfolio digital abierto en un portátil" },
     ],
     links: {
       live: "https://marcmuntane.com/",
@@ -121,14 +153,46 @@ const caProjects: Project[] = [
       "Vaig instal·lar i configurar pfSense juntament amb Active Directory, desplegant servidors web i proxy i registrant cada decisió de seguretat i manteniment.",
       "Vaig afegir un sistema d'accés i monitoratge basat en Arduino que estenia els serveis TI a la capa física, deixant documentat el procés per a futures millores.",
     ],
-    cover: "/Portfolio/images/sintesis.svg",
+    cover: "/Portfolio/images/projects/trabajo-sintesis-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/sintesis-documentacion.svg", alt: "Esquema de xarxes per al treball de síntesi" },
-      { src: "/Portfolio/images/sintesis-servicios.svg", alt: "Resum de serveis configurats amb pfSense i Active Directory" },
-      { src: "/Portfolio/images/sintesis-arduino.svg", alt: "Mòdul Arduino per al control d'accessos" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-arduino.jpg", alt: "Detall macro d'una placa Arduino connectada" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-cabling.jpg", alt: "Panell de patch amb cablejat de xarxa organitzat" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-datacenter.jpg", alt: "Rack de servidors il·luminat durant les proves" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-documentation.jpg", alt: "Documentació tècnica del desplegament mostrada a la pantalla" },
     ],
     links: {
       case: "https://marcmuntane.com/wp-content/uploads/2025/01/SINTESIS-v8.pdf",
+    },
+  },
+  {
+    slug: "sostenibilidad_v1",
+    name: "Sostenibilitat v1",
+    tagline: "Petita web informativa sobre hàbits sostenibles",
+    role: "Estudiant DAW",
+    category: "web",
+    categoryLabel: "Web",
+    stack: ["HTML", "CSS", "JavaScript"],
+    highlights: [
+      "Contingut educatiu sobre sostenibilitat",
+      "Disseny responsive i accessible",
+      "Estructura simple i mantenible",
+    ],
+    summary:
+      "Projecte senzill orientat a divulgar pràctiques de sostenibilitat amb una interfície clara, responsive i fàcil de mantenir.",
+    description: [
+      "Vaig estructurar el contingut en seccions breus i directes (energia, residus, mobilitat) per facilitar la lectura.",
+      "Vaig aplicar estils amb CSS modern cuidant contrast, tipografia i jerarquia visual.",
+      "Vaig preparar la base per a futures millores com formularis i recursos descarregables.",
+    ],
+    cover: "/Portfolio/images/projects/sostenibilidad-cover.jpg",
+    gallery: [
+      { src: "/Portfolio/images/projects/sostenibilidad-hands.jpg", alt: "Mans sostenint una planta jove com a símbol de sostenibilitat" },
+      { src: "/Portfolio/images/projects/sostenibilidad-actions.jpg", alt: "Equip coordinant accions sostenibles amb portàtils i notes" },
+      { src: "/Portfolio/images/projects/sostenibilidad-dashboard.jpg", alt: "Panell amb mètriques ambientals que impulsen millores digitals" },
+    ],
+    links: {
+      live: "https://marcmunta.github.io/Sostenibilidad_v1/",
+      repo: "https://github.com/MarcMunta/Sostenibilidad_v1",
     },
   },
   {
@@ -151,11 +215,11 @@ const caProjects: Project[] = [
       "Vaig definir regles de tallafoc, DHCP i DNS per oferir serveis centralitzats i mantenir traçabilitat sobre el trànsit.",
       "Vaig validar la connectivitat amb diferents equips de la xarxa, documentant incidències i resolucions per a futures iteracions.",
     ],
-    cover: "/Portfolio/images/firewall.svg",
+    cover: "/Portfolio/images/projects/firewall-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/firewall-dashboard.svg", alt: "Panell de pfSense amb regles de firewall" },
-      { src: "/Portfolio/images/firewall-dhcp.svg", alt: "Configuració de DHCP i DNS dins de pfSense" },
-      { src: "/Portfolio/images/firewall-test.svg", alt: "Proves de connectivitat des de la xarxa LAN" },
+      { src: "/Portfolio/images/projects/firewall-monitoring.jpg", alt: "Pantalles amb monitoratge de seguretat i alertes actives" },
+      { src: "/Portfolio/images/projects/firewall-traffic.jpg", alt: "Representació digital d'un tallafoc protegint el trànsit de xarxa" },
+      { src: "/Portfolio/images/projects/firewall-cover.jpg", alt: "Il·lustració amb cadenat i circuits destacant la ciberseguretat" },
     ],
     links: {
       case: "https://marcmuntane.com/wp-content/uploads/2025/02/Firewall.pdf",
@@ -181,11 +245,11 @@ const caProjects: Project[] = [
       "Integro formularis accessibles, enllaços a xarxes i un mapa incrustat per contextualitzar la ubicació i disponibilitat.",
       "Mantinc actualitzats els recursos descarregables, incloent-hi CV i documentació tècnica generada durant el grau superior.",
     ],
-    cover: "/Portfolio/images/curriculum.svg",
+    cover: "/Portfolio/images/projects/curriculum-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/curriculum-home.svg", alt: "Vista general de la home de marcmuntane.com" },
-      { src: "/Portfolio/images/curriculum-sobre-mi.svg", alt: "Secció Sobre mi amb biografia i galeria" },
-      { src: "/Portfolio/images/curriculum-contacto.svg", alt: "Pàgina de contacte amb formulari i ubicació" },
+      { src: "/Portfolio/images/projects/curriculum-wireframes.jpg", alt: "Wireframes i mockups del portfolio personal" },
+      { src: "/Portfolio/images/projects/curriculum-desk.jpg", alt: "Escriptori amb portàtil i notes de disseny" },
+      { src: "/Portfolio/images/projects/curriculum-cover.jpg", alt: "Vista del portfolio digital obert en un portàtil" },
     ],
     links: {
       live: "https://marcmuntane.com/",
@@ -214,14 +278,46 @@ const enProjects: Project[] = [
       "Installed and configured pfSense with Active Directory, deployed web and proxy servers and logged every security and maintenance decision.",
       "Added an Arduino-based access and monitoring system that extends IT services to the physical layer, leaving the process documented for future improvements.",
     ],
-    cover: "/Portfolio/images/sintesis.svg",
+    cover: "/Portfolio/images/projects/trabajo-sintesis-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/sintesis-documentacion.svg", alt: "Network diagram for the capstone project" },
-      { src: "/Portfolio/images/sintesis-servicios.svg", alt: "Summary of services configured with pfSense and Active Directory" },
-      { src: "/Portfolio/images/sintesis-arduino.svg", alt: "Arduino module for access control" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-arduino.jpg", alt: "Macro shot of an Arduino board wired for automation" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-cabling.jpg", alt: "Network patch panel with colour-coded cabling" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-datacenter.jpg", alt: "Server rack lit up during connectivity tests" },
+      { src: "/Portfolio/images/projects/trabajo-sintesis-documentation.jpg", alt: "Technical rollout documentation displayed on screen" },
     ],
     links: {
       case: "https://marcmuntane.com/wp-content/uploads/2025/01/SINTESIS-v8.pdf",
+    },
+  },
+  {
+    slug: "sostenibilidad_v1",
+    name: "Sustainability v1",
+    tagline: "Small informative website about sustainable habits",
+    role: "Web dev student",
+    category: "web",
+    categoryLabel: "Web",
+    stack: ["HTML", "CSS", "JavaScript"],
+    highlights: [
+      "Educational content on sustainability",
+      "Responsive, accessible design",
+      "Simple and maintainable structure",
+    ],
+    summary:
+      "Simple project focused on sharing sustainability practices with a clear, responsive and maintainable interface.",
+    description: [
+      "Structured content into short sections (energy, waste, mobility) to improve readability.",
+      "Applied modern CSS with good contrast, typography and visual hierarchy.",
+      "Prepared the base for future improvements such as forms and downloadable resources.",
+    ],
+    cover: "/Portfolio/images/projects/sostenibilidad-cover.jpg",
+    gallery: [
+      { src: "/Portfolio/images/projects/sostenibilidad-hands.jpg", alt: "Hands holding a young plant as a sustainability symbol" },
+      { src: "/Portfolio/images/projects/sostenibilidad-actions.jpg", alt: "Team coordinating sustainable initiatives with laptops and sticky notes" },
+      { src: "/Portfolio/images/projects/sostenibilidad-dashboard.jpg", alt: "Dashboard with environmental metrics that inspire digital improvements" },
+    ],
+    links: {
+      live: "https://marcmunta.github.io/Sostenibilidad_v1/",
+      repo: "https://github.com/MarcMunta/Sostenibilidad_v1",
     },
   },
   {
@@ -244,11 +340,11 @@ const enProjects: Project[] = [
       "Defined firewall, DHCP and DNS rules to offer centralised services and keep traffic traceable.",
       "Validated connectivity with different network devices, documenting incidents and fixes for future iterations.",
     ],
-    cover: "/Portfolio/images/firewall.svg",
+    cover: "/Portfolio/images/projects/firewall-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/firewall-dashboard.svg", alt: "pfSense dashboard with firewall rules" },
-      { src: "/Portfolio/images/firewall-dhcp.svg", alt: "DHCP and DNS configuration inside pfSense" },
-      { src: "/Portfolio/images/firewall-test.svg", alt: "Connectivity tests from the LAN network" },
+      { src: "/Portfolio/images/projects/firewall-monitoring.jpg", alt: "Security monitoring screens with active alerts" },
+      { src: "/Portfolio/images/projects/firewall-traffic.jpg", alt: "Digital illustration of a firewall protecting network traffic" },
+      { src: "/Portfolio/images/projects/firewall-cover.jpg", alt: "Lock-and-circuit concept representing cybersecurity" },
     ],
     links: {
       case: "https://marcmuntane.com/wp-content/uploads/2025/02/Firewall.pdf",
@@ -274,11 +370,11 @@ const enProjects: Project[] = [
       "Integrate accessible forms, social links and an embedded map to contextualise location and availability.",
       "Keep downloadable resources up to date, including my CV and technical documentation produced during the degree.",
     ],
-    cover: "/Portfolio/images/curriculum.svg",
+    cover: "/Portfolio/images/projects/curriculum-cover.jpg",
     gallery: [
-      { src: "/Portfolio/images/curriculum-home.svg", alt: "Overview of the marcmuntane.com homepage" },
-      { src: "/Portfolio/images/curriculum-sobre-mi.svg", alt: "About me section with biography and gallery" },
-      { src: "/Portfolio/images/curriculum-contacto.svg", alt: "Contact page with form and location" },
+      { src: "/Portfolio/images/projects/curriculum-wireframes.jpg", alt: "Portfolio wireframes and mockups on screen" },
+      { src: "/Portfolio/images/projects/curriculum-desk.jpg", alt: "Workspace desk with laptop and design notes" },
+      { src: "/Portfolio/images/projects/curriculum-cover.jpg", alt: "Digital portfolio displayed on a laptop" },
     ],
     links: {
       live: "https://marcmuntane.com/",
@@ -537,6 +633,12 @@ const dictionaries: Record<Locale, TranslationBundle> = {
       },
     },
     milestones: [
+      {
+        period: "2025-2026",
+        title: "Grado Superior · Desarrollo de Aplicaciones Multimedia (DAM)",
+        description:
+          "Especialización orientada a experiencias interactivas, prototipos multimedia y apps conectadas que amplían mi perfil full stack.",
+      },
       {
         period: "2025-2026",
         title: "Erasmus+ · M5 Studios (Irlanda)",
@@ -837,6 +939,12 @@ const dictionaries: Record<Locale, TranslationBundle> = {
     milestones: [
       {
         period: "2025-2026",
+        title: "Grau Superior · Desenvolupament d'Aplicacions Multimèdia (DAM)",
+        description:
+          "Especialització enfocada a experiències interactives, prototips multimèdia i aplicacions connectades que amplien el meu perfil full stack.",
+      },
+      {
+        period: "2025-2026",
         title: "Erasmus+ · M5 Studios (Irlanda)",
         description:
           "Més de 350 hores d'experiència pràctica desenvolupant aplicacions multiplataforma amb Flutter, integrant mapes Mapbox, centrant-me en UI/UX i frontend amb experiència en backend.",
@@ -1133,6 +1241,12 @@ const dictionaries: Record<Locale, TranslationBundle> = {
       },
     },
     milestones: [
+      {
+        period: "2025-2026",
+        title: "Higher VET · Multimedia Application Development (DAM)",
+        description:
+          "Specialisation focused on interactive experiences, multimedia prototypes and connected apps that broaden my full-stack profile.",
+      },
       {
         period: "2025-2026",
         title: "Erasmus+ · M5 Studios (Ireland)",

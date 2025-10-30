@@ -27,9 +27,10 @@ export const metadata: Metadata = {
   description,
   authors: [{ name: persona.name }],
   icons: {
-    icon: "favicon.svg",
-    shortcut: "favicon.svg",
-    apple: "favicon.svg",
+    // Nota: en GitHub Pages servimos bajo /Portfolio, por eso fijamos el basePath aquí
+    icon: "/Portfolio/favicon.svg",
+    shortcut: "/Portfolio/favicon.svg",
+    apple: "/Portfolio/favicon.svg",
   },
   openGraph: {
     title,
