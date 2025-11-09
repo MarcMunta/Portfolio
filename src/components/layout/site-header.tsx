@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 
-import { MagneticButton } from "@/components/bits/magnetic-button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Button } from "@/components/ui/button";
@@ -19,59 +18,65 @@ import {
 } from "@/components/ui/sheet";
 import { useTranslations } from "@/lib/i18n/context";
 import { cn, isExternalUrl } from "@/lib/utils";
+import { GlassPanel } from "@/components/ui/glass-panel";
+import { HoverBubbleGroup, HoverBubbleItem } from "@/components/ui/hover-bubble-group";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
-  const headerStyle = React.useMemo(() => ({ "--header-height": "72px" } as React.CSSProperties), []);
   const translations = useTranslations();
   const { persona, navLinks, contactChannels, header } = translations;
   const parts = persona.name.split(" ");
   const initials = `${parts[0]?.[0] ?? ""}${parts[1]?.[0] ?? ""}`.toUpperCase();
-
-  const nav = (
-    <nav className="flex flex-1 flex-col gap-4 text-lg sm:flex-row sm:items-center sm:justify-center sm:gap-6 sm:text-sm">
-      {navLinks.map((link) => {
-        const isActive = link.href === "/" ? pathname === link.href : pathname?.startsWith(link.href);
-
-        return (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={cn(
-              "relative font-medium transition-colors",
-              isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-            )}
-            onClick={() => setOpen(false)}
-          >
-            {link.label}
-            {isActive ? <span className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-primary" /> : null}
-          </Link>
-        );
-      })}
-    </nav>
-  );
+  const navItems = navLinks.map((link) => {
+    const isActive = link.href === "/" ? pathname === link.href : Boolean(pathname?.startsWith(link.href));
+    return { ...link, isActive };
+  });
 
   return (
-    <header className="sticky top-4 z-50" style={headerStyle}>
-      <div className="mx-auto flex max-w-5xl items-center justify-between rounded-full border border-border/80 bg-background/80 px-4 py-2 shadow-lg backdrop-blur-lg">
-        <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 text-primary shadow-glow">
+    <header className="sticky top-4 z-50 relative flex justify-center px-4">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">
+        {/* glow backdrop - toned down for solid header */}
+        <div className="h-full w-[min(100%,46rem)] -translate-y-4 rounded-2xl bg-primary/10 blur-2xl opacity-20 dark:bg-primary/25 dark:opacity-25" />
+      </div>
+      <GlassPanel
+        intensity="lg"
+        animated
+        className="relative mx-auto w-full max-w-5xl rounded-2xl before:opacity-0 after:ring-white/30 dark:after:ring-white/25 bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/15 shadow-sm"
+        contentClassName="flex items-center gap-4 px-5 py-2.5 backdrop-saturate-150"
+      >
+        <Link href="/" className="group flex items-center text-sm font-semibold tracking-tight">
+          <span className="relative inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-indigo-600 text-white shadow-md ring-1 ring-primary/40 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:brightness-110 dark:from-primary dark:to-indigo-500 dark:shadow-glow">
             {initials}
+            <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.3),transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-70" />
           </span>
-          <span>{persona.name}</span>
         </Link>
 
-        <div className="hidden flex-1 items-center justify-center sm:flex">{nav}</div>
+        <HoverBubbleGroup
+          className="hidden flex-1 items-center justify-center gap-1 rounded-full border border-black/10 bg-white px-1.5 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] sm:flex dark:border-white/15 dark:bg-neutral-900/70 dark:shadow-none"
+          bubbleClassName="rounded-full bg-primary/15 backdrop-blur-sm border border-primary/40 shadow-[0_4px_18px_-4px_rgba(99,102,241,0.45)] dark:bg-primary/25 dark:border-white/20 dark:shadow-[0_12px_34px_-14px_rgba(99,102,241,0.7)]"
+          padding={0}
+        >
+          {navItems.map((item) => (
+            <HoverBubbleItem key={item.href} active={item.isActive}>
+              <Link
+                href={item.href}
+                className={cn(
+                  "relative block rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors duration-300",
+                  item.isActive
+                    ? "font-semibold text-black dark:text-white"
+                    : "text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white",
+                )}
+              >
+                {item.label}
+              </Link>
+            </HoverBubbleItem>
+          ))}
+        </HoverBubbleGroup>
 
         <div className="flex items-center gap-2">
-          <LanguageSwitcher />
           <ThemeToggle />
-          <div className="hidden sm:block">
-            <MagneticButton asChild size="sm" variant="outline">
-              <Link href={`mailto:${persona.social.email}`}>{header.contactCta}</Link>
-            </MagneticButton>
-          </div>
+          <LanguageSwitcher />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="sm:hidden" aria-label={header.mobileMenuAria}>
@@ -83,7 +88,26 @@ export function SiteHeader() {
                 <SheetTitle>{header.menuTitle}</SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-6">
-                {nav}
+                <nav className="flex flex-col gap-4 text-base">
+                  {navItems.map((item) => (
+                    <SheetClose asChild key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "rounded-full px-3 py-2 text-sm font-medium",
+                          item.isActive ? "bg-primary/15 font-semibold text-black dark:text-white" : "text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white",
+                        )}
+                        onClick={() => setOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </SheetClose>
+                  ))}
+                </nav>
+                <div className="flex items-center justify-between gap-4 rounded-2xl border border-black/10 bg-white p-4 backdrop-blur-xl dark:border-white/15 dark:bg-neutral-900">
+                  <ThemeToggle />
+                  <LanguageSwitcher />
+                </div>
                 <div className="space-y-3 text-sm text-muted-foreground">
                   {contactChannels.map((channel) => (
                     <SheetClose asChild key={channel.label}>
@@ -93,7 +117,7 @@ export function SiteHeader() {
                         rel={isExternalUrl(channel.href) ? "noreferrer" : undefined}
                         className="flex flex-col"
                       >
-                        <span className="text-foreground">{channel.label}</span>
+                        <span className="text-black dark:text-white">{channel.label}</span>
                         <span>{channel.value}</span>
                       </Link>
                     </SheetClose>
@@ -103,7 +127,7 @@ export function SiteHeader() {
             </SheetContent>
           </Sheet>
         </div>
-      </div>
+      </GlassPanel>
     </header>
   );
 }

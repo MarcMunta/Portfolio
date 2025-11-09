@@ -88,12 +88,23 @@ const config: Config = {
           "50%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
         },
+        "glass-gradient": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        "glass-pulse": {
+          "0%, 100%": { opacity: "0.55" },
+          "50%": { opacity: "0.9" },
+        },
       },
       animation: {
         "float-slow": "float-slow 12s ease-in-out infinite",
         "skills-marquee": "marquee 30s linear infinite",
         shine: "shine 1.6s linear infinite",
         aurora: "aurora 18s ease infinite",
+        "glass-gradient": "glass-gradient 22s ease-in-out infinite",
+        "glass-pulse": "glass-pulse 8s ease-in-out infinite",
       },
     },
   },

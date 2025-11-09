@@ -134,7 +134,10 @@ export function AboutSection() {
             </div>
             <div className="space-y-8">
               {milestones.map((milestone, index) => (
-                <div key={milestone.period} className="relative pl-12">
+                <div
+                  key={`${milestone.period}-${milestone.title}-${index}`}
+                  className="relative pl-12"
+                >
                   <span className="absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
                     {index + 1}
                   </span>

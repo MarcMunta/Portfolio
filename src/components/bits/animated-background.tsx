@@ -40,10 +40,10 @@ export function AnimatedBackground({
   }, [reduceMotion, intensity]);
 
   return (
-    <div className={cn("relative overflow-hidden rounded-3xl", className)}>
+    <div className={cn("relative overflow-hidden", className)}>
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-80"
+        className="pointer-events-none absolute inset-0 opacity-80 rounded-[inherit]"
         style={{ backgroundImage: variantMap[variant], filter: "blur(0px)" }}
         animate={animate}
       />

@@ -52,7 +52,7 @@ export function AboutPageContent() {
         <h2 className="text-2xl font-semibold">{about.timelineTitle}</h2>
         <div className="grid gap-6 md:grid-cols-3">
           {milestones.map((milestone, index) => (
-            <FadeIn key={milestone.period} delay={index * 0.1}>
+            <FadeIn key={`${milestone.period}-${index}`} delay={index * 0.1}>
               <AnimatedCard className="h-full">
                 <div className="flex h-full flex-col gap-3">
                   <p className="text-xs uppercase tracking-[0.4em] text-primary/70">{milestone.period}</p>
@@ -69,7 +69,7 @@ export function AboutPageContent() {
         <h2 className="text-2xl font-semibold">{aboutPage.achievementsTitle}</h2>
         <div className="grid gap-6 md:grid-cols-3">
           {achievements.map((achievement, index) => (
-            <FadeIn key={achievement.title} delay={index * 0.1}>
+            <FadeIn key={`${achievement.title}-${index}`} delay={index * 0.1}>
               <AnimatedCard className="h-full">
                 <div className="flex h-full flex-col gap-3">
                   <p className="text-xs uppercase tracking-[0.4em] text-primary/70">{achievement.year}</p>
