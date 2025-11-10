@@ -1,1 +1,53 @@
-{\n  "name": "portfolio-app",\n  "version": "0.1.0",\n  "private": true,\n  "scripts": {\n    "dev": "next dev",\n    "build": "next build",\n    "export": "next build",\n    "serve": "npx serve out",\n    "lint": "eslint ."\n  },\n  "dependencies": {\n    "@hookform/resolvers": "^5.2.2",\n    "@radix-ui/react-dialog": "^1.1.15",\n    "@radix-ui/react-label": "^2.1.7",\n    "@radix-ui/react-slot": "^1.2.3",\n    "@radix-ui/react-tooltip": "^1.2.8",\n    "@react-three/drei": "^10.7.6",\n    "@react-three/fiber": "^9.3.0",\n    "class-variance-authority": "^0.7.1",\n    "clsx": "^2.1.1",\n    "embla-carousel-react": "^8.6.0",\n    "framer-motion": "^12.23.16",\n    "lenis": "^1.3.11",\n    "lucide-react": "^0.544.0",\n    "next": "15.5.3",\n    "next-themes": "^0.4.6",\n    "nodemailer": "^7.0.6",\n    "react": "19.1.0",\n    "react-dom": "19.1.0",\n    "react-hook-form": "^7.63.0",\n    "tailwind-merge": "^3.3.1",\n    "three": "^0.180.0",\n    "zod": "^4.1.9"\n  },\n  "devDependencies": {\n    "@eslint/eslintrc": "^3",\n    "@types/node": "^20",\n    "@types/nodemailer": "^7.0.1",\n    "@types/react": "^19",\n    "@types/react-dom": "^19",\n    "autoprefixer": "^10.4.21",\n    "eslint": "^9",\n    "eslint-config-next": "15.5.3",\n    "postcss": "^8.5.6",\n    "tailwindcss": "^3.4.17",\n    "tailwindcss-animate": "^1.0.7",\n    "typescript": "^5"\n  }\n}
+﻿{
+  "name": "portfolio-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "cross-env NEXT_SKIP_DEPENDENCY_CHECK=1 next build",
+    "start": "next start",
+    "lint": "cross-env NEXT_SKIP_DEPENDENCY_CHECK=1 eslint ."
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.3.0",
+    "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/runtime": "^1.9.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.23.16",
+    "gsap": "^3.12.5",
+    "lenis": "^1.3.11",
+    "lucide-react": "^0.544.0",
+    "next": "15.5.3",
+    "next-themes": "^0.4.6",
+    "nodemailer": "^7.0.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-hook-form": "^7.63.0",
+    "tailwind-merge": "^3.3.1",
+    "three": "^0.180.0",
+    "zod": "^4.1.9"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/nodemailer": "^7.0.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "cross-env": "^10.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5"
+  }
+}
