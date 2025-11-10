@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Setup Node.js
@@ -39,23 +39,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Genera ./out con Next
-      - name: Build and export Next.js (static)
-        env:
-          NEXT_SKIP_DEPENDENCY_CHECK: 1
-        run: |
-          # 1) Intento estándar: si tienes output: 'export', esto ya creará ./out
-          npm run build || npx next build
-          # 2) Fallback: si aún no existe ./out, exporta manualmente
-          if [ ! -d "./out" ]; then
-            echo "No ./out after build -> running next export"
-            npx next export
-          fi
-          # 3) Verificación dura para evitar fallos silenciosos en el upload
-          test -d ./out || (echo "No ./out directory after build/export" && exit 1)
+      - name: Build Next.js (output: 'export')
+        run: npm run build
 
-      - name: List build output
+      - name: Assert and list build output
         run: |
+          test -d ./out || (echo "No ./out directory after build" && exit 1)
           ls -al ./out || true
           du -sh ./out || true
 
