@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages (static export)
 
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-deploy
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
@@ -20,9 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -39,14 +36,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Next.js (output: 'export')
+      - name: Build (Next.js static export)
         run: npm run build
 
       - name: Assert and list build output
         run: |
-          test -d ./out || (echo "No ./out directory after build" && exit 1)
-          ls -al ./out || true
+          if [ ! -d "./out" ]; then
+            echo "ERROR: No ./out directory after build. Revisa output: 'export' en next.config.ts." && exit 1
+          fi
+          ls -al ./out | head -n 50
           du -sh ./out || true
+
+      - name: Add .nojekyll
+        run: |
+          touch ./out/.nojekyll
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -56,6 +62,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
