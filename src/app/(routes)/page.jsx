@@ -19,8 +19,6 @@ import {
 
 // --- ESTILOS GLOBALES Y ANIMACIONES COMPLEJAS ---
 const globalStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap');
-
   html {
     scroll-behavior: smooth;
   }
@@ -240,10 +238,10 @@ const globalStyles = `
 
 // --- COMPONENTES AUXILIARES ---
 
-// 1. Cursor MagnÃ©tico (Morphing sin bugs y anclado al Scroll)
+// 1. Cursor MagnÃ©tico (Morphing sin bugs y anclado al Scroll) â€" partÃ­culas via DOM directo
 const CustomCursor = () => {
   const cursorRef = useRef(null);
-  const [particles, setParticles] = useState([]);
+  const particleContainerRef = useRef(null);
   
   const target = useRef({ x: -100, y: -100, w: 10, h: 10, r: 999 });
   const current = useRef({ x: -100, y: -100, w: 10, h: 10, r: 999 });
@@ -253,28 +251,25 @@ const CustomCursor = () => {
   const currentInteractive = useRef(null);
 
   const spawnBubbles = (el, x, y) => {
-    if (!el) return;
+    if (!el || !particleContainerRef.current) return;
     const rect = el.getBoundingClientRect();
     const area = rect.width * rect.height;
-    
     const minBubbles = 4;
     const maxBubbles = 12;
     const weight = Math.min(Math.max(area / 1500, minBubbles), maxBubbles);
+    const count = Math.floor(weight);
 
-    const newParticles = Array.from({ length: Math.floor(weight) }).map((_, index) => ({
-      id: `bubble-${Date.now()}-${index}-${Math.random().toString(36).substring(2, 9)}`,
-      x: x,
-      y: y,
-      size: Math.random() * 5 + 3,
-      tx: (Math.random() - 0.5) * (70 + weight * 3),
-      ty: (Math.random() - 0.5) * (70 + weight * 3),
-      duration: Math.random() * 0.3 + 0.3
-    }));
-
-    setParticles(prev => [...prev, ...newParticles]);
-    setTimeout(() => {
-      setParticles(prev => prev.filter(p => !newParticles.some(np => np.id === p.id)));
-    }, 800);
+    for (let i = 0; i < count; i++) {
+      const dot = document.createElement('div');
+      const size = Math.random() * 5 + 3;
+      const tx = (Math.random() - 0.5) * (70 + weight * 3);
+      const ty = (Math.random() - 0.5) * (70 + weight * 3);
+      const dur = Math.random() * 0.3 + 0.3;
+      dot.className = 'fixed bg-white rounded-full pointer-events-none z-[99] mix-blend-difference hidden md:block';
+      dot.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px;--tx:${tx}px;--ty:${ty}px;animation:bubble-pop ${dur}s cubic-bezier(0.16,1,0.3,1) forwards`;
+      particleContainerRef.current.appendChild(dot);
+      setTimeout(() => dot.remove(), 800);
+    }
   };
 
   useEffect(() => {
@@ -353,40 +348,30 @@ const CustomCursor = () => {
         className="fixed top-0 left-0 pointer-events-none z-[100] hidden md:block bg-white mix-blend-difference shadow-[0_0_15px_rgba(255,255,255,0.4)]"
         style={{ transform: 'translate3d(-100px, -100px, 0)' }}
       />
-      {particles.map(p => (
-        <div
-          key={p.id}
-          className="fixed bg-white rounded-full pointer-events-none z-[99] mix-blend-difference hidden md:block"
-          style={{
-            left: `${p.x}px`,
-            top: `${p.y}px`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            '--tx': `${p.tx}px`,
-            '--ty': `${p.ty}px`,
-            animation: `bubble-pop ${p.duration}s cubic-bezier(0.16, 1, 0.3, 1) forwards`
-          }}
-        />
-      ))}
+      <div ref={particleContainerRef} />
     </>
   );
 };
 
-// 2. Elemento MagnÃ©tico
+// 2. Elemento MagnÃ©tico â€" optimizado con useRef + DOM directo (sin re-renders)
 const MagneticElement = ({ children, className = "", inline = false, strength = 0.1, spring = 'cubic-bezier(0.2, 0.8, 0.2, 1)' }) => {
   const ref = useRef(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouse = (e) => {
     if (!ref.current) return;
     const { clientX, clientY } = e;
     const { height, width, left, top } = ref.current.getBoundingClientRect();
-    const middleX = clientX - (left + width / 2);
-    const middleY = clientY - (top + height / 2);
-    setPosition({ x: middleX * strength, y: middleY * strength });
+    const mx = (clientX - (left + width / 2)) * strength;
+    const my = (clientY - (top + height / 2)) * strength;
+    ref.current.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+    ref.current.style.transition = 'transform 0.1s linear';
   };
 
-  const reset = () => setPosition({ x: 0, y: 0 });
+  const reset = () => {
+    if (!ref.current) return;
+    ref.current.style.transform = 'translate3d(0, 0, 0)';
+    ref.current.style.transition = `transform 1s ${spring}`;
+  };
 
   return (
     <div
@@ -394,26 +379,32 @@ const MagneticElement = ({ children, className = "", inline = false, strength = 
       onMouseMove={handleMouse}
       onMouseLeave={reset}
       className={`${inline ? 'inline-flex' : 'flex'} ${className}`}
-      style={{
-        transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
-        transition: position.x === 0 ? `transform 1s ${spring}` : 'transform 0.1s linear'
-      }}
     >
       {children}
     </div>
   );
 };
 
-// 3. Fondo Reactivo con Orbes y GeometrÃ­a
+// 3. Fondo Reactivo con Orbes y GeometrÃ­a â€" optimizado con useRef + DOM directo (sin re-renders)
 const BackgroundEffects = () => {
-  const [scrollY, setScrollY] = useState(0);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
+          const sy = window.scrollY;
+          const container = containerRef.current;
+          if (!container) { ticking = false; return; }
+          const els = container.querySelectorAll('[data-parallax]');
+          els.forEach(el => {
+            const speed = parseFloat(el.dataset.parallax) || 0;
+            const rot = el.dataset.rotate ? parseFloat(el.dataset.rotate) * sy : 0;
+            el.style.transform = rot
+              ? `translateY(${sy * speed}px) rotate(${rot}deg)`
+              : `translateY(${sy * speed}px)`;
+          });
           ticking = false;
         });
         ticking = true;
@@ -424,39 +415,39 @@ const BackgroundEffects = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      <div className="grid-bg" style={{ transform: `translateY(${scrollY * 0.05}px)` }} />
+    <div ref={containerRef} className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="grid-bg" data-parallax="0.05" />
       <div className="comet-wrapper">
         <div className="comet comet-1"></div>
         <div className="comet comet-2"></div>
         <div className="comet comet-3"></div>
         <div className="comet comet-4"></div>
       </div>
-      <div className="absolute w-[45vw] h-[45vw] rounded-full bg-blue-600/10 blur-[130px] mix-blend-screen orb-breath" style={{ top: '15%', right: '-15%', transform: `translateY(${scrollY * -0.1}px)` }} />
-      <div className="absolute w-[55vw] h-[55vw] rounded-full bg-purple-600/5 blur-[150px] mix-blend-screen orb-breath" style={{ bottom: '-15%', left: '-15%', transform: `translateY(${scrollY * -0.05}px)`, animationDelay: '2s' }} />
+      <div className="absolute w-[45vw] h-[45vw] rounded-full bg-blue-600/10 blur-[130px] mix-blend-screen orb-breath" style={{ top: '15%', right: '-15%' }} data-parallax="-0.1" />
+      <div className="absolute w-[55vw] h-[55vw] rounded-full bg-purple-600/5 blur-[150px] mix-blend-screen orb-breath" style={{ bottom: '-15%', left: '-15%', animationDelay: '2s' }} data-parallax="-0.05" />
 
-      <svg className="absolute opacity-10 stroke-white/50 fill-none anim-float" style={{ top: '15%', left: '10%', width: '120px', height: '120px', transform: `translateY(${scrollY * -0.12}px) rotate(${scrollY * 0.05}deg)` }} viewBox="0 0 100 100">
+      <svg className="absolute opacity-10 stroke-white/50 fill-none anim-float" style={{ top: '15%', left: '10%', width: '120px', height: '120px' }} viewBox="0 0 100 100" data-parallax="-0.12" data-rotate="0.05">
         <circle cx="20" cy="50" r="3" fill="rgba(255,255,255,0.5)" />
         <circle cx="80" cy="20" r="2" fill="rgba(255,255,255,0.5)" />
         <circle cx="60" cy="80" r="4" fill="rgba(255,255,255,0.5)" />
         <path d="M20 50 L80 20 L60 80 Z" strokeWidth="0.5" strokeDasharray="3 3" />
       </svg>
-      <svg className="absolute opacity-[0.04] stroke-white fill-none anim-float-rev" style={{ top: '55%', right: '5%', width: '250px', height: '250px', transform: `translateY(${scrollY * -0.08}px) rotate(${scrollY * -0.03}deg)` }} viewBox="0 0 100 100">
+      <svg className="absolute opacity-[0.04] stroke-white fill-none anim-float-rev" style={{ top: '55%', right: '5%', width: '250px', height: '250px' }} viewBox="0 0 100 100" data-parallax="-0.08" data-rotate="-0.03">
         <circle cx="50" cy="50" r="45" strokeWidth="0.5" />
         <circle cx="50" cy="50" r="35" strokeWidth="1" strokeDasharray="4 8" />
         <circle cx="50" cy="50" r="25" strokeWidth="0.5" opacity="0.5" />
         <line x1="50" y1="0" x2="50" y2="100" strokeWidth="0.5" opacity="0.3" />
         <line x1="0" y1="50" x2="100" y2="50" strokeWidth="0.5" opacity="0.3" />
       </svg>
-      <svg className="absolute opacity-10 stroke-blue-400/40 fill-none anim-float" style={{ top: '80%', left: '15%', width: '150px', height: '60px', transform: `translateY(${scrollY * -0.15}px)` }} viewBox="0 0 150 60">
+      <svg className="absolute opacity-10 stroke-blue-400/40 fill-none anim-float" style={{ top: '80%', left: '15%', width: '150px', height: '60px' }} viewBox="0 0 150 60" data-parallax="-0.15">
         <path d="M0 30 Q 37.5 5 75 30 T 150 30" strokeWidth="1" />
         <path d="M0 40 Q 37.5 15 75 40 T 150 40" strokeWidth="0.5" opacity="0.6" />
         <path d="M0 50 Q 37.5 25 75 50 T 150 50" strokeWidth="0.25" opacity="0.3" />
       </svg>
       
-      <div className="absolute w-1.5 h-1.5 rounded-full bg-blue-300/60 anim-pulse" style={{ top: '40%', right: '25%', transform: `translateY(${scrollY * -0.25}px)` }} />
-      <div className="absolute w-2 h-2 rounded-full bg-purple-300/50 anim-pulse" style={{ top: '75%', left: '35%', transform: `translateY(${scrollY * -0.18}px)`, animationDelay: '1.5s' }} />
-      <div className="absolute w-1 h-1 rounded-full bg-white/70 anim-pulse" style={{ top: '25%', left: '45%', transform: `translateY(${scrollY * -0.3}px)`, animationDelay: '3s' }} />
+      <div className="absolute w-1.5 h-1.5 rounded-full bg-blue-300/60 anim-pulse" style={{ top: '40%', right: '25%' }} data-parallax="-0.25" />
+      <div className="absolute w-2 h-2 rounded-full bg-purple-300/50 anim-pulse" style={{ top: '75%', left: '35%', animationDelay: '1.5s' }} data-parallax="-0.18" />
+      <div className="absolute w-1 h-1 rounded-full bg-white/70 anim-pulse" style={{ top: '25%', left: '45%', animationDelay: '3s' }} data-parallax="-0.3" />
     </div>
   );
 };
