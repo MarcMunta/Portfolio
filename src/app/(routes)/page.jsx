@@ -499,18 +499,51 @@ const Reveal = ({ children, delay = 0, className = "" }) => {
   );
 };
 
+const FlagIcon = ({ code }) => {
+  if (code === 'ca') {
+    return (
+      <svg viewBox="0 0 20 14" className="w-5 h-3.5 rounded-[2px] border border-white/20 overflow-hidden" aria-hidden="true">
+        <rect width="20" height="14" fill="#f4c430" />
+        <rect y="2" width="20" height="2" fill="#c8102e" />
+        <rect y="6" width="20" height="2" fill="#c8102e" />
+        <rect y="10" width="20" height="2" fill="#c8102e" />
+      </svg>
+    );
+  }
+
+  if (code === 'es') {
+    return (
+      <svg viewBox="0 0 20 14" className="w-5 h-3.5 rounded-[2px] border border-white/20 overflow-hidden" aria-hidden="true">
+        <rect width="20" height="14" fill="#aa151b" />
+        <rect y="3" width="20" height="8" fill="#f1bf00" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 20 14" className="w-5 h-3.5 rounded-[2px] border border-white/20 overflow-hidden" aria-hidden="true">
+      <rect width="20" height="14" fill="#012169" />
+      <rect x="8" width="4" height="14" fill="#ffffff" />
+      <rect y="5" width="20" height="4" fill="#ffffff" />
+      <rect x="8.7" width="2.6" height="14" fill="#c8102e" />
+      <rect y="5.7" width="20" height="2.6" fill="#c8102e" />
+    </svg>
+  );
+};
+
 // --- COMPONENTE PRINCIPAL (APP) ---
 export default function App() {
   const [showNav, setShowNav] = useState(true);
   const [activeSection, setActiveSection] = useState('hero');
   const [clickedNav, setClickedNav] = useState(null);
   const [activeProcessStep, setActiveProcessStep] = useState(0);
-  const [activePdfProject, setActivePdfProject] = useState(null);
+  const [activePdfProjectId, setActivePdfProjectId] = useState(null);
+  const [language, setLanguage] = useState('es');
   
   const lastScrollY = useRef(0);
   const navTimeout = useRef(null);
 
-  const closePdfModal = () => setActivePdfProject(null);
+  const closePdfModal = () => setActivePdfProjectId(null);
 
   // LÃ³gica de ScrollSpy y Ocultar Navbar
   useEffect(() => {
@@ -583,127 +616,577 @@ export default function App() {
     };
   }, [activePdfProject]);
 
+  useEffect(() => {
+    const storedLanguage = window.localStorage.getItem('portfolio-language');
+    if (storedLanguage && ['ca', 'es', 'en'].includes(storedLanguage)) {
+      setLanguage(storedLanguage);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('portfolio-language', language);
+    document.documentElement.lang = language;
+  }, [language]);
+
   const handleNavClick = (section) => {
     setClickedNav(section);
     setTimeout(() => setClickedNav(null), 300);
   };
 
-  const navItems = [
-    { id: 'expertise', label: 'Especialidad' },
-    { id: 'process', label: 'Proceso' },
-    { id: 'experience', label: 'Trayectoria' },
-    { id: 'projects', label: 'Proyectos' },
+  const languageOptions = [
+    { code: 'ca', label: 'Catala' },
+    { code: 'es', label: 'Espanol' },
+    { code: 'en', label: 'English' },
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "Sostenibilidad",
-      category: "Web",
-      image: "images/projects/sostenibilidad-cover.jpg",
-      tags: ["HTML", "CSS", "JavaScript"],
-      year: "2025",
-      duration: "Completado en 1 semana · trabajo del grado superior",
-      summary:
-        "Landing informativa sobre hábitos sostenibles, diseñada y desarrollada en una semana con enfoque en claridad de contenido, responsive y accesibilidad base.",
-      url: "https://marcmunta.github.io/Sostenibilidad_v1/",
-    },
-    {
-      id: 2,
-      title: "Pr08 Front-end & Back-end",
-      category: "Full Stack",
-      image: "images/projects/curriculum-cover.jpg",
-      tags: ["Angular", "PHP", "API", "Auth"],
-      year: "2024",
-      duration: "Práctica técnica completa",
-      summary:
-        "Proyecto integrado con frontend en Angular (formularios, login, listado), backend en PHP con endpoints, autenticación con localStorage e integración frontend-backend sobre API.",
-      pdfPath: "docs/pr08-front-end-back-end.pdf",
-      stackIcons: [
-        { label: "Angular Forms & Login", icon: <Layers size={14} /> },
-        { label: "Listado & UI", icon: <Smartphone size={14} /> },
-        { label: "Backend PHP Endpoints", icon: <Terminal size={14} /> },
-        { label: "Auth + localStorage", icon: <Briefcase size={14} /> },
-        { label: "Integración API", icon: <Rocket size={14} /> },
-        { label: "Flujo Front/Back", icon: <Code2 size={14} /> },
-      ],
-    },
-    {
-      id: 3,
-      title: "Portfolio Interactivo",
-      category: "Proyecto Personal",
-      image: "images/projects/firewall-cover.jpg",
-      tags: ["React", "Next.js", "Tailwind CSS"],
-      year: "2025",
-      duration: "Proyecto personal · en constante evolución",
-      summary:
-        "Este portfolio: cursor personalizado con partículas, animaciones de scroll reactivas, fondo interactivo con SVG y cometas, cards magnéticas y despliegue automático en GitHub Pages.",
-      url: "https://github.com/MarcMunta/Portfolio",
-      fullStack: [
-        { name: "HTML5", color: "#E34F26" },
-        { name: "CSS3", color: "#1572B6" },
-        { name: "JavaScript", color: "#F7DF1E" },
-        { name: "TypeScript", color: "#3178C6" },
-        { name: "React", color: "#61DAFB" },
-        { name: "Node.js", color: "#339933" },
-        { name: "PHP", color: "#777BB4" },
-        { name: "Laravel", color: "#FF2D20" },
-        { name: "Symfony", color: "#000000" },
-        { name: "Java", color: "#ED8B00" },
-        { name: "Python", color: "#3776AB" },
-        { name: "Kotlin", color: "#7F52FF" },
-        { name: "Dart", color: "#0175C2" },
-        { name: "Flutter", color: "#02569B" },
-        { name: "MySQL", color: "#4479A1" },
-        { name: "MongoDB", color: "#47A248" },
-        { name: "Git", color: "#F05032" },
-        { name: "Unity", color: "#FFFFFF" },
-        { name: "Mapbox", color: "#4264FB" },
-        { name: "WordPress", color: "#21759B" },
-        { name: "PrestaShop", color: "#DF0067" },
-        { name: "Hostinger", color: "#673DE6" },
-        { name: "pfSense", color: "#212121" },
-        { name: "Ubuntu Server", color: "#E95420" },
-        { name: "Windows Server", color: "#0078D6" },
-      ],
-    },
+  const commonFullStack = [
+    { name: "HTML5", color: "#E34F26" },
+    { name: "CSS3", color: "#1572B6" },
+    { name: "JavaScript", color: "#F7DF1E" },
+    { name: "TypeScript", color: "#3178C6" },
+    { name: "React", color: "#61DAFB" },
+    { name: "Node.js", color: "#339933" },
+    { name: "PHP", color: "#777BB4" },
+    { name: "Laravel", color: "#FF2D20" },
+    { name: "Symfony", color: "#000000" },
+    { name: "Java", color: "#ED8B00" },
+    { name: "Python", color: "#3776AB" },
+    { name: "Kotlin", color: "#7F52FF" },
+    { name: "Dart", color: "#0175C2" },
+    { name: "Flutter", color: "#02569B" },
+    { name: "MySQL", color: "#4479A1" },
+    { name: "MongoDB", color: "#47A248" },
+    { name: "Git", color: "#F05032" },
+    { name: "Unity", color: "#FFFFFF" },
+    { name: "Mapbox", color: "#4264FB" },
+    { name: "WordPress", color: "#21759B" },
+    { name: "PrestaShop", color: "#DF0067" },
+    { name: "Hostinger", color: "#673DE6" },
+    { name: "pfSense", color: "#212121" },
+    { name: "Ubuntu Server", color: "#E95420" },
+    { name: "Windows Server", color: "#0078D6" },
   ];
+
+  const contentByLanguage = {
+    ca: {
+      navItems: [
+        { id: 'expertise', label: 'Especialitat' },
+        { id: 'process', label: 'Proces' },
+        { id: 'experience', label: 'Trajectoria' },
+        { id: 'projects', label: 'Projectes' },
+      ],
+      labels: {
+        goTo: 'Anar a',
+        goToContact: 'Anar a contacte',
+        talkButton: 'Parlar',
+        switchLanguageTo: 'Canviar idioma a',
+        available: 'Disponible per a practiques i rol junior',
+        viewProjects: 'Veure projectes reals',
+        openPdfPreviewOf: 'Obrir vista previa PDF de',
+        openProjectOf: 'Obrir projecte',
+        openRepoOf: 'Obrir repositori de',
+        pdfPreviewOf: 'Vista previa PDF de',
+        openPdf: 'Obrir PDF',
+        closePreview: 'Tancar vista previa',
+      },
+      hero: {
+        introStart: 'Desenvolupador',
+        introHighlight: 'Web i Multiplataforma',
+        introEnd: 'en formacio a STUCOM.',
+        secondStart: 'Connecto documentacio tecnica, UI/UX i desenvolupament en',
+        secondHighlight: 'React, WordPress i Flutter',
+        scroll: 'Scroll',
+      },
+      expertise: {
+        titleStart: 'El meu Stack',
+        titleAccent: 'Tecnic.',
+        uiuxTitle: 'Disseny UI/UX',
+        uiuxDesc: 'Interficies clares, prototips d alta fidelitat i documentacio funcional per a cada lliurament.',
+        frontendTitle: 'Frontend',
+        frontendDesc: 'Arquitectura web mantenible amb React, WordPress i CSS modern.',
+        mobileTitle: 'Mobile',
+        mobileDesc: 'Aplicacions multiplataforma amb focus en rendiment i UX.',
+        infraTitle: 'Infra i Documentacio',
+        infraDesc: 'Experiencia en xarxes i sistemes: pfSense, Active Directory, DHCP/DNS i documentacio tecnica completa.',
+      },
+      process: {
+        titleStart: 'El',
+        titleAccent: 'Proces.',
+        desc: 'Metodologia orientada a construir interficies utils i lliuraments mantenibles.',
+        steps: [
+          { title: 'Descobriment', desc: 'Analisi de requisits, fluxos dusuari i arquitectura dinformacio abans de construir.' },
+          { title: 'Disseny UI/UX', desc: 'Sistemes visuals d alta fidelitat centrats en claredat, accessibilitat i consistencia.' },
+          { title: 'Desenvolupament', desc: 'Construccio web i multiplataforma amb React, Flutter i codi mantenible.' },
+          { title: 'Lliurament', desc: 'Optimitzacio, documentacio tecnica i desplegament amb focus en continuitat.' },
+        ],
+      },
+      experienceSection: {
+        titleStart: 'Evolucio',
+        titleAccent: 'Professional.',
+        desc: 'Erasmus + practiques, mes de 850 hores.',
+      },
+      projectsSection: {
+        titleTop: 'Projectes',
+        titleBottom: 'Destacats.',
+        desc: 'Quatre projectes clau: aquest portfolio interactiu, un proxim projecte web del cole, una entrega web rapida i un cas full stack amb PDF.',
+      },
+      contact: {
+        titleTop: 'PARLEM',
+        titleStart: 'DEL TEU',
+        titleAccent: 'PROJECTE.',
+        desc: 'Estic obert a practiques i oportunitats junior en desenvolupament web i apps multiplataforma.',
+      },
+      footer: {
+        copyright: 'Dissenyat i desenvolupat per mi.',
+        githubAria: 'GitHub de Marc Muntane',
+        linkedinAria: 'LinkedIn de Marc Muntane',
+      },
+      experienceItems: [
+        {
+          year: '2026 - 2027',
+          role: 'Pla destudi dIA',
+          company: 'Formacio de tardes + feina activa',
+          desc: 'Formacio en intel.ligencia artificial en horari de tarda, mantenint activitat laboral durant el periode.',
+          align: 'left',
+        },
+        {
+          year: '2025 - 2026',
+          role: 'Erasmus+ - M5 Studios (Irlanda)',
+          company: 'Flutter i frontend',
+          desc: 'Mes de 350 hores creant apps multiplataforma amb Flutter i integracio de Mapbox.',
+          align: 'right',
+        },
+        {
+          year: '2023 - 2025',
+          role: 'Practiques DAW - Viascooter',
+          company: 'WordPress, PrestaShop, Shopify',
+          desc: 'Manteniment web, gestio de hosting Nominalia, comptes de correu i suport a clients en entorn real.',
+          align: 'left',
+        },
+        {
+          year: '2022 - 2023',
+          role: 'Practiques SMX - Gestinet',
+          company: 'Suport IT',
+          desc: 'Mes de 340 hores en suport tecnic: hardware, servidors, impressores i Active Directory per a pimes locals.',
+          align: 'right',
+        },
+        {
+          year: '2021 - 2026',
+          role: 'Formacio tecnica a STUCOM',
+          company: 'SMX, DAW i DAM',
+          desc: 'Recorregut formatiu en sistemes, desenvolupament web i aplicacions multimedia amb enfocament practic.',
+          align: 'left',
+        },
+      ],
+      projects: [
+        {
+          id: 1,
+          title: 'Portfolio Interactiu',
+          category: 'Projecte Personal',
+          image: 'images/projects/firewall-cover.jpg',
+          tags: ['React', 'Next.js', 'Tailwind CSS'],
+          year: '2026',
+          duration: 'Projecte personal · actualitzat el 2026 i en evolucio constant',
+          summary: 'Aquest portfolio: cursor personalitzat amb particules, animacions de scroll reactives, fons interactiu amb SVG i cometes, targetes magnetiques i desplegament automatic a GitHub Pages.',
+          url: 'https://github.com/MarcMunta/Portfolio',
+          fullStack: commonFullStack,
+        },
+        {
+          id: 2,
+          title: 'Reptes Socials',
+          category: 'Web · Proxim',
+          image: 'images/projects/sostenibilidad-actions.jpg',
+          tags: ['HTML', 'CSS', 'JavaScript'],
+          year: '2026',
+          duration: 'Proxim projecte · objectiu: 1 setmana · treball del cole',
+          summary: 'Seguent lliurament academic centrat en reptes socials: desenvolupament web en una setmana amb focus en claredat, responsive i entrega completa.',
+          url: 'https://marcmunta.github.io/Retos-Sociales/',
+          repoUrl: 'https://github.com/MarcMunta/Retos-Sociales',
+        },
+        {
+          id: 3,
+          title: 'Sostenibilitat',
+          category: 'Web',
+          image: 'images/projects/sostenibilidad-cover.jpg',
+          tags: ['HTML', 'CSS', 'JavaScript'],
+          year: '2025',
+          duration: 'Completat en 1 setmana · treball del grau superior',
+          summary: 'Landing informativa sobre habits sostenibles, dissenyada i desenvolupada en una setmana amb focus en claredat de contingut, responsive i accessibilitat base.',
+          url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          compactTitle: true,
+        },
+        {
+          id: 4,
+          title: 'Pr08 Front-end & Back-end',
+          category: 'Full Stack',
+          image: 'images/projects/curriculum-cover.jpg',
+          tags: ['Angular', 'PHP', 'API', 'Auth'],
+          year: '2024',
+          duration: 'Practica tecnica completa',
+          summary: 'Projecte integrat amb frontend en Angular, backend en PHP amb endpoints, autenticacio amb localStorage i integracio frontend-backend sobre API.',
+          pdfPath: 'docs/pr08-front-end-back-end.pdf',
+          stackIcons: [
+            { label: 'Angular Forms & Login', icon: <Layers size={14} /> },
+            { label: 'Llistat & UI', icon: <Smartphone size={14} /> },
+            { label: 'Backend PHP Endpoints', icon: <Terminal size={14} /> },
+            { label: 'Auth + localStorage', icon: <Briefcase size={14} /> },
+            { label: 'Integracio API', icon: <Rocket size={14} /> },
+            { label: 'Flux Front/Back', icon: <Code2 size={14} /> },
+          ],
+        },
+      ],
+    },
+    es: {
+      navItems: [
+        { id: 'expertise', label: 'Especialidad' },
+        { id: 'process', label: 'Proceso' },
+        { id: 'experience', label: 'Trayectoria' },
+        { id: 'projects', label: 'Proyectos' },
+      ],
+      labels: {
+        goTo: 'Ir a',
+        goToContact: 'Ir a contacto',
+        talkButton: 'Hablar',
+        switchLanguageTo: 'Cambiar idioma a',
+        available: 'Disponible para practicas y rol junior',
+        viewProjects: 'Ver proyectos reales',
+        openPdfPreviewOf: 'Abrir vista previa PDF de',
+        openProjectOf: 'Abrir proyecto',
+        openRepoOf: 'Abrir repositorio de',
+        pdfPreviewOf: 'Vista previa PDF de',
+        openPdf: 'Abrir PDF',
+        closePreview: 'Cerrar vista previa',
+      },
+      hero: {
+        introStart: 'Desarrollador',
+        introHighlight: 'Web y Multiplataforma',
+        introEnd: 'en formacion en STUCOM.',
+        secondStart: 'Conecto documentacion tecnica, UI/UX y desarrollo en',
+        secondHighlight: 'React, WordPress y Flutter',
+        scroll: 'Scroll',
+      },
+      expertise: {
+        titleStart: 'Mi Stack',
+        titleAccent: 'Tecnico.',
+        uiuxTitle: 'Diseno UI/UX',
+        uiuxDesc: 'Interfaces claras, prototipos de alta fidelidad y documentacion funcional para cada entrega.',
+        frontendTitle: 'Frontend',
+        frontendDesc: 'Arquitectura web mantenible con React, WordPress y CSS moderno.',
+        mobileTitle: 'Mobile',
+        mobileDesc: 'Aplicaciones multiplataforma con foco en rendimiento y UX.',
+        infraTitle: 'Infra y Documentacion',
+        infraDesc: 'Experiencia en redes y sistemas: pfSense, Active Directory, DHCP/DNS y documentacion tecnica completa.',
+      },
+      process: {
+        titleStart: 'El',
+        titleAccent: 'Proceso.',
+        desc: 'Metodologia orientada a construir interfaces utiles y entregas mantenibles.',
+        steps: [
+          { title: 'Descubrimiento', desc: 'Analisis de requisitos, flujos de usuario y arquitectura de informacion antes de construir.' },
+          { title: 'Diseno UI/UX', desc: 'Sistemas visuales de alta fidelidad centrados en claridad, accesibilidad y consistencia.' },
+          { title: 'Desarrollo', desc: 'Construccion web y multiplataforma con React, Flutter y codigo mantenible.' },
+          { title: 'Entrega', desc: 'Optimizacion, documentacion tecnica y despliegue con foco en continuidad.' },
+        ],
+      },
+      experienceSection: {
+        titleStart: 'Evolucion',
+        titleAccent: 'Profesional.',
+        desc: 'Erasmus + practicas, mas de 850 horas.',
+      },
+      projectsSection: {
+        titleTop: 'Proyectos',
+        titleBottom: 'Destacados.',
+        desc: 'Cuatro proyectos clave: este portfolio interactivo, un proximo proyecto web del cole, una entrega web rapida y un caso full stack con PDF.',
+      },
+      contact: {
+        titleTop: 'HABLEMOS',
+        titleStart: 'DE TU',
+        titleAccent: 'PROYECTO.',
+        desc: 'Estoy abierto a practicas y oportunidades junior en desarrollo web y apps multiplataforma.',
+      },
+      footer: {
+        copyright: 'Disenado y desarrollado por mi.',
+        githubAria: 'GitHub de Marc Muntane',
+        linkedinAria: 'LinkedIn de Marc Muntane',
+      },
+      experienceItems: [
+        {
+          year: '2026 - 2027',
+          role: 'Plan de estudio de IA',
+          company: 'Formacion de tardes + trabajo activo',
+          desc: 'Formacion en inteligencia artificial en horario de tarde, manteniendo actividad laboral durante el periodo.',
+          align: 'left',
+        },
+        {
+          year: '2025 - 2026',
+          role: 'Erasmus+ - M5 Studios (Irlanda)',
+          company: 'Flutter y frontend',
+          desc: 'Mas de 350 horas creando apps multiplataforma con Flutter e integracion de Mapbox, con foco en UI/UX y frontend.',
+          align: 'right',
+        },
+        {
+          year: '2023 - 2025',
+          role: 'Practicas DAW - Viascooter',
+          company: 'WordPress, PrestaShop, Shopify',
+          desc: 'Mantenimiento web, gestion de hosting Nominalia, cuentas de correo y soporte a clientes en entorno real.',
+          align: 'left',
+        },
+        {
+          year: '2022 - 2023',
+          role: 'Practicas SMX - Gestinet',
+          company: 'Soporte IT',
+          desc: 'Mas de 340 horas en soporte tecnico: hardware, servidores, impresoras y Active Directory para pymes locales.',
+          align: 'right',
+        },
+        {
+          year: '2021 - 2026',
+          role: 'Formacion tecnica en STUCOM',
+          company: 'SMX, DAW y DAM',
+          desc: 'Recorrido formativo en sistemas, desarrollo web y aplicaciones multimedia con enfoque practico.',
+          align: 'left',
+        },
+      ],
+      projects: [
+        {
+          id: 1,
+          title: 'Portfolio Interactivo',
+          category: 'Proyecto Personal',
+          image: 'images/projects/firewall-cover.jpg',
+          tags: ['React', 'Next.js', 'Tailwind CSS'],
+          year: '2026',
+          duration: 'Proyecto personal · actualizado en 2026 y en evolucion constante',
+          summary: 'Este portfolio: cursor personalizado con particulas, animaciones de scroll reactivas, fondo interactivo con SVG y cometas, cards magneticas y despliegue automatico en GitHub Pages.',
+          url: 'https://github.com/MarcMunta/Portfolio',
+          fullStack: commonFullStack,
+        },
+        {
+          id: 2,
+          title: 'Retos Sociales',
+          category: 'Web · Proximo',
+          image: 'images/projects/sostenibilidad-actions.jpg',
+          tags: ['HTML', 'CSS', 'JavaScript'],
+          year: '2026',
+          duration: 'Proximo proyecto · objetivo: 1 semana · trabajo del cole',
+          summary: 'Siguiente entrega academica centrada en retos sociales: desarrollo web en una semana, siguiendo una metodologia similar a Sostenibilidad con foco en claridad, responsive y entrega completa.',
+          url: 'https://marcmunta.github.io/Retos-Sociales/',
+          repoUrl: 'https://github.com/MarcMunta/Retos-Sociales',
+        },
+        {
+          id: 3,
+          title: 'Sostenibilidad',
+          category: 'Web',
+          image: 'images/projects/sostenibilidad-cover.jpg',
+          tags: ['HTML', 'CSS', 'JavaScript'],
+          year: '2025',
+          duration: 'Completado en 1 semana · trabajo del grado superior',
+          summary: 'Landing informativa sobre habitos sostenibles, disenada y desarrollada en una semana con enfoque en claridad de contenido, responsive y accesibilidad base.',
+          url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          compactTitle: true,
+        },
+        {
+          id: 4,
+          title: 'Pr08 Front-end & Back-end',
+          category: 'Full Stack',
+          image: 'images/projects/curriculum-cover.jpg',
+          tags: ['Angular', 'PHP', 'API', 'Auth'],
+          year: '2024',
+          duration: 'Practica tecnica completa',
+          summary: 'Proyecto integrado con frontend en Angular (formularios, login, listado), backend en PHP con endpoints, autenticacion con localStorage e integracion frontend-backend sobre API.',
+          pdfPath: 'docs/pr08-front-end-back-end.pdf',
+          stackIcons: [
+            { label: 'Angular Forms & Login', icon: <Layers size={14} /> },
+            { label: 'Listado & UI', icon: <Smartphone size={14} /> },
+            { label: 'Backend PHP Endpoints', icon: <Terminal size={14} /> },
+            { label: 'Auth + localStorage', icon: <Briefcase size={14} /> },
+            { label: 'Integracion API', icon: <Rocket size={14} /> },
+            { label: 'Flujo Front/Back', icon: <Code2 size={14} /> },
+          ],
+        },
+      ],
+    },
+    en: {
+      navItems: [
+        { id: 'expertise', label: 'Expertise' },
+        { id: 'process', label: 'Process' },
+        { id: 'experience', label: 'Journey' },
+        { id: 'projects', label: 'Projects' },
+      ],
+      labels: {
+        goTo: 'Go to',
+        goToContact: 'Go to contact',
+        talkButton: 'Talk',
+        switchLanguageTo: 'Change language to',
+        available: 'Open to internships and junior roles',
+        viewProjects: 'View real projects',
+        openPdfPreviewOf: 'Open PDF preview of',
+        openProjectOf: 'Open project',
+        openRepoOf: 'Open repository of',
+        pdfPreviewOf: 'PDF preview of',
+        openPdf: 'Open PDF',
+        closePreview: 'Close preview',
+      },
+      hero: {
+        introStart: 'Web and Cross-platform',
+        introHighlight: 'Developer',
+        introEnd: 'in training at STUCOM.',
+        secondStart: 'I connect technical documentation, UI/UX, and development in',
+        secondHighlight: 'React, WordPress, and Flutter',
+        scroll: 'Scroll',
+      },
+      expertise: {
+        titleStart: 'My Tech',
+        titleAccent: 'Stack.',
+        uiuxTitle: 'UI/UX Design',
+        uiuxDesc: 'Clear interfaces, high-fidelity prototypes, and functional documentation for each delivery.',
+        frontendTitle: 'Frontend',
+        frontendDesc: 'Maintainable web architecture with React, WordPress, and modern CSS.',
+        mobileTitle: 'Mobile',
+        mobileDesc: 'Cross-platform applications focused on performance and UX.',
+        infraTitle: 'Infra & Documentation',
+        infraDesc: 'Experience in networks and systems: pfSense, Active Directory, DHCP/DNS, and full technical documentation.',
+      },
+      process: {
+        titleStart: 'The',
+        titleAccent: 'Process.',
+        desc: 'A methodology focused on building useful interfaces and maintainable deliveries.',
+        steps: [
+          { title: 'Discovery', desc: 'Requirements analysis, user flows, and information architecture before building.' },
+          { title: 'UI/UX Design', desc: 'High-fidelity visual systems focused on clarity, accessibility, and consistency.' },
+          { title: 'Development', desc: 'Web and cross-platform implementation with React, Flutter, and maintainable code.' },
+          { title: 'Delivery', desc: 'Optimization, technical documentation, and deployment focused on continuity.' },
+        ],
+      },
+      experienceSection: {
+        titleStart: 'Professional',
+        titleAccent: 'Evolution.',
+        desc: 'Erasmus + internships, over 850 hours.',
+      },
+      projectsSection: {
+        titleTop: 'Featured',
+        titleBottom: 'Projects.',
+        desc: 'Four key projects: this interactive portfolio, an upcoming school web project, a one-week web delivery, and a full-stack case with PDF.',
+      },
+      contact: {
+        titleTop: 'LET US',
+        titleStart: 'TALK ABOUT',
+        titleAccent: 'YOUR PROJECT.',
+        desc: 'I am open to internships and junior opportunities in web development and cross-platform apps.',
+      },
+      footer: {
+        copyright: 'Designed and developed by me.',
+        githubAria: 'Marc Muntane GitHub',
+        linkedinAria: 'Marc Muntane LinkedIn',
+      },
+      experienceItems: [
+        {
+          year: '2026 - 2027',
+          role: 'AI Study Plan',
+          company: 'Evening training + active work',
+          desc: 'Artificial intelligence training in evening hours while keeping active work throughout the period.',
+          align: 'left',
+        },
+        {
+          year: '2025 - 2026',
+          role: 'Erasmus+ - M5 Studios (Ireland)',
+          company: 'Flutter and frontend',
+          desc: 'Over 350 hours building cross-platform apps with Flutter and Mapbox integration, focused on UI/UX and frontend.',
+          align: 'right',
+        },
+        {
+          year: '2023 - 2025',
+          role: 'DAW Internship - Viascooter',
+          company: 'WordPress, PrestaShop, Shopify',
+          desc: 'Web maintenance, Nominalia hosting management, email account handling, and client support in a real environment.',
+          align: 'left',
+        },
+        {
+          year: '2022 - 2023',
+          role: 'SMX Internship - Gestinet',
+          company: 'IT Support',
+          desc: 'Over 340 hours in technical support: hardware, servers, printers, and Active Directory for local SMBs.',
+          align: 'right',
+        },
+        {
+          year: '2021 - 2026',
+          role: 'Technical training at STUCOM',
+          company: 'SMX, DAW and DAM',
+          desc: 'Training journey in systems, web development, and multimedia applications with a practical approach.',
+          align: 'left',
+        },
+      ],
+      projects: [
+        {
+          id: 1,
+          title: 'Interactive Portfolio',
+          category: 'Personal Project',
+          image: 'images/projects/firewall-cover.jpg',
+          tags: ['React', 'Next.js', 'Tailwind CSS'],
+          year: '2026',
+          duration: 'Personal project · updated in 2026 and constantly evolving',
+          summary: 'This portfolio: custom particle cursor, reactive scroll animations, interactive SVG/comet background, magnetic cards, and automatic deployment on GitHub Pages.',
+          url: 'https://github.com/MarcMunta/Portfolio',
+          fullStack: commonFullStack,
+        },
+        {
+          id: 2,
+          title: 'Social Challenges',
+          category: 'Web · Upcoming',
+          image: 'images/projects/sostenibilidad-actions.jpg',
+          tags: ['HTML', 'CSS', 'JavaScript'],
+          year: '2026',
+          duration: 'Upcoming project · goal: 1 week · school assignment',
+          summary: 'Next academic delivery focused on social challenges: one-week web development with emphasis on clarity, responsive behavior, and complete delivery.',
+          url: 'https://marcmunta.github.io/Retos-Sociales/',
+          repoUrl: 'https://github.com/MarcMunta/Retos-Sociales',
+        },
+        {
+          id: 3,
+          title: 'Sustainability',
+          category: 'Web',
+          image: 'images/projects/sostenibilidad-cover.jpg',
+          tags: ['HTML', 'CSS', 'JavaScript'],
+          year: '2025',
+          duration: 'Completed in 1 week · higher-degree assignment',
+          summary: 'Informative landing page about sustainable habits, designed and developed in one week with focus on content clarity, responsive layout, and base accessibility.',
+          url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          compactTitle: true,
+        },
+        {
+          id: 4,
+          title: 'Pr08 Front-end & Back-end',
+          category: 'Full Stack',
+          image: 'images/projects/curriculum-cover.jpg',
+          tags: ['Angular', 'PHP', 'API', 'Auth'],
+          year: '2024',
+          duration: 'Complete technical practice',
+          summary: 'Integrated project with Angular frontend (forms, login, list), PHP backend endpoints, localStorage auth, and frontend-backend API integration.',
+          pdfPath: 'docs/pr08-front-end-back-end.pdf',
+          stackIcons: [
+            { label: 'Angular Forms & Login', icon: <Layers size={14} /> },
+            { label: 'List & UI', icon: <Smartphone size={14} /> },
+            { label: 'PHP Backend Endpoints', icon: <Terminal size={14} /> },
+            { label: 'Auth + localStorage', icon: <Briefcase size={14} /> },
+            { label: 'API Integration', icon: <Rocket size={14} /> },
+            { label: 'Front/Back Flow', icon: <Code2 size={14} /> },
+          ],
+        },
+      ],
+    },
+  };
+
+  const locale = contentByLanguage[language] || contentByLanguage.es;
+  const navItems = locale.navItems;
+  const projects = locale.projects;
   const processSteps = [
-    { icon: <Compass size={24}/>, title: "Descubrimiento", desc: "Analisis de requisitos, flujos de usuario y arquitectura de informacion antes de construir." },
-    { icon: <PenTool size={24}/>, title: "Diseno UI/UX", desc: "Sistemas visuales de alta fidelidad centrados en claridad, accesibilidad y consistencia." },
-    { icon: <Code2 size={24}/>, title: "Desarrollo", desc: "Construccion web y multiplataforma con React, Flutter y codigo mantenible." },
-    { icon: <Rocket size={24}/>, title: "Entrega", desc: "Optimizacion, documentacion tecnica y despliegue con foco en continuidad." }
+    { icon: <Compass size={24} />, ...locale.process.steps[0] },
+    { icon: <PenTool size={24} />, ...locale.process.steps[1] },
+    { icon: <Code2 size={24} />, ...locale.process.steps[2] },
+    { icon: <Rocket size={24} />, ...locale.process.steps[3] },
   ];
-  const experienceItems = [
-    {
-      year: "2025 - 2026",
-      role: "Erasmus+ - M5 Studios (Irlanda)",
-      company: "Flutter y frontend",
-      desc: "Mas de 350 horas creando apps multiplataforma con Flutter e integracion de Mapbox, con foco en UI/UX y frontend.",
-      align: "right",
-    },
-    {
-      year: "2023 - 2025",
-      role: "Practicas DAW - Viascooter",
-      company: "WordPress, PrestaShop, Shopify",
-      desc: "Mantenimiento web, gestion de hosting Nominalia, cuentas de correo y soporte a clientes en entorno real.",
-      align: "left",
-    },
-    {
-      year: "2022 - 2023",
-      role: "Practicas SMX - Gestinet",
-      company: "Soporte IT",
-      desc: "Mas de 340 horas en soporte tecnico: hardware, servidores, impresoras y Active Directory para pymes locales.",
-      align: "right",
-    },
-    {
-      year: "2021 - 2026",
-      role: "Formacion tecnica en STUCOM",
-      company: "SMX, DAW y DAM",
-      desc: "Recorrido formativo en sistemas, desarrollo web y aplicaciones multimedia con enfoque practico.",
-      align: "left",
-    },
-  ];
+  const experienceItems = locale.experienceItems;
+  const activePdfProject = activePdfProjectId
+    ? projects.find((project) => project.id === activePdfProjectId) || null
+    : null;
 
   return (
     <div className="bg-[#030303] min-h-screen text-white relative selection:bg-blue-500/30 selection:text-white">
@@ -729,7 +1212,7 @@ export default function App() {
               <MagneticElement key={item.id} inline strength={0.1}>
                 <a 
                   href={`#${item.id}`} 
-                  aria-label={`Ir a ${item.label}`}
+                  aria-label={`${locale.labels.goTo} ${item.label}`}
                   onClick={() => handleNavClick(item.id)}
                   className={`relative block px-3 py-1 cursor-morph tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.12)] transition-colors duration-300 ${clickedNav === item.id ? 'nav-clicked' : ''} ${activeSection === item.id ? 'text-white' : 'text-gray-100 hover:text-white'}`}
                 >
@@ -741,11 +1224,33 @@ export default function App() {
           </div>
           
           <MagneticElement inline strength={0.1}>
-            <a href="#contact" aria-label="Ir a contacto" onClick={() => handleNavClick('contact')} className={`cursor-morph block bg-white text-black px-6 py-2.5 rounded-full text-sm font-bold shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-gray-200 transition-all ${clickedNav === 'contact' ? 'nav-clicked' : ''}`}>
-              Hablar
+            <a href="#contact" aria-label={locale.labels.goToContact} onClick={() => handleNavClick('contact')} className={`cursor-morph block bg-white text-black px-6 py-2.5 rounded-full text-sm font-bold shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-gray-200 transition-all ${clickedNav === 'contact' ? 'nav-clicked' : ''}`}>
+              {locale.labels.talkButton}
             </a>
           </MagneticElement>
         </nav>
+      </div>
+
+      <div
+        className={`fixed top-6 right-6 z-50 pointer-events-auto transition-all duration-700 ${
+          showNav ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
+        }`}
+      >
+        <div className="flex items-center gap-2 rounded-full border border-white/20 bg-[#070707]/90 backdrop-blur-xl px-2 py-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.55)]">
+          {languageOptions.map((option) => (
+            <button
+              key={option.code}
+              type="button"
+              onClick={() => setLanguage(option.code)}
+              aria-label={`${locale.labels.switchLanguageTo} ${option.label}`}
+              className={`cursor-morph w-9 h-9 rounded-full flex items-center justify-center transition-all ${
+                language === option.code ? 'bg-white/20 scale-105' : 'bg-transparent hover:bg-white/10'
+              }`}
+            >
+              <FlagIcon code={option.code} />
+            </button>
+          ))}
+        </div>
       </div>
 
       <main className="relative z-10">
@@ -761,7 +1266,7 @@ export default function App() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                   </span>
-                  <span className="text-xs font-semibold tracking-widest text-gray-300 uppercase">Disponible para practicas y rol junior</span>
+                  <span className="text-xs font-semibold tracking-widest text-gray-300 uppercase">{locale.labels.available}</span>
                 </div>
               </MagneticElement>
             </div>
@@ -780,15 +1285,15 @@ export default function App() {
 
             <div className="animate-hero-4">
               <p className="max-w-2xl text-lg md:text-2xl text-gray-300 font-light leading-relaxed mb-12">
-                Desarrollador <strong className="text-white font-medium">Web y Multiplataforma</strong> en formacion en STUCOM.<br className="hidden md:block"/> 
-                Conecto documentacion tecnica, UI/UX y desarrollo en <strong className="text-gradient-blue font-medium">React, WordPress y Flutter</strong>.
+                {locale.hero.introStart} <strong className="text-white font-medium">{locale.hero.introHighlight}</strong> {locale.hero.introEnd}<br className="hidden md:block"/> 
+                {locale.hero.secondStart} <strong className="text-gradient-blue font-medium">{locale.hero.secondHighlight}</strong>.
               </p>
             </div>
 
             <div className="animate-hero-5">
               <MagneticElement inline strength={0.15}>
                 <a href="#projects" className="cursor-morph group relative px-10 py-5 bg-white text-black rounded-full font-bold flex items-center gap-3 overflow-hidden transition-transform hover:scale-[1.02] shadow-[0_0_40px_rgba(255,255,255,0.15)]">
-                  <span className="relative z-10">Ver proyectos reales</span>
+                  <span className="relative z-10">{locale.labels.viewProjects}</span>
                   <ArrowUpRight size={20} className="relative z-10 transform group-hover:rotate-45 transition-transform duration-300"/>
                 </a>
               </MagneticElement>
@@ -797,7 +1302,7 @@ export default function App() {
           </div>
 
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-30 animate-pulse animate-hero-5">
-            <span className="text-xs tracking-widest uppercase font-medium">Scroll</span>
+            <span className="text-xs tracking-widest uppercase font-medium">{locale.hero.scroll}</span>
             <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent" />
           </div>
         </section>
@@ -826,7 +1331,7 @@ export default function App() {
         <section id="expertise" className="max-w-7xl mx-auto px-6 py-32">
           <Reveal>
             <h2 className="font-display text-5xl md:text-7xl font-bold mb-16 text-white tracking-tighter">
-              Mi Stack <span className="text-gradient-blue">Tecnico.</span>
+              {locale.expertise.titleStart} <span className="text-gradient-blue">{locale.expertise.titleAccent}</span>
             </h2>
           </Reveal>
           
@@ -839,9 +1344,9 @@ export default function App() {
                     <div className="inline-flex p-3 rounded-2xl bg-white/5 border border-white/10 text-white mb-6">
                       <Layers size={24} />
                     </div>
-                    <h3 className="text-4xl font-display font-bold text-white mb-4">Diseno UI/UX</h3>
+                    <h3 className="text-4xl font-display font-bold text-white mb-4">{locale.expertise.uiuxTitle}</h3>
                     <p className="text-gray-400 text-lg leading-relaxed">
-                      Interfaces claras, prototipos de alta fidelidad y documentacion funcional para cada entrega.
+                      {locale.expertise.uiuxDesc}
                     </p>
                   </div>
                   
@@ -878,8 +1383,8 @@ export default function App() {
                     <div className="inline-flex p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-6">
                       <Terminal size={24} />
                     </div>
-                    <h3 className="text-3xl font-display font-bold text-white mb-3">Frontend</h3>
-                    <p className="text-gray-400 text-base mb-6">Arquitectura web mantenible con React, WordPress y CSS moderno.</p>
+                    <h3 className="text-3xl font-display font-bold text-white mb-3">{locale.expertise.frontendTitle}</h3>
+                    <p className="text-gray-400 text-base mb-6">{locale.expertise.frontendDesc}</p>
                   </div>
                   <div className="bg-black/60 rounded-xl p-4 border border-white/5 font-mono text-xs text-gray-400 relative overflow-hidden group-hover:border-white/20 transition-colors pointer-events-none">
                     <div className="flex gap-1.5 mb-3">
@@ -904,8 +1409,8 @@ export default function App() {
                     <div className="inline-flex p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-6">
                       <Smartphone size={24} />
                     </div>
-                    <h3 className="text-3xl font-display font-bold text-white mb-3">Mobile</h3>
-                    <p className="text-gray-400 text-base mb-6">Aplicaciones multiplataforma con foco en rendimiento y UX.</p>
+                    <h3 className="text-3xl font-display font-bold text-white mb-3">{locale.expertise.mobileTitle}</h3>
+                    <p className="text-gray-400 text-base mb-6">{locale.expertise.mobileDesc}</p>
                   </div>
                   <div className="flex flex-col gap-2 z-10 font-semibold pointer-events-none">
                     <div className="px-4 py-3 bg-black/40 border border-white/5 rounded-xl text-emerald-300 flex justify-between group-hover:border-white/10 transition-colors">
@@ -923,9 +1428,9 @@ export default function App() {
               <MagneticElement strength={0.02} spring="cubic-bezier(0.16, 1, 0.3, 1)" className="w-full h-full">
                 <div className="bento-card p-10 flex flex-col md:flex-row items-center justify-between group">
                   <div className="md:w-5/12 z-10 pointer-events-none">
-                    <h3 className="text-4xl font-display font-bold text-white mb-4">Infra y Documentacion</h3>
+                    <h3 className="text-4xl font-display font-bold text-white mb-4">{locale.expertise.infraTitle}</h3>
                     <p className="text-gray-400 text-lg">
-                      Experiencia en redes y sistemas: pfSense, Active Directory, DHCP/DNS y documentacion tecnica completa.
+                      {locale.expertise.infraDesc}
                     </p>
                   </div>
                   <div className="md:w-7/12 h-full w-full flex items-center justify-center relative pointer-events-none pt-8 md:pt-0">
@@ -950,9 +1455,9 @@ export default function App() {
           <Reveal>
             <div className="mb-16">
               <h2 className="font-display text-4xl md:text-6xl font-bold text-white tracking-tighter mb-4">
-                El <span className="text-gradient-blue">Proceso.</span>
+                {locale.process.titleStart} <span className="text-gradient-blue">{locale.process.titleAccent}</span>
               </h2>
-              <p className="text-gray-400 max-w-xl text-lg font-light">Metodologia orientada a construir interfaces utiles y entregas mantenibles.</p>
+              <p className="text-gray-400 max-w-xl text-lg font-light">{locale.process.desc}</p>
             </div>
           </Reveal>
 
@@ -1061,9 +1566,9 @@ export default function App() {
           <Reveal>
             <div className="mb-24 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-6">
               <h2 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">
-                Evolucion <span className="text-gradient-blue">Profesional.</span>
+                {locale.experienceSection.titleStart} <span className="text-gradient-blue">{locale.experienceSection.titleAccent}</span>
               </h2>
-              <p className="text-gray-400 text-lg md:text-right font-light pb-2">Erasmus + Practicas, mas de 850 horas.</p>
+              <p className="text-gray-400 text-lg md:text-right font-light pb-2">{locale.experienceSection.desc}</p>
             </div>
           </Reveal>
 
@@ -1110,12 +1615,12 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-end gap-6">
               <Reveal>
                 <h2 className="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter leading-none">
-                  Proyectos<br/>Destacados.
+                  {locale.projectsSection.titleTop}<br/>{locale.projectsSection.titleBottom}
                 </h2>
               </Reveal>
               <Reveal delay={100}>
                 <p className="text-gray-400 max-w-sm text-lg md:text-right pb-3 font-light">
-                  Tres proyectos clave: una entrega web rápida, un caso full stack con PDF y este portfolio interactivo con mi stack completo.
+                  {locale.projectsSection.desc}
                 </p>
               </Reveal>
             </div>
@@ -1143,7 +1648,7 @@ export default function App() {
                       
                       <h3
                         className={`font-display font-bold mb-6 text-white relative z-10 tracking-tight leading-[1] break-normal ${
-                          project.title === 'Sostenibilidad'
+                          project.compactTitle
                             ? 'text-xl sm:text-2xl lg:text-4xl xl:text-5xl'
                             : 'text-2xl sm:text-3xl lg:text-5xl xl:text-6xl'
                         }`}
@@ -1191,23 +1696,36 @@ export default function App() {
                         </div>
                       ) : null}
                       
-                      <div className="mt-auto relative z-10 pointer-events-auto w-fit">
+                      <div className="mt-auto relative z-10 pointer-events-auto w-fit flex items-center gap-3">
                         <MagneticElement inline strength={0.2}>
                           {project.pdfPath ? (
                             <button
                               type="button"
-                              onClick={() => setActivePdfProject(project)}
-                              aria-label={`Abrir vista previa PDF de ${project.title}`}
+                              onClick={() => setActivePdfProjectId(project.id)}
+                              aria-label={`${locale.labels.openPdfPreviewOf} ${project.title}`}
                               className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full bg-white text-black hover:scale-110 hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                             >
                               <FileText size={22} />
                             </button>
                           ) : (
-                            <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Abrir proyecto ${project.title}`} className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full bg-white text-black hover:scale-110 hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                            <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`${locale.labels.openProjectOf} ${project.title}`} className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full bg-white text-black hover:scale-110 hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                               <ArrowUpRight size={24} />
                             </a>
                           )}
                         </MagneticElement>
+                        {project.repoUrl ? (
+                          <MagneticElement inline strength={0.2}>
+                            <a
+                              href={project.repoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${locale.labels.openRepoOf} ${project.title}`}
+                              className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full border border-white/20 text-white hover:scale-110 hover:bg-white/10 transition-all"
+                            >
+                              <Github size={22} />
+                            </a>
+                          </MagneticElement>
+                        ) : null}
                       </div>
                     </div>
 
@@ -1233,13 +1751,13 @@ export default function App() {
                 className="font-display font-bold tracking-tight mb-8 text-white leading-[0.95]"
                 style={{ fontSize: 'clamp(2.05rem, 8.3vw, 7.8rem)' }}
               >
-                HABLEMOS <br />
+                {locale.contact.titleTop} <br />
                 <span className="text-gradient-blue italic inline-block pr-[0.16em]">
-                  DE TU <span className="block md:inline">PROYECTO.</span>
+                  {locale.contact.titleStart} <span className="block md:inline">{locale.contact.titleAccent}</span>
                 </span>
               </h2>
               <p className="text-gray-400 text-xl md:text-2xl mb-14 max-w-2xl mx-auto font-light">
-                Estoy abierto a practicas y oportunidades junior en desarrollo web y apps multiplataforma.
+                {locale.contact.desc}
               </p>
               
               <MagneticElement inline strength={0.15}>
@@ -1251,15 +1769,15 @@ export default function App() {
           </Reveal>
 
           <div className="mt-40 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm gap-6 border-t border-white/5 pt-10 relative z-10">
-            <p className="font-semibold tracking-wide">© {new Date().getFullYear()} Marc Muntané Clara. Diseñado y desarrollado por mi.</p>
+            <p className="font-semibold tracking-wide">© {new Date().getFullYear()} Marc Muntané Clara. {locale.footer.copyright}</p>
             <div className="flex gap-8">
               <MagneticElement inline strength={0.2}>
-                <a href="https://github.com/MarcMunta" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Marc Muntané" className="cursor-morph hover:text-white transition-colors flex items-center gap-2">
+                <a href="https://github.com/MarcMunta" target="_blank" rel="noopener noreferrer" aria-label={locale.footer.githubAria} className="cursor-morph hover:text-white transition-colors flex items-center gap-2">
                   <Github size={20} /> <span className="block text-sm">GitHub</span>
                 </a>
               </MagneticElement>
               <MagneticElement inline strength={0.2}>
-                <a href="https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Marc Muntané" className="cursor-morph hover:text-white transition-colors flex items-center gap-2">
+                <a href="https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/" target="_blank" rel="noopener noreferrer" aria-label={locale.footer.linkedinAria} className="cursor-morph hover:text-white transition-colors flex items-center gap-2">
                   <Linkedin size={20} /> <span className="block text-sm">LinkedIn</span>
                 </a>
               </MagneticElement>
@@ -1271,7 +1789,7 @@ export default function App() {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label={`Vista previa PDF de ${activePdfProject.title}`}
+            aria-label={`${locale.labels.pdfPreviewOf} ${activePdfProject.title}`}
             className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 backdrop-blur-md px-4 py-8"
             onClick={(event) => {
               if (event.target === event.currentTarget) {
@@ -1293,12 +1811,12 @@ export default function App() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-white text-black hover:bg-gray-200 transition-colors"
                   >
                     <ArrowUpRight size={16} />
-                    Abrir PDF
+                    {locale.labels.openPdf}
                   </a>
                   <button
                     type="button"
                     onClick={closePdfModal}
-                    aria-label="Cerrar vista previa"
+                    aria-label={locale.labels.closePreview}
                     className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors"
                   >
                     <X size={18} />
