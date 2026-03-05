@@ -14,7 +14,9 @@ import {
   PenTool,
   Code2,
   Rocket,
-  Briefcase
+  Briefcase,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 // --- ESTILOS GLOBALES Y ANIMACIONES COMPLEJAS ---
@@ -24,14 +26,124 @@ const globalStyles = `
   }
 
   :root {
-    --bg-color: #030303;
+    --bg-primary: #030303;
+    --bg-secondary: #080808;
+    --bg-tertiary: #050505;
+    --bg-nav: rgba(7, 7, 7, 0.9);
+    --bg-marquee: #010101;
+    --bg-elevated: #0a0a0a;
+    --bg-modal: #090909;
+    --bg-overlay: rgba(0, 0, 0, 0.8);
+    --bg-code: rgba(0, 0, 0, 0.6);
+
+    --text-primary: #ffffff;
+    --text-secondary: #d1d5db;
+    --text-tertiary: #9ca3af;
+    --text-muted: #6b7280;
+    --text-inverse: #000000;
+
+    --border-primary: rgba(255, 255, 255, 0.2);
+    --border-secondary: rgba(255, 255, 255, 0.1);
+    --border-subtle: rgba(255, 255, 255, 0.05);
+
+    --shadow-nav: 0 8px 32px rgba(0, 0, 0, 0.7);
+    --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --shadow-cta: 0 0 40px rgba(255, 255, 255, 0.15);
+
+    --scrollbar-track: #000;
+    --scrollbar-thumb: #333;
+
+    --selection-bg: rgba(255, 255, 255, 0.2);
+    --selection-color: white;
+
+    --grid-line: rgba(255, 255, 255, 0.015);
+    --gradient-text-start: #ffffff;
+    --gradient-text-end: #71717a;
+
     --card-bg: #080808;
     --border-color: rgba(255, 255, 255, 0.05);
+    --card-hover-border: rgba(255, 255, 255, 0.15);
+    --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255,255,255,0.05);
+    --card-inner-glow: rgba(255, 255, 255, 0.1);
+
+    --process-active-bg: rgba(255, 255, 255, 0.05);
+    --process-active-border: rgba(255, 255, 255, 0.2);
+
+    --comet-color: rgba(255, 255, 255, 1);
+    --comet-glow: rgba(255, 255, 255, 0.6);
+
+    --cta-bg: #ffffff;
+    --cta-text: #000000;
+    --cta-hover-bg: #e5e7eb;
+    --cta-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+
+    --icon-container-bg: rgba(255, 255, 255, 0.05);
+    --icon-container-border: rgba(255, 255, 255, 0.1);
+
+    --timeline-node-bg: #000000;
+  }
+
+  [data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --bg-nav: rgba(255, 255, 255, 0.92);
+    --bg-marquee: #f1f5f9;
+    --bg-elevated: #f8fafc;
+    --bg-modal: #ffffff;
+    --bg-overlay: rgba(0, 0, 0, 0.4);
+    --bg-code: rgba(15, 23, 42, 0.92);
+
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-tertiary: #64748b;
+    --text-muted: #94a3b8;
+    --text-inverse: #ffffff;
+
+    --border-primary: rgba(15, 23, 42, 0.12);
+    --border-secondary: rgba(15, 23, 42, 0.08);
+    --border-subtle: rgba(15, 23, 42, 0.04);
+
+    --shadow-nav: 0 4px 24px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
+    --shadow-cta: 0 4px 20px rgba(59, 130, 246, 0.25);
+
+    --scrollbar-track: #f1f5f9;
+    --scrollbar-thumb: #94a3b8;
+
+    --selection-bg: rgba(59, 130, 246, 0.2);
+    --selection-color: #0f172a;
+
+    --grid-line: rgba(15, 23, 42, 0.03);
+    --gradient-text-start: #0f172a;
+    --gradient-text-end: #64748b;
+
+    --card-bg: #ffffff;
+    --border-color: rgba(15, 23, 42, 0.06);
+    --card-hover-border: rgba(59, 130, 246, 0.3);
+    --card-hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(59,130,246,0.1);
+    --card-inner-glow: rgba(0, 0, 0, 0.02);
+
+    --process-active-bg: rgba(59, 130, 246, 0.12);
+    --process-active-border: rgba(59, 130, 246, 0.45);
+
+    --comet-color: rgba(59, 130, 246, 0.6);
+    --comet-glow: rgba(59, 130, 246, 0.3);
+
+    --cta-bg: #0f172a;
+    --cta-text: #ffffff;
+    --cta-hover-bg: #1e293b;
+    --cta-shadow: 0 4px 20px rgba(15, 23, 42, 0.2);
+
+    --icon-container-bg: rgba(15, 23, 42, 0.04);
+    --icon-container-border: rgba(15, 23, 42, 0.08);
+
+    --timeline-node-bg: #ffffff;
   }
 
   body {
-    background-color: var(--bg-color);
-    color: #ffffff;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: 'Plus Jakarta Sans', sans-serif;
     overflow-x: hidden;
     cursor: none;
@@ -44,20 +156,20 @@ const globalStyles = `
     letter-spacing: -0.03em;
   }
 
-  ::selection { background: rgba(255, 255, 255, 0.2); color: white; }
+  ::selection { background: var(--selection-bg); color: var(--selection-color); }
 
   /* Scrollbar Suavizado */
   ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: #000; }
-  ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
 
   /* Malla Animada de Fondo */
   .grid-bg {
     position: fixed;
     inset: 0;
     background-size: 120px 120px;
-    background-image: linear-gradient(to right, rgba(255,255,255,0.015) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+                      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
     mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
     pointer-events: none;
     z-index: 0;
@@ -65,7 +177,7 @@ const globalStyles = `
 
   /* Gradientes de Texto */
   .text-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, #71717a 100%);
+    background: linear-gradient(135deg, var(--gradient-text-start) 0%, var(--gradient-text-end) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -79,10 +191,10 @@ const globalStyles = `
   .name-shimmer {
     background: linear-gradient(
       to right,
-      #ffffff 20%,
+      var(--text-primary) 20%,
       #60a5fa 40%,
       #c084fc 60%,
-      #ffffff 80%
+      var(--text-primary) 80%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -118,8 +230,8 @@ const globalStyles = `
     height: 100%;
   }
   .bento-card:hover {
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255,255,255,0.05);
+    border-color: var(--card-hover-border);
+    box-shadow: var(--card-hover-shadow);
     transform: translateY(-4px);
   }
   
@@ -128,7 +240,7 @@ const globalStyles = `
     position: absolute;
     inset: 0;
     border-radius: 2rem;
-    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 1px 0 var(--card-inner-glow);
     pointer-events: none;
   }
 
@@ -147,9 +259,15 @@ const globalStyles = `
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .process-tab.active {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--process-active-bg);
+    border-color: var(--process-active-border);
     transform: translateX(10px);
+  }
+  [data-theme="light"] .process-tab.active {
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.08);
+  }
+  [data-theme="light"] .process-tab:not(.active):hover {
+    background: rgba(59, 130, 246, 0.04) !important;
   }
 
   /* Animaciones SVG Flotantes */
@@ -187,9 +305,9 @@ const globalStyles = `
   .comet {
     position: absolute;
     height: 1.5px;
-    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1));
+    background: linear-gradient(90deg, transparent, var(--comet-color));
     border-radius: 999px;
-    filter: drop-shadow(4px 0 8px rgba(255,255,255,0.6));
+    filter: drop-shadow(4px 0 8px var(--comet-glow));
     animation: shooting-star linear infinite;
     opacity: 0;
   }
@@ -233,6 +351,180 @@ const globalStyles = `
   }
   .nav-clicked {
     animation: nav-click 0.3s ease;
+  }
+
+  /* ===== LIGHT MODE UTILITY OVERRIDES ===== */
+  [data-theme="light"] .text-white {
+    color: var(--text-primary) !important;
+  }
+  [data-theme="light"] .text-gray-100 {
+    color: var(--text-secondary) !important;
+  }
+  [data-theme="light"] .text-gray-300 {
+    color: var(--text-secondary) !important;
+  }
+  [data-theme="light"] .text-gray-400 {
+    color: var(--text-tertiary) !important;
+  }
+  [data-theme="light"] .text-gray-500 {
+    color: var(--text-muted) !important;
+  }
+  [data-theme="light"] .text-gray-600 {
+    color: #475569 !important;
+  }
+  [data-theme="light"] .text-zinc-500 {
+    color: var(--text-muted) !important;
+  }
+  [data-theme="light"] .text-zinc-400 {
+    color: var(--text-tertiary) !important;
+  }
+
+  /* Border overrides */
+  [data-theme="light"] .border-white\\/5 {
+    border-color: var(--border-subtle) !important;
+  }
+  [data-theme="light"] .border-white\\/10 {
+    border-color: var(--border-secondary) !important;
+  }
+  [data-theme="light"] .border-white\\/15 {
+    border-color: var(--border-secondary) !important;
+  }
+  [data-theme="light"] .border-white\\/20 {
+    border-color: var(--border-primary) !important;
+  }
+  [data-theme="light"] .border-white\\/30 {
+    border-color: rgba(15, 23, 42, 0.18) !important;
+  }
+  [data-theme="light"] .divide-white\\/5 > * + * {
+    border-color: var(--border-subtle) !important;
+  }
+  [data-theme="light"] .divide-white\\/10 > * + * {
+    border-color: var(--border-secondary) !important;
+  }
+
+  /* Background opacity overrides */
+  [data-theme="light"] .bg-white\\/5 {
+    background-color: rgba(15, 23, 42, 0.04) !important;
+  }
+  [data-theme="light"] .bg-white\\/10 {
+    background-color: rgba(15, 23, 42, 0.06) !important;
+  }
+  [data-theme="light"] .bg-white\\/15 {
+    background-color: rgba(15, 23, 42, 0.08) !important;
+  }
+  [data-theme="light"] .bg-white\\/20 {
+    background-color: rgba(15, 23, 42, 0.1) !important;
+  }
+  [data-theme="light"] .bg-white\\/\\[0\\.03\\] {
+    background-color: rgba(15, 23, 42, 0.03) !important;
+  }
+  [data-theme="light"] .bg-white\\/\\[0\\.02\\] {
+    background-color: rgba(15, 23, 42, 0.02) !important;
+  }
+
+  /* Hover state overrides */
+  [data-theme="light"] .hover\\:bg-white\\/5:hover {
+    background-color: rgba(6, 182, 212, 0.06) !important;
+  }
+  [data-theme="light"] .hover\\:bg-white\\/10:hover {
+    background-color: rgba(6, 182, 212, 0.08) !important;
+  }
+  [data-theme="light"] .hover\\:bg-white\\/20:hover {
+    background-color: rgba(6, 182, 212, 0.12) !important;
+  }
+  [data-theme="light"] .hover\\:border-white\\/20:hover {
+    border-color: rgba(6, 182, 212, 0.2) !important;
+  }
+  [data-theme="light"] .hover\\:border-white\\/30:hover {
+    border-color: rgba(6, 182, 212, 0.25) !important;
+  }
+  [data-theme="light"] .hover\\:text-white:hover {
+    color: var(--text-primary) !important;
+  }
+
+  /* Shadow overrides */
+  [data-theme="light"] .shadow-\\[0_0_40px_rgba\\(255\\,255\\,255\\,0\\.15\\)\\] {
+    box-shadow: var(--shadow-cta) !important;
+  }
+  [data-theme="light"] .shadow-\\[0_0_15px_rgba\\(255\\,255\\,255\\,0\\.4\\)\\] {
+    box-shadow: 0 0 15px rgba(15, 23, 42, 0.25) !important;
+  }
+  [data-theme="light"] .drop-shadow-\\[0_0_8px_rgba\\(255\\,255\\,255\\,0\\.12\\)\\] {
+    filter: drop-shadow(0 0 8px rgba(15, 23, 42, 0.08)) !important;
+  }
+  [data-theme="light"] .shadow-\\[inset_0_1px_1px_rgba\\(255\\,255\\,255\\,0\\.1\\)\\] {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.04) !important;
+  }
+  [data-theme="light"] .shadow-\\[0_0_60px_rgba\\(59\\,130\\,246\\,0\\.08\\)\\] {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.12) !important;
+  }
+  [data-theme="light"] .shadow-\\[0_0_80px_rgba\\(59\\,130\\,246\\,0\\.15\\)\\] {
+    box-shadow: 0 0 50px rgba(59, 130, 246, 0.15) !important;
+  }
+
+  /* Ring overrides */
+  [data-theme="light"] .ring-white\\/10 {
+    --tw-ring-color: rgba(15, 23, 42, 0.06) !important;
+  }
+  [data-theme="light"] .ring-white\\/20 {
+    --tw-ring-color: rgba(15, 23, 42, 0.1) !important;
+  }
+
+  /* SVG/Stroke overrides */
+  [data-theme="light"] .stroke-white\\/50 {
+    stroke: rgba(15, 23, 42, 0.15) !important;
+  }
+  [data-theme="light"] .stroke-white {
+    stroke: rgba(15, 23, 42, 0.5) !important;
+  }
+
+  /* Keep code blocks and terminal dark */
+  [data-theme="light"] .bg-black\\/60,
+  [data-theme="light"] .bg-black\\/80 {
+    /* Terminal/code blocks stay dark */
+  }
+  [data-theme="light"] .bg-black\\/60 .text-white,
+  [data-theme="light"] .bg-black\\/80 .text-white {
+    color: #ffffff !important;
+  }
+
+  /* Background effects - soften orbs */
+  [data-theme="light"] .orb-breath {
+    opacity: 0.15 !important;
+    mix-blend-mode: multiply !important;
+  }
+  [data-theme="light"] .bg-white\\/70 {
+    background-color: rgba(15, 23, 42, 0.35) !important;
+  }
+
+  /* SVG decorative elements – invert for light mode */
+  [data-theme="light"] svg [fill^="rgba(255,255,255"] {
+    fill: rgba(15, 23, 42, 0.12) !important;
+  }
+  [data-theme="light"] svg [stroke^="rgba(255,255,255"] {
+    stroke: rgba(15, 23, 42, 0.15) !important;
+  }
+  [data-theme="light"] svg stop[stop-color^="rgba(255,255,255"] {
+    stop-color: rgba(15, 23, 42, 0.08) !important;
+  }
+
+  /* Project card radial glow in light mode */
+  [data-theme="light"] .bg-\\[radial-gradient\\(ellipse_at_top_left\\,rgba\\(255\\,255\\,255\\,0\\.03\\)\\,transparent_50\\%\\)\\] {
+    background: radial-gradient(ellipse at top left, rgba(15,23,42,0.02), transparent 50%) !important;
+  }
+
+  /* CTA button styling in light mode */
+  [data-theme="light"] .cta-btn {
+    background-color: var(--cta-bg) !important;
+    color: var(--cta-text) !important;
+  }
+  [data-theme="light"] .cta-btn:hover {
+    background-color: var(--cta-hover-bg) !important;
+  }
+
+  /* Smooth transitions */
+  [data-theme="light"] *:not(.comet):not([class*="animate-"]) {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 `;
 
@@ -557,6 +849,7 @@ export default function App() {
   const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [activePdfProjectId, setActivePdfProjectId] = useState(null);
   const [language, setLanguage] = useState('es');
+  const [theme, setTheme] = useState('dark');
   
   const lastScrollY = useRef(0);
   const navTimeout = useRef(null);
@@ -645,6 +938,24 @@ export default function App() {
     window.localStorage.setItem('portfolio-language', language);
     document.documentElement.lang = language;
   }, [language]);
+
+  // Persistencia del tema
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem('portfolio-theme');
+    if (storedTheme && ['dark', 'light'].includes(storedTheme)) {
+      setTheme(storedTheme);
+      document.documentElement.setAttribute('data-theme', storedTheme);
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('portfolio-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
   const handleNavClick = (section) => {
     setClickedNav(section);
@@ -831,6 +1142,7 @@ export default function App() {
           duration: 'Completat en 1 setmana · treball del grau superior',
           summary: 'Landing informativa sobre habits sostenibles, dissenyada i desenvolupada en una setmana amb focus en claredat de contingut, responsive i accessibilitat base.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
@@ -999,6 +1311,7 @@ export default function App() {
           duration: 'Completado en 1 semana · trabajo del grado superior',
           summary: 'Landing informativa sobre habitos sostenibles, disenada y desarrollada en una semana con enfoque en claridad de contenido, responsive y accesibilidad base.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
@@ -1167,6 +1480,7 @@ export default function App() {
           duration: 'Completed in 1 week · higher-degree assignment',
           summary: 'Informative landing page about sustainable habits, designed and developed in one week with focus on content clarity, responsive layout, and base accessibility.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
@@ -1207,7 +1521,7 @@ export default function App() {
     : null;
 
   return (
-    <div className="bg-[#030303] min-h-screen text-white relative selection:bg-blue-500/30 selection:text-white">
+    <div className="bg-[var(--bg-primary)] min-h-screen text-white relative selection:bg-blue-500/30 selection:text-white">
       <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
       <CustomCursor />
       <BackgroundEffects />
@@ -1218,7 +1532,7 @@ export default function App() {
           showNav ? 'translate-y-0 opacity-100' : '-translate-y-32 opacity-0'
         }`}
       >
-        <nav className="pointer-events-auto flex items-center justify-between gap-6 md:gap-14 px-8 py-3.5 rounded-full bg-[#070707]/90 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.7)] hover:border-white/30 transition-all duration-500">
+        <nav className="pointer-events-auto flex items-center justify-between gap-6 md:gap-14 px-8 py-3.5 rounded-full bg-[var(--bg-nav)] backdrop-blur-xl border border-[var(--border-primary)] shadow-[var(--shadow-nav)] hover:border-[var(--border-primary)] transition-all duration-500">
           <MagneticElement inline strength={0.15}>
             <a href="#hero" onClick={() => handleNavClick('hero')} className={`font-display font-bold text-2xl tracking-tighter block cursor-morph ${clickedNav === 'hero' ? 'nav-clicked' : ''}`}>
               M<span className="text-blue-500">.</span>
@@ -1242,7 +1556,7 @@ export default function App() {
           </div>
           
           <MagneticElement inline strength={0.1}>
-            <a href="#contact" aria-label={locale.labels.goToContact} onClick={() => handleNavClick('contact')} className={`cursor-morph block bg-white text-black px-6 py-2.5 rounded-full text-sm font-bold shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-gray-200 transition-all ${clickedNav === 'contact' ? 'nav-clicked' : ''}`}>
+            <a href="#contact" aria-label={locale.labels.goToContact} onClick={() => handleNavClick('contact')} className={`cursor-morph cta-btn block bg-[var(--cta-bg)] text-[var(--cta-text)] px-6 py-2.5 rounded-full text-sm font-bold shadow-[var(--cta-shadow)] hover:bg-[var(--cta-hover-bg)] transition-all ${clickedNav === 'contact' ? 'nav-clicked' : ''}`}>
               {locale.labels.talkButton}
             </a>
           </MagneticElement>
@@ -1254,7 +1568,7 @@ export default function App() {
           showNav ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
         }`}
       >
-        <div className="flex items-center gap-2 rounded-full border border-white/20 bg-[#070707]/90 backdrop-blur-xl px-2 py-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.55)]">
+        <div className="flex items-center gap-2 rounded-full border border-[var(--border-primary)] bg-[var(--bg-nav)] backdrop-blur-xl px-2 py-1.5 shadow-[var(--shadow-nav)]">
           {languageOptions.map((option) => (
             <button
               key={option.code}
@@ -1262,12 +1576,21 @@ export default function App() {
               onClick={() => setLanguage(option.code)}
               aria-label={`${locale.labels.switchLanguageTo} ${option.label}`}
               className={`cursor-morph w-9 h-9 rounded-full flex items-center justify-center transition-all ${
-                language === option.code ? 'bg-white/20 scale-105' : 'bg-transparent hover:bg-white/10'
+                language === option.code ? 'bg-[var(--process-active-bg)] scale-105' : 'bg-transparent hover:bg-[var(--process-active-bg)]'
               }`}
             >
               <FlagIcon code={option.code} />
             </button>
           ))}
+          <div className="w-px h-5 bg-[var(--border-secondary)]" />
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="cursor-morph w-9 h-9 rounded-full flex items-center justify-center transition-all hover:bg-[var(--process-active-bg)]"
+          >
+            {theme === 'dark' ? <Sun size={16} className="text-[var(--text-primary)]" /> : <Moon size={16} className="text-[var(--text-primary)]" />}
+          </button>
         </div>
       </div>
 
@@ -1310,7 +1633,7 @@ export default function App() {
 
             <div className="animate-hero-5">
               <MagneticElement inline strength={0.15}>
-                <a href="#projects" className="cursor-morph group relative px-10 py-5 bg-white text-black rounded-full font-bold flex items-center gap-3 overflow-hidden transition-transform hover:scale-[1.02] shadow-[0_0_40px_rgba(255,255,255,0.15)]">
+                <a href="#projects" className="cursor-morph cta-btn group relative px-10 py-5 bg-[var(--cta-bg)] text-[var(--cta-text)] rounded-full font-bold flex items-center gap-3 overflow-hidden transition-transform hover:scale-[1.02] shadow-[var(--cta-shadow)]">
                   <span className="relative z-10">{locale.labels.viewProjects}</span>
                   <ArrowUpRight size={20} className="relative z-10 transform group-hover:rotate-45 transition-transform duration-300"/>
                 </a>
@@ -1326,10 +1649,10 @@ export default function App() {
         </section>
 
         {/* --- MARQUEE --- */}
-        <div className="py-8 border-y border-white/5 bg-[#010101] overflow-hidden flex relative select-none">
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#010101] to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#010101] to-transparent z-10" />
-          <div className="animate-marquee flex gap-12 items-center font-display text-3xl md:text-5xl font-bold tracking-tighter text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>
+        <div className="py-8 border-y border-white/5 bg-[var(--bg-marquee)] overflow-hidden flex relative select-none">
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--bg-marquee)] to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--bg-marquee)] to-transparent z-10" />
+          <div className="animate-marquee flex gap-12 items-center font-display text-3xl md:text-5xl font-bold tracking-tighter text-transparent" style={{ WebkitTextStroke: `1px ${theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(15,23,42,0.18)'}` }}>
             <span className="text-white" style={{ WebkitTextStroke: '0px' }}>REACT</span> <span>*</span>
             <span>WORDPRESS</span> <span>*</span>
             <span className="text-blue-500" style={{ WebkitTextStroke: '0px' }}>FLUTTER</span> <span>*</span>
@@ -1512,7 +1835,7 @@ export default function App() {
             </div>
 
             {/* Visuales Interactivos Mejorados */}
-            <div className="w-full lg:w-1/2 h-[450px] bg-[#050505] border border-white/10 rounded-[2.5rem] relative overflow-hidden flex items-center justify-center shadow-2xl">
+            <div className="w-full lg:w-1/2 h-[450px] bg-[var(--bg-tertiary)] border border-white/10 rounded-[2.5rem] relative overflow-hidden flex items-center justify-center shadow-2xl">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_60%)]" />
               
               <svg style={{ width: 0, height: 0, position: 'absolute' }}>
@@ -1629,7 +1952,7 @@ export default function App() {
 
         {/* --- TRABAJOS DESTACADOS --- */}
         <section id="projects" className="w-full relative z-10 pt-10 pb-48 border-t border-white/5">
-          <div className="sticky top-0 z-30 w-full bg-[#030303]/90 backdrop-blur-xl border-b border-white/10 pt-20 pb-8 mb-16">
+          <div className="sticky top-0 z-30 w-full bg-[var(--bg-primary)]/90 backdrop-blur-xl border-b border-white/10 pt-20 pb-8 mb-16">
             <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-end gap-6">
               <Reveal>
                 <h2 className="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter leading-none">
@@ -1642,16 +1965,16 @@ export default function App() {
                 </p>
               </Reveal>
             </div>
-            <div className="absolute top-full left-0 w-full h-16 bg-gradient-to-b from-[#030303]/90 to-transparent pointer-events-none" />
+            <div className="absolute top-full left-0 w-full h-16 bg-gradient-to-b from-[var(--bg-primary)] to-transparent pointer-events-none" />
           </div>
 
           <div className="max-w-7xl mx-auto px-6 flex flex-col pb-32">
             {projects.map((project, index) => (
               <div key={project.id} className="sticky-card-wrapper w-full" style={{ zIndex: index, top: `calc(28vh + ${index * 35}px)`, marginBottom: '3rem' }}>
-                <MagneticElement strength={0.015} spring="cubic-bezier(0.16, 1, 0.3, 1)" className="w-full h-full bg-[#080808] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-[0_-15px_40px_rgba(0,0,0,0.8)] transition-colors hover:border-white/20">
+                <MagneticElement strength={0.015} spring="cubic-bezier(0.16, 1, 0.3, 1)" className="w-full h-full bg-[var(--bg-secondary)] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-[var(--shadow-card)] transition-colors hover:border-white/20">
                   <div className="flex flex-col lg:flex-row min-h-[65vh] pointer-events-none w-full">
                     
-                    <div className="w-full lg:w-5/12 p-10 md:p-16 flex flex-col justify-center border-r border-white/5 relative bg-gradient-to-br from-[#0a0a0a] to-[#000]">
+                    <div className="w-full lg:w-5/12 p-10 md:p-16 flex flex-col justify-center border-r border-white/5 relative bg-gradient-to-br from-[var(--bg-elevated)] to-[var(--bg-primary)]">
                       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.03),transparent_50%)]" />
                       
                       <div className="flex items-center gap-4 mb-8 text-sm font-bold tracking-widest uppercase text-gray-500 relative z-10">
@@ -1721,12 +2044,12 @@ export default function App() {
                               type="button"
                               onClick={() => setActivePdfProjectId(project.id)}
                               aria-label={`${locale.labels.openPdfPreviewOf} ${project.title}`}
-                              className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full bg-white text-black hover:scale-110 hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                              className="cursor-morph cta-btn flex items-center justify-center w-14 h-14 rounded-full bg-[var(--cta-bg)] text-[var(--cta-text)] hover:scale-110 hover:bg-[var(--cta-hover-bg)] transition-all shadow-[var(--cta-shadow)]"
                             >
                               <FileText size={22} />
                             </button>
                           ) : (
-                            <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`${locale.labels.openProjectOf} ${project.title}`} className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full bg-white text-black hover:scale-110 hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                            <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`${locale.labels.openProjectOf} ${project.title}`} className="cursor-morph cta-btn flex items-center justify-center w-14 h-14 rounded-full bg-[var(--cta-bg)] text-[var(--cta-text)] hover:scale-110 hover:bg-[var(--cta-hover-bg)] transition-all shadow-[var(--cta-shadow)]">
                               <ArrowUpRight size={24} />
                             </a>
                           )}
@@ -1779,7 +2102,7 @@ export default function App() {
               </p>
               
               <MagneticElement inline strength={0.15}>
-                <a href="mailto:marcmclara@gmail.com" className="cursor-morph inline-flex items-center justify-center px-12 py-6 bg-white text-black rounded-full font-bold text-xl hover:scale-105 transition-all duration-300 shadow-[0_0_50px_rgba(255,255,255,0.2)]">
+                <a href="mailto:marcmclara@gmail.com" className="cursor-morph cta-btn inline-flex items-center justify-center px-12 py-6 bg-[var(--cta-bg)] text-[var(--cta-text)] rounded-full font-bold text-xl hover:scale-105 transition-all duration-300 shadow-[var(--cta-shadow)]">
                   marcmclara@gmail.com
                 </a>
               </MagneticElement>
@@ -1815,7 +2138,7 @@ export default function App() {
               }
             }}
           >
-            <div className="w-full max-w-6xl h-[88vh] bg-[#090909] border border-white/15 rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.8)]">
+            <div className="w-full max-w-6xl h-[88vh] bg-[var(--bg-modal)] border border-white/15 rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.3)]">
               <div className="h-16 border-b border-white/10 px-5 md:px-7 flex items-center justify-between bg-black/40">
                 <div className="min-w-0">
                   <p className="text-sm text-blue-300/80 uppercase tracking-widest">{activePdfProject.category}</p>
@@ -1826,7 +2149,7 @@ export default function App() {
                     href={activePdfProject.pdfPath}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-white text-black hover:bg-gray-200 transition-colors"
+                    className="cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors"
                   >
                     <ArrowUpRight size={16} />
                     {locale.labels.openPdf}
@@ -1842,7 +2165,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="h-[calc(88vh-4rem)] bg-[#050505]">
+              <div className="h-[calc(88vh-4rem)] bg-[var(--bg-tertiary)]">
                 <iframe
                   src={activePdfProject.pdfPath}
                   title={`PDF ${activePdfProject.title}`}

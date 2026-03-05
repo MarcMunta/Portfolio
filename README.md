@@ -1,7 +1,7 @@
 # Portfolio - Marc Muntane Clara
 
 ## Presentacion
-Soy Marc Muntane Clara, desarrollador web y multiplataforma en formacion.  
+Soy Marc Muntané Clarà, desarrollador web y multiplataforma en formacion.  
 Me centro en crear productos digitales claros, funcionales y visualmente solidos, combinando diseno UI/UX con implementacion tecnica real.
 
 ## Objetivo profesional

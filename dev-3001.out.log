@@ -1,0 +1,15 @@
+
+> portfolio-app@0.1.0 dev
+> next dev --turbopack --port 3001
+
+   ▲ Next.js 15.5.3 (Turbopack)
+   - Local:        http://localhost:3001
+   - Network:      http://26.85.178.13:3001
+
+ ✓ Starting...
+Creating turbopack project { dir: 'D:\\Cole\\GitHub\\Cole\\Portfolio', testMode: true }
+ ✓ Ready in 956ms
+ ○ Compiling / ...
+ ✓ Compiled / in 2.7s
+ GET / 200 in 2978ms
+ ✓ Compiled in 422ms
