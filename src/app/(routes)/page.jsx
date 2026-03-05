@@ -330,6 +330,13 @@ const globalStyles = `
   .comet-3 { top: -10%; left: 10%; width: 90px; animation-duration: 15s; animation-delay: 14s; }
   .comet-4 { top: 70%; left: -30%; width: 220px; animation-duration: 22s; animation-delay: 5s; }
 
+  /* Language switch */
+  @keyframes lang-fade-in {
+    from { opacity: 0.55; filter: blur(3px); transform: translateY(6px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+  .lang-transition { animation: lang-fade-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
   /* Marquee */
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   .animate-marquee { animation: marquee 35s linear infinite; width: max-content; }
@@ -861,6 +868,9 @@ export default function App() {
   
   const lastScrollY = useRef(0);
   const navTimeout = useRef(null);
+  const contentRef = useRef(null);
+  const isFirstRender = useRef(true);
+  const mouseInHoverZone = useRef(false);
 
   const closePdfModal = () => setActivePdfProjectId(null);
 
@@ -874,13 +884,14 @@ export default function App() {
           const currentScrollY = window.scrollY;
           
           if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-            setShowNav(false); 
+            if (!mouseInHoverZone.current) setShowNav(false);
           } else {
-            setShowNav(true);  
+            if (navTimeout.current) clearTimeout(navTimeout.current);
+            setShowNav(true);
           }
           lastScrollY.current = currentScrollY;
 
-          const sections = ['hero', 'expertise', 'process', 'experience', 'projects', 'contact'];
+          const sections = ['hero', 'expertise', 'process', 'experience', 'projects', 'cv', 'contact'];
           for (const section of sections.reverse()) {
             const el = document.getElementById(section);
             if (el && currentScrollY >= el.offsetTop - window.innerHeight / 2.5) {
@@ -896,12 +907,17 @@ export default function App() {
     };
 
     const handleMouseMove = (e) => {
-      if (e.clientY < 120) {
+      const inZone = e.clientY < 90;
+      if (inZone && !mouseInHoverZone.current) {
+        mouseInHoverZone.current = true;
         setShowNav(true);
+        if (navTimeout.current) clearTimeout(navTimeout.current);
+      } else if (!inZone && mouseInHoverZone.current) {
+        mouseInHoverZone.current = false;
         if (navTimeout.current) clearTimeout(navTimeout.current);
         navTimeout.current = setTimeout(() => {
           if (window.scrollY > 100) setShowNav(false);
-        }, 4000); 
+        }, 600);
       }
     };
 
@@ -945,6 +961,15 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem('portfolio-language', language);
     document.documentElement.lang = language;
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (contentRef.current) {
+      contentRef.current.classList.remove('lang-transition');
+      void contentRef.current.offsetWidth;
+      contentRef.current.classList.add('lang-transition');
+    }
   }, [language]);
 
   // Persistencia del tema
@@ -1011,6 +1036,7 @@ export default function App() {
         { id: 'process', label: 'Proces' },
         { id: 'experience', label: 'Trajectoria' },
         { id: 'projects', label: 'Projectes' },
+        { id: 'cv', label: 'CV' },
       ],
       labels: {
         goTo: 'Anar a',
@@ -1066,6 +1092,14 @@ export default function App() {
         titleTop: 'Projectes',
         titleBottom: 'Destacats.',
         desc: 'Quatre projectes clau: aquest portfolio interactiu, un proxim projecte web del cole, una entrega web rapida i un cas full stack amb PDF.',
+      },
+      cvSection: {
+        titleStart: 'El meu',
+        titleAccent: 'Currículum.',
+        desc: 'Previsualitza i descarrega el meu currículum en format PDF.',
+        generalLabel: 'CV General',
+        localizedLabel: 'CV en Català',
+        langName: 'Català',
       },
       contact: {
         titleTop: 'PARLEM',
@@ -1183,6 +1217,7 @@ export default function App() {
         { id: 'process', label: 'Proceso' },
         { id: 'experience', label: 'Trayectoria' },
         { id: 'projects', label: 'Proyectos' },
+        { id: 'cv', label: 'CV' },
       ],
       labels: {
         goTo: 'Ir a',
@@ -1238,6 +1273,14 @@ export default function App() {
         titleTop: 'Proyectos',
         titleBottom: 'Destacados.',
         desc: 'Cuatro proyectos clave: este portfolio interactivo, un proximo proyecto web del cole, una entrega web rapida y un caso full stack con PDF.',
+      },
+      cvSection: {
+        titleStart: 'Mi',
+        titleAccent: 'Currículum.',
+        desc: 'Previsualiza y descarga mi currículum en formato PDF.',
+        generalLabel: 'CV General',
+        localizedLabel: 'CV en Español',
+        langName: 'Español',
       },
       contact: {
         titleTop: 'HABLEMOS',
@@ -1355,6 +1398,7 @@ export default function App() {
         { id: 'process', label: 'Process' },
         { id: 'experience', label: 'Journey' },
         { id: 'projects', label: 'Projects' },
+        { id: 'cv', label: 'CV' },
       ],
       labels: {
         goTo: 'Go to',
@@ -1410,6 +1454,14 @@ export default function App() {
         titleTop: 'Featured',
         titleBottom: 'Projects.',
         desc: 'Four key projects: this interactive portfolio, an upcoming school web project, a one-week web delivery, and a full-stack case with PDF.',
+      },
+      cvSection: {
+        titleStart: 'My',
+        titleAccent: 'Resume.',
+        desc: 'Preview and download my resume in PDF format.',
+        generalLabel: 'General CV',
+        localizedLabel: 'CV in English',
+        langName: 'English',
       },
       contact: {
         titleTop: 'LET US',
@@ -1526,6 +1578,9 @@ export default function App() {
   const locale = contentByLanguage[language] || contentByLanguage.es;
   const navItems = locale.navItems;
   const projects = locale.projects;
+  const cvGeneralPath = '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0.pdf';
+  const cvLocalizedPaths = { ca: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20CA.pdf', es: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20ES.pdf', en: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20EN.pdf' };
+  const cvLocalizedPath = cvLocalizedPaths[language] || cvLocalizedPaths.es;
   const processSteps = [
     { icon: <Compass size={24} />, ...locale.process.steps[0] },
     { icon: <PenTool size={24} />, ...locale.process.steps[1] },
@@ -1611,6 +1666,7 @@ export default function App() {
         </div>
       </div>
 
+      <div ref={contentRef}>
       <main className="relative z-10">
         
         {/* --- HERO SECTION --- */}
@@ -1659,7 +1715,7 @@ export default function App() {
 
           </div>
 
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-30 animate-pulse animate-hero-5">
+          <div className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-3 opacity-30 animate-pulse animate-hero-5">
             <span className="text-xs tracking-widest uppercase font-medium">{locale.hero.scroll}</span>
             <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent" />
           </div>
@@ -2104,6 +2160,65 @@ export default function App() {
           </div>
         </section>
 
+        {/* --- CV / CURRICULUM --- */}
+        <section id="cv" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
+            <Reveal>
+              <h2 className="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter leading-none">
+                {locale.cvSection.titleStart}{' '}
+                <span className="text-gradient-blue">{locale.cvSection.titleAccent}</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={100}>
+              <p className="text-gray-400 max-w-sm text-lg md:text-right font-light">
+                {locale.cvSection.desc}
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <Reveal>
+              <div className="bg-[var(--bg-secondary)] border border-white/10 rounded-3xl overflow-hidden hover:border-white/20 transition-all">
+                <div className="p-6 border-b border-white/10 flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-blue-300/80 uppercase tracking-widest mb-1">{locale.cvSection.generalLabel}</p>
+                    <h3 className="text-white font-semibold text-lg">Marc Muntané Clarà</h3>
+                  </div>
+                  <MagneticElement inline strength={0.2}>
+                    <a href={cvGeneralPath} target="_blank" rel="noopener noreferrer" className="cursor-morph cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors">
+                      <ArrowUpRight size={16} />
+                      {locale.labels.openPdf}
+                    </a>
+                  </MagneticElement>
+                </div>
+                <div className="h-[500px] bg-[var(--bg-tertiary)]">
+                  <iframe src={cvGeneralPath} title="CV Marc Muntané Clarà" className="w-full h-full" />
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={150}>
+              <div className="bg-[var(--bg-secondary)] border border-white/10 rounded-3xl overflow-hidden hover:border-white/20 transition-all">
+                <div className="p-6 border-b border-white/10 flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-blue-300/80 uppercase tracking-widest mb-1">{locale.cvSection.localizedLabel}</p>
+                    <h3 className="text-white font-semibold text-lg">Marc Muntané Clarà — {locale.cvSection.langName}</h3>
+                  </div>
+                  <MagneticElement inline strength={0.2}>
+                    <a href={cvLocalizedPath} target="_blank" rel="noopener noreferrer" className="cursor-morph cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors">
+                      <ArrowUpRight size={16} />
+                      {locale.labels.openPdf}
+                    </a>
+                  </MagneticElement>
+                </div>
+                <div className="h-[500px] bg-[var(--bg-tertiary)]">
+                  <iframe src={cvLocalizedPath} title={`CV Marc Muntané Clarà - ${language.toUpperCase()}`} className="w-full h-full" />
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         {/* --- FOOTER / CTA --- */}
         <section id="contact" className="px-6 pt-12 pb-24 text-center relative overflow-visible border-t border-white/5">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-blue-600/15 rounded-full blur-[180px] pointer-events-none mix-blend-screen" />
@@ -2199,6 +2314,7 @@ export default function App() {
         ) : null}
 
       </main>
+      </div>
     </div>
   );
 }
