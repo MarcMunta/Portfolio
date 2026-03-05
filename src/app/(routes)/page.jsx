@@ -151,6 +151,14 @@ const globalStyles = `
     -moz-osx-font-smoothing: grayscale;
   }
 
+  a, button, input, select, textarea, [role="button"], .cursor-morph, [onclick] {
+    cursor: none !important;
+  }
+
+  * {
+    cursor: none !important;
+  }
+
   .font-display { 
     font-family: 'Space Grotesk', sans-serif; 
     letter-spacing: -0.03em;
@@ -1080,9 +1088,10 @@ export default function App() {
         },
         {
           year: '2025 - 2026',
-          role: 'Erasmus+ - M5 Studios (Irlanda)',
+          role: 'Erasmus + Practiques - M5 Studios (Irlanda)',
           company: 'Flutter i frontend',
           desc: 'Mes de 350 hores creant apps multiplataforma amb Flutter i integracio de Mapbox.',
+          hoverDesc: 'Disseny visual per facilitar la llegibilitat de l\'usuari i disseny de pagines web. Tests per a millores de velocitat i rendiment web. Administracio de bases de dades.',
           align: 'right',
         },
         {
@@ -1090,6 +1099,7 @@ export default function App() {
           role: 'Practiques DAW - Viascooter',
           company: 'WordPress, PrestaShop, Shopify',
           desc: 'Manteniment web, gestio de hosting Nominalia, comptes de correu i suport a clients en entorn real.',
+          hoverDesc: 'Manteniment de la pagina web, atencio al client i venda d\'objectes i motos. Solucions per a expansio de correus de l\'empresa, automatitzacio i millora de correus. Administracio de stack i modificacio de signatures de correus.',
           align: 'left',
         },
         {
@@ -1097,6 +1107,7 @@ export default function App() {
           role: 'Practiques SMX - Gestinet',
           company: 'Suport IT',
           desc: 'Mes de 340 hores en suport tecnic: hardware, servidors, impressores i Active Directory per a pimes locals.',
+          hoverDesc: 'Atencio al client, manteniment de servidors i backups, creacio de PC, neteja de discos durs i reparacio de programari.',
           align: 'right',
         },
         {
@@ -1249,9 +1260,10 @@ export default function App() {
         },
         {
           year: '2025 - 2026',
-          role: 'Erasmus+ - M5 Studios (Irlanda)',
+          role: 'Erasmus + Practicas - M5 Studios (Irlanda)',
           company: 'Flutter y frontend',
           desc: 'Mas de 350 horas creando apps multiplataforma con Flutter e integracion de Mapbox, con foco en UI/UX y frontend.',
+          hoverDesc: 'Diseno visual para facilitar la legibilidad del usuario y diseno de paginas web. Tests para mejoras de velocidad y rendimiento web. Administracion de bases de datos.',
           align: 'right',
         },
         {
@@ -1259,6 +1271,7 @@ export default function App() {
           role: 'Practicas DAW - Viascooter',
           company: 'WordPress, PrestaShop, Shopify',
           desc: 'Mantenimiento web, gestion de hosting Nominalia, cuentas de correo y soporte a clientes en entorno real.',
+          hoverDesc: 'Mantenimiento de la pagina web, atencion al cliente y venta de objetos y motos. Soluciones para expansion de correos de la empresa, automatizacion y mejora de correos. Administracion de stack y modificacion de firmas de correos.',
           align: 'left',
         },
         {
@@ -1266,6 +1279,7 @@ export default function App() {
           role: 'Practicas SMX - Gestinet',
           company: 'Soporte IT',
           desc: 'Mas de 340 horas en soporte tecnico: hardware, servidores, impresoras y Active Directory para pymes locales.',
+          hoverDesc: 'Atencion al cliente, mantenimiento de servidores y backups, creacion de PC, limpieza de discos duros y reparacion de software.',
           align: 'right',
         },
         {
@@ -1418,9 +1432,10 @@ export default function App() {
         },
         {
           year: '2025 - 2026',
-          role: 'Erasmus+ - M5 Studios (Ireland)',
+          role: 'Erasmus + Internship - M5 Studios (Ireland)',
           company: 'Flutter and frontend',
           desc: 'Over 350 hours building cross-platform apps with Flutter and Mapbox integration, focused on UI/UX and frontend.',
+          hoverDesc: 'Visual design to enhance user readability and web page design. Speed and performance testing. Database administration.',
           align: 'right',
         },
         {
@@ -1428,6 +1443,7 @@ export default function App() {
           role: 'DAW Internship - Viascooter',
           company: 'WordPress, PrestaShop, Shopify',
           desc: 'Web maintenance, Nominalia hosting management, email account handling, and client support in a real environment.',
+          hoverDesc: 'Website maintenance, customer service and sales of products and scooters. Solutions for company email expansion, email automation and improvement. Stack administration and email signature management.',
           align: 'left',
         },
         {
@@ -1435,6 +1451,7 @@ export default function App() {
           role: 'SMX Internship - Gestinet',
           company: 'IT Support',
           desc: 'Over 340 hours in technical support: hardware, servers, printers, and Active Directory for local SMBs.',
+          hoverDesc: 'Customer service, server and backup maintenance, PC assembly, hard drive cleaning and software repair.',
           align: 'right',
         },
         {
@@ -1937,6 +1954,11 @@ export default function App() {
                             <Briefcase size={16}/> {item.company}
                           </h4>
                           <p className="text-gray-500 font-light leading-relaxed">{item.desc}</p>
+                          {item.hoverDesc && (
+                            <div className="mt-3 pt-3 border-t border-white/10 opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-96 overflow-y-auto transition-all duration-500 ease-in-out">
+                              <p className="text-gray-400 text-sm font-light leading-relaxed">{item.hoverDesc}</p>
+                            </div>
+                          )}
                         </div>
                       </MagneticElement>
                     </div>
