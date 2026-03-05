@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -29,8 +29,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 try {
                   var t = localStorage.getItem('portfolio-theme');
                   if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
-                  var l = localStorage.getItem('portfolio-language');
-                  if (l && ['ca','es','en'].indexOf(l) !== -1) document.documentElement.lang = l;
                 } catch(e) {}
               })();
             `,

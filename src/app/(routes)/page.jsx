@@ -104,7 +104,7 @@ const globalStyles = `
     --border-secondary: rgba(15, 23, 42, 0.08);
     --border-subtle: rgba(15, 23, 42, 0.04);
 
-    --shadow-nav: 0 4px 24px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-nav: 0 4px 20px rgba(0, 0, 0, 0.06);
     --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
     --shadow-cta: 0 4px 20px rgba(59, 130, 246, 0.25);
 
@@ -124,8 +124,8 @@ const globalStyles = `
     --card-hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(59,130,246,0.1);
     --card-inner-glow: rgba(0, 0, 0, 0.02);
 
-    --process-active-bg: rgba(59, 130, 246, 0.12);
-    --process-active-border: rgba(59, 130, 246, 0.45);
+    --process-active-bg: rgba(59, 130, 246, 0.06);
+    --process-active-border: rgba(59, 130, 246, 0.3);
 
     --comet-color: rgba(59, 130, 246, 0.6);
     --comet-glow: rgba(59, 130, 246, 0.3);
@@ -149,14 +149,6 @@ const globalStyles = `
     cursor: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  a, button, input, select, textarea, [role="button"], .cursor-morph, [onclick] {
-    cursor: none !important;
-  }
-
-  * {
-    cursor: none !important;
   }
 
   .font-display { 
@@ -271,12 +263,6 @@ const globalStyles = `
     border-color: var(--process-active-border);
     transform: translateX(10px);
   }
-  [data-theme="light"] .process-tab.active {
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.08);
-  }
-  [data-theme="light"] .process-tab:not(.active):hover {
-    background: rgba(59, 130, 246, 0.04) !important;
-  }
 
   /* Animaciones SVG Flotantes */
   @keyframes float {
@@ -330,13 +316,6 @@ const globalStyles = `
   .comet-3 { top: -10%; left: 10%; width: 90px; animation-duration: 15s; animation-delay: 14s; }
   .comet-4 { top: 70%; left: -30%; width: 220px; animation-duration: 22s; animation-delay: 5s; }
 
-  /* Language switch */
-  @keyframes lang-fade-in {
-    from { opacity: 0.55; filter: blur(3px); transform: translateY(6px); }
-    to { opacity: 1; filter: blur(0); transform: translateY(0); }
-  }
-  .lang-transition { animation: lang-fade-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
   /* Marquee */
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   .animate-marquee { animation: marquee 35s linear infinite; width: max-content; }
@@ -371,9 +350,6 @@ const globalStyles = `
   /* ===== LIGHT MODE UTILITY OVERRIDES ===== */
   [data-theme="light"] .text-white {
     color: var(--text-primary) !important;
-  }
-  [data-theme="light"] .text-gray-100 {
-    color: var(--text-secondary) !important;
   }
   [data-theme="light"] .text-gray-300 {
     color: var(--text-secondary) !important;
@@ -439,19 +415,19 @@ const globalStyles = `
 
   /* Hover state overrides */
   [data-theme="light"] .hover\\:bg-white\\/5:hover {
-    background-color: rgba(6, 182, 212, 0.06) !important;
+    background-color: rgba(15, 23, 42, 0.04) !important;
   }
   [data-theme="light"] .hover\\:bg-white\\/10:hover {
-    background-color: rgba(6, 182, 212, 0.08) !important;
+    background-color: rgba(15, 23, 42, 0.06) !important;
   }
   [data-theme="light"] .hover\\:bg-white\\/20:hover {
-    background-color: rgba(6, 182, 212, 0.12) !important;
+    background-color: rgba(15, 23, 42, 0.1) !important;
   }
   [data-theme="light"] .hover\\:border-white\\/20:hover {
-    border-color: rgba(6, 182, 212, 0.2) !important;
+    border-color: var(--border-primary) !important;
   }
   [data-theme="light"] .hover\\:border-white\\/30:hover {
-    border-color: rgba(6, 182, 212, 0.25) !important;
+    border-color: rgba(15, 23, 42, 0.18) !important;
   }
   [data-theme="light"] .hover\\:text-white:hover {
     color: var(--text-primary) !important;
@@ -868,9 +844,6 @@ export default function App() {
   
   const lastScrollY = useRef(0);
   const navTimeout = useRef(null);
-  const contentRef = useRef(null);
-  const isFirstRender = useRef(true);
-  const mouseInHoverZone = useRef(false);
 
   const closePdfModal = () => setActivePdfProjectId(null);
 
@@ -884,14 +857,13 @@ export default function App() {
           const currentScrollY = window.scrollY;
           
           if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-            if (!mouseInHoverZone.current) setShowNav(false);
+            setShowNav(false); 
           } else {
-            if (navTimeout.current) clearTimeout(navTimeout.current);
-            setShowNav(true);
+            setShowNav(true);  
           }
           lastScrollY.current = currentScrollY;
 
-          const sections = ['hero', 'expertise', 'process', 'experience', 'projects', 'cv', 'contact'];
+          const sections = ['hero', 'expertise', 'process', 'experience', 'projects', 'contact'];
           for (const section of sections.reverse()) {
             const el = document.getElementById(section);
             if (el && currentScrollY >= el.offsetTop - window.innerHeight / 2.5) {
@@ -907,17 +879,12 @@ export default function App() {
     };
 
     const handleMouseMove = (e) => {
-      const inZone = e.clientY < 90;
-      if (inZone && !mouseInHoverZone.current) {
-        mouseInHoverZone.current = true;
+      if (e.clientY < 120) {
         setShowNav(true);
-        if (navTimeout.current) clearTimeout(navTimeout.current);
-      } else if (!inZone && mouseInHoverZone.current) {
-        mouseInHoverZone.current = false;
         if (navTimeout.current) clearTimeout(navTimeout.current);
         navTimeout.current = setTimeout(() => {
           if (window.scrollY > 100) setShowNav(false);
-        }, 600);
+        }, 4000); 
       }
     };
 
@@ -961,15 +928,6 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem('portfolio-language', language);
     document.documentElement.lang = language;
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    if (contentRef.current) {
-      contentRef.current.classList.remove('lang-transition');
-      void contentRef.current.offsetWidth;
-      contentRef.current.classList.add('lang-transition');
-    }
   }, [language]);
 
   // Persistencia del tema
@@ -1036,7 +994,6 @@ export default function App() {
         { id: 'process', label: 'Proces' },
         { id: 'experience', label: 'Trajectoria' },
         { id: 'projects', label: 'Projectes' },
-        { id: 'cv', label: 'CV' },
       ],
       labels: {
         goTo: 'Anar a',
@@ -1093,14 +1050,6 @@ export default function App() {
         titleBottom: 'Destacats.',
         desc: 'Quatre projectes clau: aquest portfolio interactiu, un proxim projecte web del cole, una entrega web rapida i un cas full stack amb PDF.',
       },
-      cvSection: {
-        titleStart: 'El meu',
-        titleAccent: 'Currículum.',
-        desc: 'Previsualitza i descarrega el meu currículum en format PDF.',
-        generalLabel: 'CV General',
-        localizedLabel: 'CV en Català',
-        langName: 'Català',
-      },
       contact: {
         titleTop: 'PARLEM',
         titleStart: 'DEL TEU',
@@ -1122,10 +1071,9 @@ export default function App() {
         },
         {
           year: '2025 - 2026',
-          role: 'Erasmus + Practiques - M5 Studios (Irlanda)',
+          role: 'Erasmus+ - M5 Studios (Irlanda)',
           company: 'Flutter i frontend',
           desc: 'Mes de 350 hores creant apps multiplataforma amb Flutter i integracio de Mapbox.',
-          hoverDesc: 'Disseny visual per facilitar la llegibilitat de l\'usuari i disseny de pagines web. Tests per a millores de velocitat i rendiment web. Administracio de bases de dades.',
           align: 'right',
         },
         {
@@ -1133,7 +1081,6 @@ export default function App() {
           role: 'Practiques DAW - Viascooter',
           company: 'WordPress, PrestaShop, Shopify',
           desc: 'Manteniment web, gestio de hosting Nominalia, comptes de correu i suport a clients en entorn real.',
-          hoverDesc: 'Manteniment de la pagina web, atencio al client i venda d\'objectes i motos. Solucions per a expansio de correus de l\'empresa, automatitzacio i millora de correus. Administracio de stack i modificacio de signatures de correus.',
           align: 'left',
         },
         {
@@ -1141,7 +1088,6 @@ export default function App() {
           role: 'Practiques SMX - Gestinet',
           company: 'Suport IT',
           desc: 'Mes de 340 hores en suport tecnic: hardware, servidors, impressores i Active Directory per a pimes locals.',
-          hoverDesc: 'Atencio al client, manteniment de servidors i backups, creacio de PC, neteja de discos durs i reparacio de programari.',
           align: 'right',
         },
         {
@@ -1187,7 +1133,6 @@ export default function App() {
           duration: 'Completat en 1 setmana · treball del grau superior',
           summary: 'Landing informativa sobre habits sostenibles, dissenyada i desenvolupada en una setmana amb focus en claredat de contingut, responsive i accessibilitat base.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
-          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
@@ -1217,7 +1162,6 @@ export default function App() {
         { id: 'process', label: 'Proceso' },
         { id: 'experience', label: 'Trayectoria' },
         { id: 'projects', label: 'Proyectos' },
-        { id: 'cv', label: 'CV' },
       ],
       labels: {
         goTo: 'Ir a',
@@ -1274,14 +1218,6 @@ export default function App() {
         titleBottom: 'Destacados.',
         desc: 'Cuatro proyectos clave: este portfolio interactivo, un proximo proyecto web del cole, una entrega web rapida y un caso full stack con PDF.',
       },
-      cvSection: {
-        titleStart: 'Mi',
-        titleAccent: 'Currículum.',
-        desc: 'Previsualiza y descarga mi currículum en formato PDF.',
-        generalLabel: 'CV General',
-        localizedLabel: 'CV en Español',
-        langName: 'Español',
-      },
       contact: {
         titleTop: 'HABLEMOS',
         titleStart: 'DE TU',
@@ -1303,10 +1239,9 @@ export default function App() {
         },
         {
           year: '2025 - 2026',
-          role: 'Erasmus + Practicas - M5 Studios (Irlanda)',
+          role: 'Erasmus+ - M5 Studios (Irlanda)',
           company: 'Flutter y frontend',
           desc: 'Mas de 350 horas creando apps multiplataforma con Flutter e integracion de Mapbox, con foco en UI/UX y frontend.',
-          hoverDesc: 'Diseno visual para facilitar la legibilidad del usuario y diseno de paginas web. Tests para mejoras de velocidad y rendimiento web. Administracion de bases de datos.',
           align: 'right',
         },
         {
@@ -1314,7 +1249,6 @@ export default function App() {
           role: 'Practicas DAW - Viascooter',
           company: 'WordPress, PrestaShop, Shopify',
           desc: 'Mantenimiento web, gestion de hosting Nominalia, cuentas de correo y soporte a clientes en entorno real.',
-          hoverDesc: 'Mantenimiento de la pagina web, atencion al cliente y venta de objetos y motos. Soluciones para expansion de correos de la empresa, automatizacion y mejora de correos. Administracion de stack y modificacion de firmas de correos.',
           align: 'left',
         },
         {
@@ -1322,7 +1256,6 @@ export default function App() {
           role: 'Practicas SMX - Gestinet',
           company: 'Soporte IT',
           desc: 'Mas de 340 horas en soporte tecnico: hardware, servidores, impresoras y Active Directory para pymes locales.',
-          hoverDesc: 'Atencion al cliente, mantenimiento de servidores y backups, creacion de PC, limpieza de discos duros y reparacion de software.',
           align: 'right',
         },
         {
@@ -1368,7 +1301,6 @@ export default function App() {
           duration: 'Completado en 1 semana · trabajo del grado superior',
           summary: 'Landing informativa sobre habitos sostenibles, disenada y desarrollada en una semana con enfoque en claridad de contenido, responsive y accesibilidad base.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
-          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
@@ -1398,7 +1330,6 @@ export default function App() {
         { id: 'process', label: 'Process' },
         { id: 'experience', label: 'Journey' },
         { id: 'projects', label: 'Projects' },
-        { id: 'cv', label: 'CV' },
       ],
       labels: {
         goTo: 'Go to',
@@ -1455,14 +1386,6 @@ export default function App() {
         titleBottom: 'Projects.',
         desc: 'Four key projects: this interactive portfolio, an upcoming school web project, a one-week web delivery, and a full-stack case with PDF.',
       },
-      cvSection: {
-        titleStart: 'My',
-        titleAccent: 'Resume.',
-        desc: 'Preview and download my resume in PDF format.',
-        generalLabel: 'General CV',
-        localizedLabel: 'CV in English',
-        langName: 'English',
-      },
       contact: {
         titleTop: 'LET US',
         titleStart: 'TALK ABOUT',
@@ -1484,10 +1407,9 @@ export default function App() {
         },
         {
           year: '2025 - 2026',
-          role: 'Erasmus + Internship - M5 Studios (Ireland)',
+          role: 'Erasmus+ - M5 Studios (Ireland)',
           company: 'Flutter and frontend',
           desc: 'Over 350 hours building cross-platform apps with Flutter and Mapbox integration, focused on UI/UX and frontend.',
-          hoverDesc: 'Visual design to enhance user readability and web page design. Speed and performance testing. Database administration.',
           align: 'right',
         },
         {
@@ -1495,7 +1417,6 @@ export default function App() {
           role: 'DAW Internship - Viascooter',
           company: 'WordPress, PrestaShop, Shopify',
           desc: 'Web maintenance, Nominalia hosting management, email account handling, and client support in a real environment.',
-          hoverDesc: 'Website maintenance, customer service and sales of products and scooters. Solutions for company email expansion, email automation and improvement. Stack administration and email signature management.',
           align: 'left',
         },
         {
@@ -1503,7 +1424,6 @@ export default function App() {
           role: 'SMX Internship - Gestinet',
           company: 'IT Support',
           desc: 'Over 340 hours in technical support: hardware, servers, printers, and Active Directory for local SMBs.',
-          hoverDesc: 'Customer service, server and backup maintenance, PC assembly, hard drive cleaning and software repair.',
           align: 'right',
         },
         {
@@ -1549,7 +1469,6 @@ export default function App() {
           duration: 'Completed in 1 week · higher-degree assignment',
           summary: 'Informative landing page about sustainable habits, designed and developed in one week with focus on content clarity, responsive layout, and base accessibility.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
-          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
@@ -1578,9 +1497,6 @@ export default function App() {
   const locale = contentByLanguage[language] || contentByLanguage.es;
   const navItems = locale.navItems;
   const projects = locale.projects;
-  const cvGeneralPath = '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0.pdf';
-  const cvLocalizedPaths = { ca: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20CA.pdf', es: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20ES.pdf', en: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20EN.pdf' };
-  const cvLocalizedPath = cvLocalizedPaths[language] || cvLocalizedPaths.es;
   const processSteps = [
     { icon: <Compass size={24} />, ...locale.process.steps[0] },
     { icon: <PenTool size={24} />, ...locale.process.steps[1] },
@@ -1666,7 +1582,6 @@ export default function App() {
         </div>
       </div>
 
-      <div ref={contentRef}>
       <main className="relative z-10">
         
         {/* --- HERO SECTION --- */}
@@ -1715,7 +1630,7 @@ export default function App() {
 
           </div>
 
-          <div className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-3 opacity-30 animate-pulse animate-hero-5">
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-30 animate-pulse animate-hero-5">
             <span className="text-xs tracking-widest uppercase font-medium">{locale.hero.scroll}</span>
             <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent" />
           </div>
@@ -1725,7 +1640,7 @@ export default function App() {
         <div className="py-8 border-y border-white/5 bg-[var(--bg-marquee)] overflow-hidden flex relative select-none">
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--bg-marquee)] to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--bg-marquee)] to-transparent z-10" />
-          <div className="animate-marquee flex gap-12 items-center font-display text-3xl md:text-5xl font-bold tracking-tighter text-transparent" style={{ WebkitTextStroke: `1px ${theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(15,23,42,0.18)'}` }}>
+          <div className="animate-marquee flex gap-12 items-center font-display text-3xl md:text-5xl font-bold tracking-tighter text-transparent" style={{ WebkitTextStroke: `1px ${theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(15,23,42,0.08)'}` }}>
             <span className="text-white" style={{ WebkitTextStroke: '0px' }}>REACT</span> <span>*</span>
             <span>WORDPRESS</span> <span>*</span>
             <span className="text-blue-500" style={{ WebkitTextStroke: '0px' }}>FLUTTER</span> <span>*</span>
@@ -2010,11 +1925,6 @@ export default function App() {
                             <Briefcase size={16}/> {item.company}
                           </h4>
                           <p className="text-gray-500 font-light leading-relaxed">{item.desc}</p>
-                          {item.hoverDesc && (
-                            <div className="mt-3 pt-3 border-t border-white/10 opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-96 overflow-y-auto transition-all duration-500 ease-in-out">
-                              <p className="text-gray-400 text-sm font-light leading-relaxed">{item.hoverDesc}</p>
-                            </div>
-                          )}
                         </div>
                       </MagneticElement>
                     </div>
@@ -2160,65 +2070,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* --- CV / CURRICULUM --- */}
-        <section id="cv" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
-            <Reveal>
-              <h2 className="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter leading-none">
-                {locale.cvSection.titleStart}{' '}
-                <span className="text-gradient-blue">{locale.cvSection.titleAccent}</span>
-              </h2>
-            </Reveal>
-            <Reveal delay={100}>
-              <p className="text-gray-400 max-w-sm text-lg md:text-right font-light">
-                {locale.cvSection.desc}
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Reveal>
-              <div className="bg-[var(--bg-secondary)] border border-white/10 rounded-3xl overflow-hidden hover:border-white/20 transition-all">
-                <div className="p-6 border-b border-white/10 flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-blue-300/80 uppercase tracking-widest mb-1">{locale.cvSection.generalLabel}</p>
-                    <h3 className="text-white font-semibold text-lg">Marc Muntané Clarà</h3>
-                  </div>
-                  <MagneticElement inline strength={0.2}>
-                    <a href={cvGeneralPath} target="_blank" rel="noopener noreferrer" className="cursor-morph cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors">
-                      <ArrowUpRight size={16} />
-                      {locale.labels.openPdf}
-                    </a>
-                  </MagneticElement>
-                </div>
-                <div className="h-[500px] bg-[var(--bg-tertiary)]">
-                  <iframe src={cvGeneralPath} title="CV Marc Muntané Clarà" className="w-full h-full" />
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={150}>
-              <div className="bg-[var(--bg-secondary)] border border-white/10 rounded-3xl overflow-hidden hover:border-white/20 transition-all">
-                <div className="p-6 border-b border-white/10 flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-blue-300/80 uppercase tracking-widest mb-1">{locale.cvSection.localizedLabel}</p>
-                    <h3 className="text-white font-semibold text-lg">Marc Muntané Clarà — {locale.cvSection.langName}</h3>
-                  </div>
-                  <MagneticElement inline strength={0.2}>
-                    <a href={cvLocalizedPath} target="_blank" rel="noopener noreferrer" className="cursor-morph cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors">
-                      <ArrowUpRight size={16} />
-                      {locale.labels.openPdf}
-                    </a>
-                  </MagneticElement>
-                </div>
-                <div className="h-[500px] bg-[var(--bg-tertiary)]">
-                  <iframe src={cvLocalizedPath} title={`CV Marc Muntané Clarà - ${language.toUpperCase()}`} className="w-full h-full" />
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
         {/* --- FOOTER / CTA --- */}
         <section id="contact" className="px-6 pt-12 pb-24 text-center relative overflow-visible border-t border-white/5">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-blue-600/15 rounded-full blur-[180px] pointer-events-none mix-blend-screen" />
@@ -2314,7 +2165,6 @@ export default function App() {
         ) : null}
 
       </main>
-      </div>
     </div>
   );
 }
