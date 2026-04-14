@@ -1,0 +1,28 @@
+{
+  "general": {
+    "pdf": "docs/cv/marc-muntane-clara-cv.pdf",
+    "pages": [
+      "docs/cv-previews/general/page-1.png",
+      "docs/cv-previews/general/page-2.png",
+      "docs/cv-previews/general/page-3.png"
+    ]
+  },
+  "ca": {
+    "pdf": "docs/cv/marc-muntane-clara-cv-ca.pdf",
+    "pages": [
+      "docs/cv-previews/ca/page-1.png"
+    ]
+  },
+  "es": {
+    "pdf": "docs/cv/marc-muntane-clara-cv-es.pdf",
+    "pages": [
+      "docs/cv-previews/es/page-1.png"
+    ]
+  },
+  "en": {
+    "pdf": "docs/cv/marc-muntane-clara-cv-en.pdf",
+    "pages": [
+      "docs/cv-previews/en/page-1.png"
+    ]
+  }
+}

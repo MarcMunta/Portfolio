@@ -1,6 +1,9 @@
 ﻿'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { 
   Github, 
   Linkedin, 
@@ -14,10 +17,13 @@ import {
   PenTool,
   Code2,
   Rocket,
+  BrainCircuit,
   Briefcase,
   Sun,
   Moon
 } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // --- ESTILOS GLOBALES Y ANIMACIONES COMPLEJAS ---
 const globalStyles = `
@@ -316,6 +322,69 @@ const globalStyles = `
   .comet-3 { top: -10%; left: 10%; width: 90px; animation-duration: 15s; animation-delay: 14s; }
   .comet-4 { top: 70%; left: -30%; width: 220px; animation-duration: 22s; animation-delay: 5s; }
 
+  /* Capa de estrellas estaticas con destello sutil */
+  .starfield {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .starfield::before,
+  .starfield::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .starfield::before {
+    background-image:
+      radial-gradient(circle at 18px 26px, rgba(255, 255, 255, 0.34) 0 1.3px, transparent 1.5px),
+      radial-gradient(circle at 122px 88px, rgba(255, 255, 255, 0.24) 0 1px, transparent 1.2px),
+      radial-gradient(circle at 214px 54px, rgba(255, 255, 255, 0.28) 0 1.1px, transparent 1.3px),
+      radial-gradient(circle at 78px 164px, rgba(255, 255, 255, 0.2) 0 0.95px, transparent 1.15px),
+      radial-gradient(circle at 266px 192px, rgba(255, 255, 255, 0.26) 0 1px, transparent 1.25px);
+    background-size: 320px 240px;
+    opacity: 0.66;
+  }
+  .starfield::after {
+    background-image:
+      radial-gradient(circle at 36px 42px, rgba(147, 197, 253, 0.2) 0 1.1px, transparent 1.3px),
+      radial-gradient(circle at 146px 124px, rgba(255, 255, 255, 0.18) 0 1px, transparent 1.2px),
+      radial-gradient(circle at 248px 76px, rgba(196, 181, 253, 0.18) 0 0.95px, transparent 1.15px),
+      radial-gradient(circle at 302px 188px, rgba(255, 255, 255, 0.16) 0 0.9px, transparent 1.1px);
+    background-size: 380px 280px;
+    opacity: 0.46;
+    animation: star-drift 90s linear infinite;
+  }
+  .star {
+    position: absolute;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.45) 45%, rgba(255, 255, 255, 0) 100%);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.45);
+    opacity: var(--star-opacity, 0.38);
+    mix-blend-mode: screen;
+    animation: star-twinkle var(--twinkle-dur, 8s) ease-in-out infinite;
+    animation-delay: var(--twinkle-delay, 0s);
+    transform: translateZ(0);
+  }
+  @keyframes star-twinkle {
+    0%, 100% { opacity: calc(var(--star-opacity, 0.3) * 0.7); transform: scale(1); }
+    50% { opacity: calc(var(--star-opacity, 0.3) * 1.4); transform: scale(1.12); }
+  }
+  @keyframes star-drift {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-48px, -26px, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .star,
+    .comet {
+      animation: none !important;
+    }
+    .starfield::after {
+      animation: none !important;
+    }
+  }
+
   /* Language switch */
   @keyframes lang-fade-in {
     from { opacity: 0.55; filter: blur(3px); transform: translateY(6px); }
@@ -331,6 +400,11 @@ const globalStyles = `
   .sticky-card-wrapper {
     position: sticky;
     will-change: transform;
+  }
+
+  .gsap-reveal,
+  [data-gsap-project-card] {
+    will-change: transform, opacity;
   }
 
   /* MUY IMPORTANTE: Evita que la burbuja parpadee o se pierda al pasar por el texto de los botones */
@@ -491,6 +565,28 @@ const globalStyles = `
     opacity: 0.15 !important;
     mix-blend-mode: multiply !important;
   }
+  [data-theme="light"] .star {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.68) 0%, rgba(59, 130, 246, 0.32) 45%, rgba(59, 130, 246, 0) 100%);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.28);
+    mix-blend-mode: multiply;
+  }
+  [data-theme="light"] .starfield::before {
+    background-image:
+      radial-gradient(circle at 18px 26px, rgba(59, 130, 246, 0.22) 0 1.3px, transparent 1.5px),
+      radial-gradient(circle at 122px 88px, rgba(59, 130, 246, 0.14) 0 1px, transparent 1.2px),
+      radial-gradient(circle at 214px 54px, rgba(14, 116, 144, 0.16) 0 1.1px, transparent 1.3px),
+      radial-gradient(circle at 78px 164px, rgba(30, 64, 175, 0.12) 0 0.95px, transparent 1.15px),
+      radial-gradient(circle at 266px 192px, rgba(59, 130, 246, 0.15) 0 1px, transparent 1.25px);
+    opacity: 0.52;
+  }
+  [data-theme="light"] .starfield::after {
+    background-image:
+      radial-gradient(circle at 36px 42px, rgba(14, 116, 144, 0.13) 0 1.1px, transparent 1.3px),
+      radial-gradient(circle at 146px 124px, rgba(59, 130, 246, 0.11) 0 1px, transparent 1.2px),
+      radial-gradient(circle at 248px 76px, rgba(30, 64, 175, 0.1) 0 0.95px, transparent 1.15px),
+      radial-gradient(circle at 302px 188px, rgba(59, 130, 246, 0.09) 0 0.9px, transparent 1.1px);
+    opacity: 0.36;
+  }
   [data-theme="light"] .bg-white\\/70 {
     background-color: rgba(15, 23, 42, 0.35) !important;
   }
@@ -525,6 +621,50 @@ const globalStyles = `
     transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 `;
+
+const STAR_POINTS = [
+  { top: '7%', left: '8%', size: 1.6, opacity: 0.22, duration: 7.5, delay: 0.2 },
+  { top: '11%', left: '21%', size: 1.2, opacity: 0.3, duration: 8.3, delay: 1.1 },
+  { top: '6%', left: '37%', size: 1.8, opacity: 0.24, duration: 9.4, delay: 2.7 },
+  { top: '13%', left: '52%', size: 1.1, opacity: 0.28, duration: 7.9, delay: 3.6 },
+  { top: '9%', left: '66%', size: 1.4, opacity: 0.26, duration: 8.6, delay: 2.1 },
+  { top: '5%', left: '79%', size: 1.7, opacity: 0.2, duration: 10.2, delay: 4.4 },
+  { top: '12%', left: '90%', size: 1.3, opacity: 0.27, duration: 8.8, delay: 5.6 },
+  { top: '20%', left: '14%', size: 1.9, opacity: 0.22, duration: 9.1, delay: 0.8 },
+  { top: '25%', left: '29%', size: 1.2, opacity: 0.31, duration: 7.4, delay: 2.4 },
+  { top: '18%', left: '45%', size: 1.5, opacity: 0.25, duration: 9.8, delay: 3.9 },
+  { top: '23%', left: '58%', size: 1.1, opacity: 0.29, duration: 8.1, delay: 1.7 },
+  { top: '17%', left: '74%', size: 1.7, opacity: 0.23, duration: 9.7, delay: 6.2 },
+  { top: '26%', left: '86%', size: 1.4, opacity: 0.28, duration: 8.5, delay: 0.4 },
+  { top: '34%', left: '6%', size: 1.2, opacity: 0.3, duration: 7.2, delay: 2.8 },
+  { top: '39%', left: '19%', size: 1.6, opacity: 0.24, duration: 10.4, delay: 3.3 },
+  { top: '31%', left: '33%', size: 1.1, opacity: 0.27, duration: 8.7, delay: 5.1 },
+  { top: '43%', left: '47%', size: 1.8, opacity: 0.21, duration: 9.5, delay: 1.3 },
+  { top: '36%', left: '61%', size: 1.3, opacity: 0.26, duration: 7.8, delay: 4.8 },
+  { top: '41%', left: '76%', size: 1.5, opacity: 0.25, duration: 9.2, delay: 2.5 },
+  { top: '33%', left: '92%', size: 1.2, opacity: 0.29, duration: 8.4, delay: 6.6 },
+  { top: '52%', left: '11%', size: 1.7, opacity: 0.22, duration: 9.9, delay: 0.9 },
+  { top: '57%', left: '24%', size: 1.2, opacity: 0.3, duration: 7.7, delay: 2.9 },
+  { top: '49%', left: '38%', size: 1.4, opacity: 0.26, duration: 8.9, delay: 4.1 },
+  { top: '54%', left: '53%', size: 1.1, opacity: 0.31, duration: 7.1, delay: 5.8 },
+  { top: '58%', left: '68%', size: 1.9, opacity: 0.2, duration: 10.6, delay: 1.4 },
+  { top: '51%', left: '82%', size: 1.3, opacity: 0.28, duration: 8.2, delay: 3.2 },
+  { top: '62%', left: '94%', size: 1.5, opacity: 0.24, duration: 9.3, delay: 6.1 },
+  { top: '71%', left: '7%', size: 1.2, opacity: 0.3, duration: 7.6, delay: 0.3 },
+  { top: '78%', left: '18%', size: 1.6, opacity: 0.23, duration: 9.6, delay: 1.8 },
+  { top: '73%', left: '35%', size: 1.1, opacity: 0.29, duration: 8.8, delay: 4.6 },
+  { top: '80%', left: '49%', size: 1.8, opacity: 0.21, duration: 10.1, delay: 5.3 },
+  { top: '74%', left: '64%', size: 1.3, opacity: 0.27, duration: 8.3, delay: 2.2 },
+  { top: '82%', left: '77%', size: 1.5, opacity: 0.24, duration: 9.7, delay: 3.7 },
+  { top: '76%', left: '89%', size: 1.2, opacity: 0.3, duration: 7.9, delay: 6.4 },
+  { top: '89%', left: '12%', size: 1.4, opacity: 0.26, duration: 9.2, delay: 0.7 },
+  { top: '93%', left: '27%', size: 1.7, opacity: 0.22, duration: 10.3, delay: 2.6 },
+  { top: '87%', left: '43%', size: 1.1, opacity: 0.31, duration: 7.3, delay: 4.2 },
+  { top: '91%', left: '57%', size: 1.6, opacity: 0.23, duration: 8.6, delay: 5.9 },
+  { top: '85%', left: '71%', size: 1.3, opacity: 0.28, duration: 9.4, delay: 1.6 },
+  { top: '94%', left: '84%', size: 1.5, opacity: 0.25, duration: 8.1, delay: 3.4 },
+  { top: '88%', left: '96%', size: 1.2, opacity: 0.29, duration: 7.8, delay: 6.8 },
+];
 
 // --- COMPONENTES AUXILIARES ---
 
@@ -646,6 +786,27 @@ const CustomCursor = () => {
 // 2. Elemento MagnÃ©tico â€" optimizado con useRef + DOM directo (sin re-renders)
 const MagneticElement = ({ children, className = "", inline = false, strength = 0.1, spring = 'cubic-bezier(0.2, 0.8, 0.2, 1)' }) => {
   const ref = useRef(null);
+  const xToRef = useRef(null);
+  const yToRef = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    xToRef.current = gsap.quickTo(ref.current, 'x', {
+      duration: 0.45,
+      ease: 'power3.out',
+    });
+    yToRef.current = gsap.quickTo(ref.current, 'y', {
+      duration: 0.45,
+      ease: 'power3.out',
+    });
+
+    return () => {
+      if (xToRef.current) xToRef.current(0);
+      if (yToRef.current) yToRef.current(0);
+    };
+  }, []);
 
   const handleMouse = (e) => {
     if (!ref.current) return;
@@ -653,12 +814,26 @@ const MagneticElement = ({ children, className = "", inline = false, strength = 
     const { height, width, left, top } = ref.current.getBoundingClientRect();
     const mx = (clientX - (left + width / 2)) * strength;
     const my = (clientY - (top + height / 2)) * strength;
+
+    if (xToRef.current && yToRef.current) {
+      xToRef.current(mx);
+      yToRef.current(my);
+      return;
+    }
+
     ref.current.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
     ref.current.style.transition = 'transform 0.1s linear';
   };
 
   const reset = () => {
     if (!ref.current) return;
+
+    if (xToRef.current && yToRef.current) {
+      xToRef.current(0);
+      yToRef.current(0);
+      return;
+    }
+
     ref.current.style.transform = 'translate3d(0, 0, 0)';
     ref.current.style.transition = `transform 1s ${spring}`;
   };
@@ -680,33 +855,53 @@ const BackgroundEffects = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const sy = window.scrollY;
-          const container = containerRef.current;
-          if (!container) { ticking = false; return; }
-          const els = container.querySelectorAll('[data-parallax]');
-          els.forEach(el => {
-            const speed = parseFloat(el.dataset.parallax) || 0;
-            const rot = el.dataset.rotate ? parseFloat(el.dataset.rotate) * sy : 0;
-            el.style.transform = rot
-              ? `translateY(${sy * speed}px) rotate(${rot}deg)`
-              : `translateY(${sy * speed}px)`;
-          });
-          ticking = false;
+    if (!containerRef.current) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const ctx = gsap.context(() => {
+      const parallaxElements = gsap.utils.toArray('[data-parallax]');
+
+      parallaxElements.forEach((el) => {
+        const speed = parseFloat(el.getAttribute('data-parallax') || '0') || 0;
+        const rotationFactor = parseFloat(el.getAttribute('data-rotate') || '0') || 0;
+
+        gsap.to(el, {
+          yPercent: speed * 120,
+          rotation: rotationFactor ? rotationFactor * 120 : 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: document.body,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true,
+          },
         });
-        ticking = true;
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <div ref={containerRef} className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <div className="grid-bg" data-parallax="0.05" />
+      <div className="starfield" aria-hidden="true">
+        {STAR_POINTS.map((star) => (
+          <span
+            key={`${star.top}-${star.left}`}
+            className="star"
+            style={{
+              top: star.top,
+              left: star.left,
+              width: `${star.size + 0.35}px`,
+              height: `${star.size + 0.35}px`,
+              '--star-opacity': Math.min(star.opacity + 0.15, 0.56),
+              '--twinkle-dur': `${star.duration}s`,
+              '--twinkle-delay': `${star.delay}s`,
+            }}
+          />
+        ))}
+      </div>
       <div className="comet-wrapper">
         <div className="comet comet-1"></div>
         <div className="comet comet-2"></div>
@@ -744,40 +939,115 @@ const BackgroundEffects = () => {
 
 // 4. Scroll Reveal
 const Reveal = ({ children, delay = 0, className = "" }) => {
-  const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
     const currentRef = ref.current;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        if (currentRef) observer.unobserve(currentRef);
-      }
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-    
-    if (currentRef) observer.observe(currentRef);
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-      observer.disconnect();
-    };
-  }, []);
+    if (!currentRef) return undefined;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(currentRef, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' });
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.set(currentRef, { opacity: 0, y: 56, scale: 0.98 });
+      gsap.to(currentRef, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1.1,
+        delay: delay / 1000,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: currentRef,
+          start: 'top 84%',
+          once: true,
+        },
+      });
+    }, currentRef);
+
+    return () => ctx.revert();
+  }, [delay]);
 
   return (
-    <div
-      ref={ref}
-      style={{
-        transitionDelay: `${delay}ms`,
-        transitionDuration: "1200ms",
-        transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-      }}
-      className={`transition-all ${
-        isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-[0.98]'
-      } ${className}`}
-    >
+    <div ref={ref} className={`gsap-reveal ${className}`}>
       {children}
     </div>
   );
+};
+
+const InlineCvPreview = ({ pages, title }) => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [imageFailed, setImageFailed] = useState(false);
+  const pageCount = pages.length;
+  const currentPage = pages[pageNumber - 1] || null;
+
+  useEffect(() => {
+    setPageNumber(1);
+  }, [pages]);
+
+  useEffect(() => {
+    setImageFailed(false);
+  }, [currentPage]);
+
+  const canGoPrev = pageNumber > 1;
+  const canGoNext = pageNumber < pageCount;
+
+  return (
+    <div className="h-full w-full flex flex-col bg-[var(--bg-tertiary)]">
+      <div className="h-11 px-3 border-b border-white/10 flex items-center justify-between text-xs text-gray-400">
+        <span className="truncate">{title}</span>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setPageNumber((prev) => Math.max(prev - 1, 1))}
+            disabled={!canGoPrev}
+            className="px-2.5 py-1 rounded-md border border-white/15 text-gray-200 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-white/10 transition-colors"
+          >
+            Anterior
+          </button>
+          <span className="min-w-[70px] text-center">{pageCount ? `${pageNumber}/${pageCount}` : '--/--'}</span>
+          <button
+            type="button"
+            onClick={() => setPageNumber((prev) => Math.min(prev + 1, pageCount || prev))}
+            disabled={!canGoNext}
+            className="px-2.5 py-1 rounded-md border border-white/15 text-gray-200 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-white/10 transition-colors"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-auto p-3 flex items-start justify-center">
+        {!currentPage ? (
+          <div className="text-sm text-gray-300 mt-8">No hay previsualizacion disponible.</div>
+        ) : imageFailed ? (
+          <div className="text-sm text-red-300 mt-8">No se pudo cargar la imagen de previsualizacion del CV.</div>
+        ) : (
+          <img
+            src={currentPage}
+            alt={`${title} - pagina ${pageNumber}`}
+            loading="lazy"
+            decoding="async"
+            onError={() => setImageFailed(true)}
+            className="max-w-full h-auto rounded-lg shadow-[0_14px_34px_rgba(0,0,0,0.45)]"
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+const CV_PREVIEW_PAGES = {
+  general: [
+    'docs/cv-previews/general/page-1.png',
+    'docs/cv-previews/general/page-2.png',
+    'docs/cv-previews/general/page-3.png',
+  ],
+  ca: ['docs/cv-previews/ca/page-1.png'],
+  es: ['docs/cv-previews/es/page-1.png'],
+  en: ['docs/cv-previews/en/page-1.png'],
 };
 
 const FlagIcon = ({ code }) => {
@@ -854,6 +1124,10 @@ export default function App() {
   const contentRef = useRef(null);
   const isFirstRender = useRef(true);
   const mouseInHoverZone = useRef(false);
+  const appRef = useRef(null);
+  const mainRef = useRef(null);
+  const scrollProgressRef = useRef(null);
+  const modalCardRef = useRef(null);
 
   const closePdfModal = () => setActivePdfProjectId(null);
 
@@ -971,11 +1245,161 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  useEffect(() => {
+    if (!appRef.current) return undefined;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set('[data-gsap-hero], [data-gsap-nav], [data-gsap-section], [data-gsap-project-card]', {
+          clearProps: 'all',
+        });
+      } else {
+        gsap.fromTo(
+          '[data-gsap-nav]',
+          { y: -36, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out', stagger: 0.08 }
+        );
+
+        gsap.fromTo(
+          '[data-gsap-hero]',
+          { y: 46, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out',
+            stagger: 0.12,
+            delay: 0.2,
+          }
+        );
+
+        if (mainRef.current && scrollProgressRef.current) {
+          gsap.fromTo(
+            scrollProgressRef.current,
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: mainRef.current,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: true,
+              },
+            }
+          );
+        }
+
+        gsap.utils.toArray('[data-gsap-section]').forEach((section) => {
+          gsap.fromTo(
+            section,
+            { y: 70, opacity: 0.35 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1.2,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 92%',
+                end: 'top 65%',
+                scrub: 0.8,
+              },
+            }
+          );
+        });
+
+        gsap.utils.toArray('[data-gsap-project-card]').forEach((card, index) => {
+          gsap.fromTo(
+            card,
+            { y: 80, opacity: 0.4, scale: 0.96 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 1.1,
+              ease: 'power3.out',
+              delay: index * 0.05,
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 92%',
+                end: 'top 62%',
+                scrub: 1,
+              },
+            }
+          );
+        });
+      }
+
+      gsap.utils.toArray('[data-process-step]').forEach((stepEl, index) => {
+        ScrollTrigger.create({
+          trigger: stepEl,
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => setActiveProcessStep(index),
+          onEnterBack: () => setActiveProcessStep(index),
+        });
+      });
+
+      ScrollTrigger.refresh();
+    }, appRef);
+
+    return () => ctx.revert();
+  }, [language]);
+
+  useEffect(() => {
+    if (!activePdfProjectId || !modalCardRef.current) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        modalCardRef.current,
+        { y: 36, opacity: 0, scale: 0.96 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: 'power3.out' }
+      );
+    }, modalCardRef);
+
+    return () => ctx.revert();
+  }, [activePdfProjectId]);
+
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
-  const handleNavClick = (section) => {
+  const scrollToSection = (section, event) => {
+    if (event) event.preventDefault();
+
+    if (section === 'hero') {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      } else {
+        gsap.to(window, { duration: 1.1, ease: 'power3.inOut', scrollTo: 0 });
+      }
+      return;
+    }
+
+    const target = document.getElementById(section);
+    if (!target) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      return;
+    }
+
+    gsap.to(window, {
+      duration: 1.1,
+      ease: 'power3.inOut',
+      scrollTo: {
+        y: target,
+        offsetY: 95,
+      },
+    });
+  };
+
+  const handleNavClick = (section, event) => {
     setClickedNav(section);
     setTimeout(() => setClickedNav(null), 300);
+    scrollToSection(section, event);
   };
 
   const languageOptions = [
@@ -1040,7 +1464,7 @@ export default function App() {
         introHighlight: 'Web i Multiplataforma',
         introEnd: 'en formacio a STUCOM.',
         secondStart: 'Connecto documentacio tecnica, UI/UX i desenvolupament en',
-        secondHighlight: 'React, WordPress i Flutter',
+        secondHighlight: 'React, WordPress, Flutter i IA aplicada',
         scroll: 'Scroll',
       },
       expertise: {
@@ -1054,6 +1478,16 @@ export default function App() {
         mobileDesc: 'Aplicacions multiplataforma amb focus en rendiment i UX.',
         infraTitle: 'Infra i Documentacio',
         infraDesc: 'Experiencia en xarxes i sistemes: pfSense, Active Directory, DHCP/DNS i documentacio tecnica completa.',
+        aiTitle: 'IA Aplicada i LLMs',
+        aiDesc: 'La IA es una part central del meu perfil: treballo training i ajust de models, creo i configuro entorns LLM, i aplico eines d IA per accelerar analisi, desenvolupament i documentacio.',
+        aiSkills: [
+          'Training i fine-tuning',
+          'Creacio i configuracio de LLM',
+          'Prompt engineering',
+          'Bases de xarxes neuronals',
+          'Eines d IA per automatitzar',
+          'Avaluacio de respostes i context',
+        ],
       },
       process: {
         titleStart: 'El',
@@ -1098,7 +1532,7 @@ export default function App() {
       experienceItems: [
         {
           year: '2026 - 2027',
-          role: 'Pla destudi dIA',
+          role: 'Master en IA & Big Data',
           company: 'Formacio de tardes + feina activa',
           desc: 'Formacio en intel.ligencia artificial en horari de tarda, mantenint activitat laboral durant el periode.',
           align: 'left',
@@ -1178,7 +1612,7 @@ export default function App() {
           year: '2024',
           duration: 'Practica tecnica completa',
           summary: 'Projecte integrat amb frontend en Angular, backend en PHP amb endpoints, autenticacio amb localStorage i integracio frontend-backend sobre API.',
-          pdfPath: '/docs/pr08-front-end-back-end.pdf',
+          pdfPath: 'docs/pr08-front-end-back-end.pdf',
           stackIcons: [
             { label: 'Angular Forms & Login', icon: <Layers size={14} /> },
             { label: 'Llistat & UI', icon: <Smartphone size={14} /> },
@@ -1217,7 +1651,7 @@ export default function App() {
         introHighlight: 'Web y Multiplataforma',
         introEnd: 'en formacion en STUCOM.',
         secondStart: 'Conecto documentacion tecnica, UI/UX y desarrollo en',
-        secondHighlight: 'React, WordPress y Flutter',
+        secondHighlight: 'React, WordPress, Flutter e IA aplicada',
         scroll: 'Scroll',
       },
       expertise: {
@@ -1231,6 +1665,16 @@ export default function App() {
         mobileDesc: 'Aplicaciones multiplataforma con foco en rendimiento y UX.',
         infraTitle: 'Infra y Documentacion',
         infraDesc: 'Experiencia en redes y sistemas: pfSense, Active Directory, DHCP/DNS y documentacion tecnica completa.',
+        aiTitle: 'IA Aplicada y LLMs',
+        aiDesc: 'La IA es una parte central de mi perfil: trabajo training y ajuste de modelos, creo y configuro entornos LLM, y aplico herramientas con IA para acelerar analisis, desarrollo y documentacion.',
+        aiSkills: [
+          'Training y fine-tuning',
+          'Creacion y configuracion de LLM',
+          'Prompt engineering',
+          'Fundamentos de redes neuronales',
+          'Herramientas IA para automatizacion',
+          'Evaluacion de respuestas y contexto',
+        ],
       },
       process: {
         titleStart: 'El',
@@ -1275,14 +1719,14 @@ export default function App() {
       experienceItems: [
         {
           year: '2026 - 2027',
-          role: 'Plan de estudio de IA',
+          role: 'Master en IA & Big Data',
           company: 'Formacion de tardes + trabajo activo',
           desc: 'Formacion en inteligencia artificial en horario de tarde, manteniendo actividad laboral durante el periodo.',
           align: 'left',
         },
         {
-          year: '2025 - 2026',
-          role: 'Erasmus+ - M5 Studios (Irlanda)',
+          year: '2026 - 2027',
+          role: 'Master in AI & Big Data',
           company: 'Flutter y frontend',
           desc: 'Mas de 350 horas creando apps multiplataforma con Flutter e integracion de Mapbox, con foco en UI/UX y frontend.',
           align: 'right',
@@ -1355,7 +1799,7 @@ export default function App() {
           year: '2024',
           duration: 'Practica tecnica completa',
           summary: 'Proyecto integrado con frontend en Angular (formularios, login, listado), backend en PHP con endpoints, autenticacion con localStorage e integracion frontend-backend sobre API.',
-          pdfPath: '/docs/pr08-front-end-back-end.pdf',
+          pdfPath: 'docs/pr08-front-end-back-end.pdf',
           stackIcons: [
             { label: 'Angular Forms & Login', icon: <Layers size={14} /> },
             { label: 'Listado & UI', icon: <Smartphone size={14} /> },
@@ -1394,7 +1838,7 @@ export default function App() {
         introHighlight: 'Developer',
         introEnd: 'in training at STUCOM.',
         secondStart: 'I connect technical documentation, UI/UX, and development in',
-        secondHighlight: 'React, WordPress, and Flutter',
+        secondHighlight: 'React, WordPress, Flutter, and applied AI',
         scroll: 'Scroll',
       },
       expertise: {
@@ -1408,6 +1852,16 @@ export default function App() {
         mobileDesc: 'Cross-platform applications focused on performance and UX.',
         infraTitle: 'Infra & Documentation',
         infraDesc: 'Experience in networks and systems: pfSense, Active Directory, DHCP/DNS, and full technical documentation.',
+        aiTitle: 'Applied AI & LLMs',
+        aiDesc: 'AI is now a core part of my profile: I work on model training and tuning, build and configure LLM environments, and use AI tools to speed up analysis, development, and documentation.',
+        aiSkills: [
+          'Training and fine-tuning',
+          'LLM setup and configuration',
+          'Prompt engineering',
+          'Neural network foundations',
+          'AI tooling for automation',
+          'Response and context evaluation',
+        ],
       },
       process: {
         titleStart: 'The',
@@ -1532,7 +1986,7 @@ export default function App() {
           year: '2024',
           duration: 'Complete technical practice',
           summary: 'Integrated project with Angular frontend (forms, login, list), PHP backend endpoints, localStorage auth, and frontend-backend API integration.',
-          pdfPath: '/docs/pr08-front-end-back-end.pdf',
+          pdfPath: 'docs/pr08-front-end-back-end.pdf',
           stackIcons: [
             { label: 'Angular Forms & Login', icon: <Layers size={14} /> },
             { label: 'List & UI', icon: <Smartphone size={14} /> },
@@ -1549,9 +2003,9 @@ export default function App() {
   const locale = contentByLanguage[language] || contentByLanguage.es;
   const navItems = locale.navItems;
   const projects = locale.projects;
-  const cvGeneralPath = '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0.pdf';
-  const cvLocalizedPaths = { ca: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20CA.pdf', es: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20ES.pdf', en: '/docs/Marc%20Muntan%C3%A9%20Clar%C3%A0%20-%20EN.pdf' };
-  const cvLocalizedPath = cvLocalizedPaths[language] || cvLocalizedPaths.es;
+  const cvGeneralPreviewPages = CV_PREVIEW_PAGES.general;
+  const cvLocalizedPreviewPages = CV_PREVIEW_PAGES[language] || CV_PREVIEW_PAGES.es;
+  const pdfViewerParams = '#view=FitH&toolbar=0&navpanes=0&scrollbar=1';
   const processSteps = [
     { icon: <Compass size={24} />, ...locale.process.steps[0] },
     { icon: <PenTool size={24} />, ...locale.process.steps[1] },
@@ -1562,22 +2016,39 @@ export default function App() {
   const activePdfProject = activePdfProjectId
     ? projects.find((project) => project.id === activePdfProjectId) || null
     : null;
+  const activePdfPreviewPath = activePdfProject?.pdfPath ? `${activePdfProject.pdfPath}${pdfViewerParams}` : null;
+
+  useEffect(() => {
+    // Precarga imagenes de previsualizacion para respuesta instantanea.
+    const urls = [...cvGeneralPreviewPages, ...cvLocalizedPreviewPages];
+    urls.forEach((url) => {
+      const image = new Image();
+      image.src = url;
+    });
+  }, [cvGeneralPreviewPages, cvLocalizedPreviewPages]);
 
   return (
-    <div className="bg-[var(--bg-primary)] min-h-screen text-white relative selection:bg-blue-500/30 selection:text-white">
+    <div ref={appRef} className="bg-[var(--bg-primary)] min-h-screen text-white relative selection:bg-blue-500/30 selection:text-white">
+      <div className="fixed top-0 left-0 right-0 z-[130] h-[3px] pointer-events-none" aria-hidden="true">
+        <div
+          ref={scrollProgressRef}
+          className="h-full w-full origin-left scale-x-0 bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-500 shadow-[0_0_20px_rgba(56,189,248,0.55)]"
+        />
+      </div>
       <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
       <CustomCursor />
       <BackgroundEffects />
 
       {/* --- SMART NAVBAR --- */}
-      <div 
-        className={`fixed top-6 left-0 w-full flex justify-center z-50 pointer-events-none transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) animate-hero-1 ${
+      <div
+        data-gsap-nav
+        className={`fixed top-6 left-0 w-full flex justify-center z-50 pointer-events-none transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${
           showNav ? 'translate-y-0 opacity-100' : '-translate-y-32 opacity-0'
         }`}
       >
         <nav className="pointer-events-auto flex items-center justify-between gap-6 md:gap-14 px-8 py-3.5 rounded-full bg-[var(--bg-nav)] backdrop-blur-xl border border-[var(--border-primary)] shadow-[var(--shadow-nav)] hover:border-[var(--border-primary)] transition-all duration-500">
           <MagneticElement inline strength={0.15}>
-            <a href="#hero" onClick={() => handleNavClick('hero')} className={`font-display font-bold text-2xl tracking-tighter block cursor-morph ${clickedNav === 'hero' ? 'nav-clicked' : ''}`}>
+            <a href="#hero" onClick={(event) => handleNavClick('hero', event)} className={`font-display font-bold text-2xl tracking-tighter block cursor-morph ${clickedNav === 'hero' ? 'nav-clicked' : ''}`}>
               M<span className="text-blue-500">.</span>
             </a>
           </MagneticElement>
@@ -1588,7 +2059,7 @@ export default function App() {
                 <a 
                   href={`#${item.id}`} 
                   aria-label={`${locale.labels.goTo} ${item.label}`}
-                  onClick={() => handleNavClick(item.id)}
+                  onClick={(event) => handleNavClick(item.id, event)}
                   className={`relative block px-3 py-1 cursor-morph tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.12)] transition-colors duration-300 ${clickedNav === item.id ? 'nav-clicked' : ''} ${activeSection === item.id ? 'text-white' : 'text-gray-100 hover:text-white'}`}
                 >
                   {item.label}
@@ -1599,7 +2070,7 @@ export default function App() {
           </div>
           
           <MagneticElement inline strength={0.1}>
-            <a href="#contact" aria-label={locale.labels.goToContact} onClick={() => handleNavClick('contact')} className={`cursor-morph cta-btn block bg-[var(--cta-bg)] text-[var(--cta-text)] px-6 py-2.5 rounded-full text-sm font-bold shadow-[var(--cta-shadow)] hover:bg-[var(--cta-hover-bg)] transition-all ${clickedNav === 'contact' ? 'nav-clicked' : ''}`}>
+            <a href="#contact" aria-label={locale.labels.goToContact} onClick={(event) => handleNavClick('contact', event)} className={`cursor-morph cta-btn block bg-[var(--cta-bg)] text-[var(--cta-text)] px-6 py-2.5 rounded-full text-sm font-bold shadow-[var(--cta-shadow)] hover:bg-[var(--cta-hover-bg)] transition-all ${clickedNav === 'contact' ? 'nav-clicked' : ''}`}>
               {locale.labels.talkButton}
             </a>
           </MagneticElement>
@@ -1607,6 +2078,7 @@ export default function App() {
       </div>
 
       <div
+        data-gsap-nav
         className={`fixed top-6 right-6 z-50 pointer-events-auto transition-all duration-700 ${
           showNav ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
         }`}
@@ -1638,13 +2110,13 @@ export default function App() {
       </div>
 
       <div ref={contentRef}>
-      <main className="relative z-10">
+      <main ref={mainRef} className="relative z-10">
         
         {/* --- HERO SECTION --- */}
         <section id="hero" className="relative w-full min-h-screen flex flex-col items-center justify-center pt-20 pb-32">
           <div className="flex flex-col items-center text-center px-6 max-w-5xl">
             
-            <div className="animate-hero-2">
+            <div data-gsap-hero>
               <MagneticElement inline strength={0.1}>
                 <div className="cursor-morph inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/5 bg-white/[0.03] backdrop-blur-md mb-8 hover:bg-white/[0.05] transition-colors">
                   <span className="relative flex h-2 w-2">
@@ -1656,7 +2128,7 @@ export default function App() {
               </MagneticElement>
             </div>
 
-            <div className="animate-hero-3 w-full">
+            <div data-gsap-hero className="w-full">
               <MagneticElement strength={0.02} className="w-full">
                 <h1
                   className="font-display font-bold leading-[0.9] tracking-tight mb-8 drop-shadow-2xl select-none w-full text-center cursor-default px-[0.04em]"
@@ -1668,16 +2140,16 @@ export default function App() {
               </MagneticElement>
             </div>
 
-            <div className="animate-hero-4">
+            <div data-gsap-hero>
               <p className="max-w-2xl text-lg md:text-2xl text-gray-300 font-light leading-relaxed mb-12">
                 {locale.hero.introStart} <strong className="text-white font-medium">{locale.hero.introHighlight}</strong> {locale.hero.introEnd}<br className="hidden md:block"/> 
                 {locale.hero.secondStart} <strong className="text-gradient-blue font-medium">{locale.hero.secondHighlight}</strong>.
               </p>
             </div>
 
-            <div className="animate-hero-5">
+            <div data-gsap-hero>
               <MagneticElement inline strength={0.15}>
-                <a href="#projects" className="cursor-morph cta-btn group relative px-10 py-5 bg-[var(--cta-bg)] text-[var(--cta-text)] rounded-full font-bold flex items-center gap-3 overflow-hidden transition-transform hover:scale-[1.02] shadow-[var(--cta-shadow)]">
+                <a href="#projects" onClick={(event) => scrollToSection('projects', event)} className="cursor-morph cta-btn group relative px-10 py-5 bg-[var(--cta-bg)] text-[var(--cta-text)] rounded-full font-bold flex items-center gap-3 overflow-hidden transition-transform hover:scale-[1.02] shadow-[var(--cta-shadow)]">
                   <span className="relative z-10">{locale.labels.viewProjects}</span>
                   <ArrowUpRight size={20} className="relative z-10 transform group-hover:rotate-45 transition-transform duration-300"/>
                 </a>
@@ -1686,7 +2158,7 @@ export default function App() {
 
           </div>
 
-          <div className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-3 opacity-30 animate-pulse animate-hero-5">
+          <div data-gsap-hero className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-3 opacity-30 animate-pulse">
             <span className="text-xs tracking-widest uppercase font-medium">{locale.hero.scroll}</span>
             <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent" />
           </div>
@@ -1696,24 +2168,41 @@ export default function App() {
         <div className="py-8 border-y border-white/5 bg-[var(--bg-marquee)] overflow-hidden flex relative select-none">
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--bg-marquee)] to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--bg-marquee)] to-transparent z-10" />
-          <div className="animate-marquee flex gap-12 items-center font-display text-3xl md:text-5xl font-bold tracking-tighter text-transparent" style={{ WebkitTextStroke: `1px ${theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(15,23,42,0.08)'}` }}>
+          <div
+            className="animate-marquee flex gap-12 items-center font-display text-3xl md:text-5xl font-bold tracking-tighter"
+            style={{
+              color: theme === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(15,23,42,0.34)',
+              WebkitTextStroke: `0.55px ${theme === 'dark' ? 'rgba(255,255,255,0.22)' : 'rgba(15,23,42,0.14)'}`,
+              textShadow: theme === 'dark' ? '0 0 12px rgba(255,255,255,0.05)' : '0 0 10px rgba(15,23,42,0.05)',
+            }}
+          >
             <span className="text-white" style={{ WebkitTextStroke: '0px' }}>REACT</span> <span>*</span>
             <span>WORDPRESS</span> <span>*</span>
             <span className="text-blue-500" style={{ WebkitTextStroke: '0px' }}>FLUTTER</span> <span>*</span>
             <span>PFSENSE</span> <span>*</span>
             <span className="text-white" style={{ WebkitTextStroke: '0px' }}>MYSQL</span> <span>*</span>
             <span>UI/UX</span> <span>*</span>
+            <span>TRAINING</span> <span>*</span>
+            <span>LLM</span> <span>*</span>
+            <span>PROMPTS</span> <span>*</span>
+            <span className="text-white" style={{ WebkitTextStroke: '0px' }}>IA</span> <span>*</span>
+            <span>BIG DATA</span> <span>*</span>
             <span className="text-white" style={{ WebkitTextStroke: '0px' }}>REACT</span> <span>*</span>
             <span>WORDPRESS</span> <span>*</span>
             <span className="text-blue-500" style={{ WebkitTextStroke: '0px' }}>FLUTTER</span> <span>*</span>
             <span>PFSENSE</span> <span>*</span>
             <span className="text-white" style={{ WebkitTextStroke: '0px' }}>MYSQL</span> <span>*</span>
             <span>UI/UX</span> <span>*</span>
+            <span>TRAINING</span> <span>*</span>
+            <span>LLM</span> <span>*</span>
+            <span>PROMPTS</span> <span>*</span>
+            <span className="text-white" style={{ WebkitTextStroke: '0px' }}>IA</span> <span>*</span>
+            <span>BIG DATA</span> <span>*</span>
           </div>
         </div>
 
         {/* --- ESPECIALIDAD TECNICA --- */}
-        <section id="expertise" className="max-w-7xl mx-auto px-6 py-32">
+        <section id="expertise" data-gsap-section className="max-w-7xl mx-auto px-6 py-32">
           <Reveal>
             <h2 className="font-display text-5xl md:text-7xl font-bold mb-16 text-white tracking-tighter">
               {locale.expertise.titleStart} <span className="text-gradient-blue">{locale.expertise.titleAccent}</span>
@@ -1833,10 +2322,41 @@ export default function App() {
             </Reveal>
 
           </div>
+
+          <Reveal delay={460} className="mt-8">
+            <MagneticElement strength={0.015} className="w-full">
+              <div className="bento-card p-8 md:p-10 bg-gradient-to-br from-[var(--bg-secondary)] to-[var(--bg-tertiary)]">
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+                  <div className="max-w-3xl">
+                    <div className="inline-flex p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-5">
+                      <BrainCircuit size={24} />
+                    </div>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+                      {locale.expertise.aiTitle}
+                    </h3>
+                    <p className="text-gray-300/90 text-base md:text-lg leading-relaxed">
+                      {locale.expertise.aiDesc}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:max-w-[440px] w-full">
+                    {locale.expertise.aiSkills.map((skill) => (
+                      <div
+                        key={skill}
+                        className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-gray-200 font-semibold tracking-wide"
+                      >
+                        {skill}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </MagneticElement>
+          </Reveal>
         </section>
 
         {/* --- PROCESO CREATIVO MEJORADO --- */}
-        <section id="process" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+        <section id="process" data-gsap-section className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
           <Reveal>
             <div className="mb-16">
               <h2 className="font-display text-4xl md:text-6xl font-bold text-white tracking-tighter mb-4">
@@ -1858,7 +2378,8 @@ export default function App() {
               
               {processSteps.map((step, index) => (
                 <Reveal key={index} delay={index * 100}>
-                  <div 
+                  <div
+                    data-process-step
                     onMouseEnter={() => setActiveProcessStep(index)}
                     className={`process-tab cursor-morph p-6 rounded-2xl border border-transparent flex gap-6 items-center ${activeProcessStep === index ? 'active' : 'hover:bg-white/[0.02]'}`}
                   >
@@ -1947,7 +2468,7 @@ export default function App() {
         </section>
 
         {/* --- TRAYECTORIA (TIMELINE) --- */}
-        <section id="experience" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+        <section id="experience" data-gsap-section className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
           <Reveal>
             <div className="mb-24 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-6">
               <h2 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter">
@@ -1995,7 +2516,7 @@ export default function App() {
         </section>
 
         {/* --- TRABAJOS DESTACADOS --- */}
-        <section id="projects" className="w-full relative z-10 pt-10 pb-48 border-t border-white/5">
+        <section id="projects" data-gsap-section className="w-full relative z-10 pt-10 pb-48 border-t border-white/5">
           <div className="sticky top-0 z-30 w-full bg-[var(--bg-primary)]/90 backdrop-blur-xl border-b border-white/10 pt-20 pb-8 mb-16">
             <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-end gap-6">
               <Reveal>
@@ -2014,7 +2535,7 @@ export default function App() {
 
           <div className="max-w-7xl mx-auto px-6 flex flex-col pb-32">
             {projects.map((project, index) => (
-              <div key={project.id} className="sticky-card-wrapper w-full" style={{ zIndex: index, top: `calc(28vh + ${index * 35}px)`, marginBottom: '3rem' }}>
+              <div key={project.id} data-gsap-project-card className="sticky-card-wrapper w-full" style={{ zIndex: index, top: `calc(28vh + ${index * 35}px)`, marginBottom: '3rem' }}>
                 <MagneticElement strength={0.015} spring="cubic-bezier(0.16, 1, 0.3, 1)" className="w-full h-full bg-[var(--bg-secondary)] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-[var(--shadow-card)] transition-colors hover:border-white/20">
                   <div className="flex flex-col lg:flex-row min-h-[65vh] pointer-events-none w-full">
                     
@@ -2127,7 +2648,7 @@ export default function App() {
         </section>
 
         {/* --- CV / CURRICULUM --- */}
-        <section id="cv" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+        <section id="cv" data-gsap-section className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
             <Reveal>
               <h2 className="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter leading-none">
@@ -2150,15 +2671,10 @@ export default function App() {
                     <p className="text-sm text-blue-300/80 uppercase tracking-widest mb-1">{locale.cvSection.generalLabel}</p>
                     <h3 className="text-white font-semibold text-lg">Marc Muntané Clarà</h3>
                   </div>
-                  <MagneticElement inline strength={0.2}>
-                    <a href={cvGeneralPath} target="_blank" rel="noopener noreferrer" className="cursor-morph cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors">
-                      <ArrowUpRight size={16} />
-                      {locale.labels.openPdf}
-                    </a>
-                  </MagneticElement>
+                  <span className="text-xs md:text-sm text-gray-400 font-medium">Precargado desde el proyecto</span>
                 </div>
                 <div className="h-[500px] bg-[var(--bg-tertiary)]">
-                  <iframe src={cvGeneralPath} title="CV Marc Muntané Clarà" className="w-full h-full" />
+                  <InlineCvPreview pages={cvGeneralPreviewPages} title="CV general" />
                 </div>
               </div>
             </Reveal>
@@ -2170,15 +2686,10 @@ export default function App() {
                     <p className="text-sm text-blue-300/80 uppercase tracking-widest mb-1">{locale.cvSection.localizedLabel}</p>
                     <h3 className="text-white font-semibold text-lg">Marc Muntané Clarà — {locale.cvSection.langName}</h3>
                   </div>
-                  <MagneticElement inline strength={0.2}>
-                    <a href={cvLocalizedPath} target="_blank" rel="noopener noreferrer" className="cursor-morph cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors">
-                      <ArrowUpRight size={16} />
-                      {locale.labels.openPdf}
-                    </a>
-                  </MagneticElement>
+                  <span className="text-xs md:text-sm text-gray-400 font-medium">Precargado desde el proyecto</span>
                 </div>
                 <div className="h-[500px] bg-[var(--bg-tertiary)]">
-                  <iframe src={cvLocalizedPath} title={`CV Marc Muntané Clarà - ${language.toUpperCase()}`} className="w-full h-full" />
+                  <InlineCvPreview pages={cvLocalizedPreviewPages} title={`CV ${locale.cvSection.langName}`} />
                 </div>
               </div>
             </Reveal>
@@ -2186,7 +2697,7 @@ export default function App() {
         </section>
 
         {/* --- FOOTER / CTA --- */}
-        <section id="contact" className="px-6 pt-12 pb-24 text-center relative overflow-visible border-t border-white/5">
+        <section id="contact" data-gsap-section className="px-6 pt-12 pb-24 text-center relative overflow-visible border-t border-white/5">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-blue-600/15 rounded-full blur-[180px] pointer-events-none mix-blend-screen" />
           
           <Reveal>
@@ -2241,7 +2752,7 @@ export default function App() {
               }
             }}
           >
-            <div className="w-full max-w-6xl h-[88vh] bg-[var(--bg-modal)] border border-white/15 rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.3)]">
+            <div ref={modalCardRef} className="w-full max-w-6xl h-[88vh] bg-[var(--bg-modal)] border border-white/15 rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.3)]">
               <div className="h-16 border-b border-white/10 px-5 md:px-7 flex items-center justify-between bg-black/40">
                 <div className="min-w-0">
                   <p className="text-sm text-blue-300/80 uppercase tracking-widest">{activePdfProject.category}</p>
@@ -2270,7 +2781,7 @@ export default function App() {
 
               <div className="h-[calc(88vh-4rem)] bg-[var(--bg-tertiary)]">
                 <iframe
-                  src={activePdfProject.pdfPath}
+                  src={activePdfPreviewPath || activePdfProject.pdfPath}
                   title={`PDF ${activePdfProject.title}`}
                   className="w-full h-full"
                 />
