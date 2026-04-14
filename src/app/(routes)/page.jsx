@@ -1647,8 +1647,8 @@ export default function App() {
         closePreview: 'Cerrar vista previa',
       },
       hero: {
-        introStart: 'Desarrollador',
-        introHighlight: 'Web y Multiplataforma',
+        introStart: 'Desarrollo',
+        introHighlight: 'Web, Multiplataforma y IA & Big data',
         introEnd: 'en formacion en STUCOM.',
         secondStart: 'Conecto documentacion tecnica, UI/UX y desarrollo en',
         secondHighlight: 'React, WordPress, Flutter e IA aplicada',
