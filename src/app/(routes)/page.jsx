@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -87,6 +88,9 @@ const globalStyles = `
     --icon-container-border: rgba(255, 255, 255, 0.1);
 
     --timeline-node-bg: #000000;
+
+    --project-slide-width: min(88vw, 1100px);
+    --project-slide-gap: clamp(1rem, 2.4vw, 2.5rem);
   }
 
   [data-theme="light"] {
@@ -396,10 +400,95 @@ const globalStyles = `
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   .animate-marquee { animation: marquee 35s linear infinite; width: max-content; }
 
-  /* Fix de Apilamiento de Proyectos */
-  .sticky-card-wrapper {
-    position: sticky;
+  /* Scroll horizontal de proyectos con pin */
+  .projects-horizontal-pin {
+    position: relative;
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .projects-horizontal-viewport {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .projects-horizontal-track {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--project-slide-gap);
+    padding-inline: calc((100vw - var(--project-slide-width)) / 2);
     will-change: transform;
+  }
+
+  .projects-horizontal-slide {
+    flex: 0 0 var(--project-slide-width);
+    height: 100%;
+    max-height: 680px;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), filter 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: center center;
+  }
+
+  .projects-horizontal-slide:not(.is-active) {
+    transform: scale(0.9);
+    opacity: 0.58;
+    filter: saturate(0.78);
+  }
+
+  .projects-horizontal-slide.is-active {
+    transform: scale(1);
+    opacity: 1;
+    filter: saturate(1);
+    z-index: 2;
+  }
+
+  @media (max-width: 1024px) {
+    :root {
+      --project-slide-width: min(93vw, 940px);
+      --project-slide-gap: clamp(0.9rem, 3vw, 1.6rem);
+    }
+
+    .projects-horizontal-slide {
+      max-height: 620px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    :root {
+      --project-slide-width: min(95vw, 760px);
+    }
+
+    .projects-horizontal-slide {
+      max-height: 560px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .projects-horizontal-pin {
+      height: auto;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 1.25rem;
+    }
+
+    .projects-horizontal-track {
+      width: max-content;
+      min-width: 100%;
+      transform: none !important;
+    }
+
+    .projects-horizontal-slide,
+    .projects-horizontal-slide:not(.is-active),
+    .projects-horizontal-slide.is-active {
+      min-height: auto;
+      transform: none;
+      opacity: 1;
+      filter: none;
+    }
   }
 
   .gsap-reveal,
@@ -1118,6 +1207,7 @@ export default function App() {
   const [activePdfProjectId, setActivePdfProjectId] = useState(null);
   const [language, setLanguage] = useState('es');
   const [theme, setTheme] = useState('dark');
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   
   const lastScrollY = useRef(0);
   const navTimeout = useRef(null);
@@ -1128,6 +1218,10 @@ export default function App() {
   const mainRef = useRef(null);
   const scrollProgressRef = useRef(null);
   const modalCardRef = useRef(null);
+  const projectsSectionRef = useRef(null);
+  const projectsPinRef = useRef(null);
+  const projectsTrackRef = useRef(null);
+  const activeProjectIndexRef = useRef(0);
 
   const closePdfModal = () => setActivePdfProjectId(null);
 
@@ -1195,15 +1289,21 @@ export default function App() {
       }
     };
 
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
     if (activePdfProjectId) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       window.addEventListener('keydown', onEsc);
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
     }
 
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
       window.removeEventListener('keydown', onEsc);
     };
   }, [activePdfProjectId]);
@@ -1292,7 +1392,7 @@ export default function App() {
           );
         }
 
-        gsap.utils.toArray('[data-gsap-section]').forEach((section) => {
+        gsap.utils.toArray('[data-gsap-section]:not([data-gsap-projects])').forEach((section) => {
           gsap.fromTo(
             section,
             { y: 70, opacity: 0.35 },
@@ -1311,26 +1411,76 @@ export default function App() {
           );
         });
 
-        gsap.utils.toArray('[data-gsap-project-card]').forEach((card, index) => {
-          gsap.fromTo(
-            card,
-            { y: 80, opacity: 0.4, scale: 0.96 },
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              duration: 1.1,
-              ease: 'power3.out',
-              delay: index * 0.05,
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 92%',
-                end: 'top 62%',
-                scrub: 1,
-              },
+        if (projectsSectionRef.current && projectsPinRef.current && projectsTrackRef.current) {
+          const slides = gsap.utils.toArray('[data-project-slide]', projectsTrackRef.current);
+
+          const getHorizontalDistance = () => {
+            if (slides.length <= 1) return 0;
+            const firstSlide = slides[0];
+            const lastSlide = slides[slides.length - 1];
+
+            return Math.max(
+              0,
+              (lastSlide.offsetLeft + lastSlide.offsetWidth / 2) -
+                (firstSlide.offsetLeft + firstSlide.offsetWidth / 2)
+            );
+          };
+
+          const getPinnedDistance = () => {
+            const distance = getHorizontalDistance();
+            return Math.max(distance, window.innerWidth * 0.9);
+          };
+
+          const updateActiveProject = () => {
+            if (!projectsTrackRef.current || slides.length === 0) return;
+
+            const trackX = Number(gsap.getProperty(projectsTrackRef.current, 'x')) || 0;
+            const viewportCenter = window.innerWidth / 2;
+            let closestIndex = 0;
+            let closestDistance = Number.POSITIVE_INFINITY;
+
+            slides.forEach((slide, index) => {
+              const slideCenter = slide.offsetLeft + slide.offsetWidth / 2 + trackX;
+              const distance = Math.abs(viewportCenter - slideCenter);
+
+              if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+              }
+            });
+
+            if (closestIndex !== activeProjectIndexRef.current) {
+              activeProjectIndexRef.current = closestIndex;
+              setActiveProjectIndex(closestIndex);
             }
-          );
-        });
+          };
+
+          activeProjectIndexRef.current = 0;
+          setActiveProjectIndex(0);
+
+          if (slides.length > 1) {
+            gsap.to(projectsTrackRef.current, {
+              x: () => -getHorizontalDistance(),
+              ease: 'none',
+              scrollTrigger: {
+                trigger: projectsSectionRef.current,
+                start: 'top top',
+                end: () => `+=${getPinnedDistance()}`,
+                scrub: 0.35,
+                pin: projectsSectionRef.current,
+                pinSpacing: true,
+                pinReparent: true,
+                anticipatePin: 1,
+                fastScrollEnd: true,
+                invalidateOnRefresh: true,
+                onUpdate: updateActiveProject,
+                onRefresh: updateActiveProject,
+                onLeave: updateActiveProject,
+                onLeaveBack: updateActiveProject,
+              },
+            });
+          }
+        }
       }
 
       gsap.utils.toArray('[data-process-step]').forEach((stepEl, index) => {
@@ -1391,7 +1541,7 @@ export default function App() {
       ease: 'power3.inOut',
       scrollTo: {
         y: target,
-        offsetY: 95,
+        offsetY: section === 'projects' ? 0 : 95,
       },
     });
   };
@@ -1461,7 +1611,7 @@ export default function App() {
       },
       hero: {
         introStart: 'Desenvolupador',
-        introHighlight: 'Web i Multiplataforma',
+        introHighlight: 'Web, Multiplataforma i IA & Big Data',
         introEnd: 'en formacio a STUCOM.',
         secondStart: 'Connecto documentacio tecnica, UI/UX i desenvolupament en',
         secondHighlight: 'React, WordPress, Flutter i IA aplicada',
@@ -1508,7 +1658,7 @@ export default function App() {
       projectsSection: {
         titleTop: 'Projectes',
         titleBottom: 'Destacats.',
-        desc: 'Quatre projectes clau: aquest portfolio interactiu, un proxim projecte web del cole, una entrega web rapida i un cas full stack amb PDF.',
+        desc: 'Cinc projectes clau: aquest portfolio interactiu, un proxim projecte web del cole, una entrega web rapida, un cas full stack amb PDF i el projecte final de DAW.',
       },
       cvSection: {
         titleStart: 'El meu',
@@ -1577,6 +1727,7 @@ export default function App() {
           duration: 'Projecte personal · actualitzat el 2026 i en evolucio constant',
           summary: 'Aquest portfolio: cursor personalitzat amb particules, animacions de scroll reactives, fons interactiu amb SVG i cometes, targetes magnetiques i desplegament automatic a GitHub Pages.',
           url: 'https://github.com/MarcMunta/Portfolio',
+          ctaIcon: 'github',
           fullStack: commonFullStack,
         },
         {
@@ -1601,11 +1752,28 @@ export default function App() {
           duration: 'Completat en 1 setmana · treball del grau superior',
           summary: 'Landing informativa sobre habits sostenibles, dissenyada i desenvolupada en una setmana amb focus en claredat de contingut, responsive i accessibilitat base.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
           id: 4,
-          title: 'Pr08 Front-end & Back-end',
+          title: 'Final DAW Project - Nursing Platform',
+          category: 'Projecte Final DAW',
+          image: 'images/projects/curriculum-wireframes.jpg',
+          tags: ['Angular', 'Node.js', 'Express', 'MySQL'],
+          year: '2025',
+          duration: 'Projecte anual de final de curs DAW',
+          summary: 'Projecte de final de DAW desenvolupat durant tot el curs i fet completament en angles. Inclou frontend i backend separats, memoria en PDF i dos repositoris. S ha extret informacio d algunes IA, pero sense usar IA per programar.',
+          compactTitle: true,
+          pdfPath: 'docs/CineFlix_BryanJoya_MarcMuntane_PolCarvajal.pdf',
+          repoLinks: [
+            { label: 'Frontend', url: 'https://github.com/MarcMunta/EnfermeriaFrontend' },
+            { label: 'Backend', url: 'https://github.com/MarcMunta/enfermeria_back_end' },
+          ],
+        },
+        {
+          id: 5,
+          title: 'Projecte GM',
           category: 'Full Stack',
           image: 'images/projects/curriculum-cover.jpg',
           tags: ['Angular', 'PHP', 'API', 'Auth'],
@@ -1648,7 +1816,7 @@ export default function App() {
       },
       hero: {
         introStart: 'Desarrollo',
-        introHighlight: 'Web, Multiplataforma y IA & Big data',
+        introHighlight: 'Web, Multiplataforma y IA & Big Data',
         introEnd: 'en formacion en STUCOM.',
         secondStart: 'Conecto documentacion tecnica, UI/UX y desarrollo en',
         secondHighlight: 'React, WordPress, Flutter e IA aplicada',
@@ -1695,7 +1863,7 @@ export default function App() {
       projectsSection: {
         titleTop: 'Proyectos',
         titleBottom: 'Destacados.',
-        desc: 'Cuatro proyectos clave: este portfolio interactivo, un proximo proyecto web del cole, una entrega web rapida y un caso full stack con PDF.',
+        desc: 'Cinco proyectos clave: este portfolio interactivo, un proximo proyecto web del cole, una entrega web rapida, un caso full stack con PDF y el proyecto final de DAW.',
       },
       cvSection: {
         titleStart: 'Mi',
@@ -1764,6 +1932,7 @@ export default function App() {
           duration: 'Proyecto personal · actualizado en 2026 y en evolucion constante',
           summary: 'Este portfolio: cursor personalizado con particulas, animaciones de scroll reactivas, fondo interactivo con SVG y cometas, cards magneticas y despliegue automatico en GitHub Pages.',
           url: 'https://github.com/MarcMunta/Portfolio',
+          ctaIcon: 'github',
           fullStack: commonFullStack,
         },
         {
@@ -1788,11 +1957,28 @@ export default function App() {
           duration: 'Completado en 1 semana · trabajo del grado superior',
           summary: 'Landing informativa sobre habitos sostenibles, disenada y desarrollada en una semana con enfoque en claridad de contenido, responsive y accesibilidad base.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
           id: 4,
-          title: 'Pr08 Front-end & Back-end',
+          title: 'Proyecto Final DAW - Plataforma de Enfermeria',
+          category: 'Proyecto Final DAW',
+          image: 'images/projects/curriculum-wireframes.jpg',
+          tags: ['Angular', 'Node.js', 'Express', 'MySQL'],
+          year: '2025',
+          duration: 'Proyecto anual de fin de curso DAW',
+          summary: 'Proyecto de final de DAW desarrollado durante todo el ano y hecho completamente en ingles. Incluye frontend y backend separados, memoria en PDF y dos repositorios. Se saco informacion de algunas IA, pero sin usar IA para programar.',
+          compactTitle: true,
+          pdfPath: 'docs/CineFlix_BryanJoya_MarcMuntane_PolCarvajal.pdf',
+          repoLinks: [
+            { label: 'Frontend', url: 'https://github.com/MarcMunta/EnfermeriaFrontend' },
+            { label: 'Backend', url: 'https://github.com/MarcMunta/enfermeria_back_end' },
+          ],
+        },
+        {
+          id: 5,
+          title: 'Proyecto GM',
           category: 'Full Stack',
           image: 'images/projects/curriculum-cover.jpg',
           tags: ['Angular', 'PHP', 'API', 'Auth'],
@@ -1834,8 +2020,8 @@ export default function App() {
         closePreview: 'Close preview',
       },
       hero: {
-        introStart: 'Web and Cross-platform',
-        introHighlight: 'Developer',
+        introStart: 'Development in',
+        introHighlight: 'Web, Cross-platform, and IA & Big Data',
         introEnd: 'in training at STUCOM.',
         secondStart: 'I connect technical documentation, UI/UX, and development in',
         secondHighlight: 'React, WordPress, Flutter, and applied AI',
@@ -1882,7 +2068,7 @@ export default function App() {
       projectsSection: {
         titleTop: 'Featured',
         titleBottom: 'Projects.',
-        desc: 'Four key projects: this interactive portfolio, an upcoming school web project, a one-week web delivery, and a full-stack case with PDF.',
+        desc: 'Five key projects: this interactive portfolio, an upcoming school web project, a one-week web delivery, a full-stack case with PDF, and the DAW final project.',
       },
       cvSection: {
         titleStart: 'My',
@@ -1906,7 +2092,7 @@ export default function App() {
       experienceItems: [
         {
           year: '2026 - 2027',
-          role: 'AI Study Plan',
+          role: 'Master en IA & Big Data',
           company: 'Evening training + active work',
           desc: 'Artificial intelligence training in evening hours while keeping active work throughout the period.',
           align: 'left',
@@ -1951,6 +2137,7 @@ export default function App() {
           duration: 'Personal project · updated in 2026 and constantly evolving',
           summary: 'This portfolio: custom particle cursor, reactive scroll animations, interactive SVG/comet background, magnetic cards, and automatic deployment on GitHub Pages.',
           url: 'https://github.com/MarcMunta/Portfolio',
+          ctaIcon: 'github',
           fullStack: commonFullStack,
         },
         {
@@ -1975,11 +2162,28 @@ export default function App() {
           duration: 'Completed in 1 week · higher-degree assignment',
           summary: 'Informative landing page about sustainable habits, designed and developed in one week with focus on content clarity, responsive layout, and base accessibility.',
           url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+          repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
           compactTitle: true,
         },
         {
           id: 4,
-          title: 'Pr08 Front-end & Back-end',
+          title: 'DAW Final Project - Nursing Platform',
+          category: 'DAW Final Project',
+          image: 'images/projects/curriculum-wireframes.jpg',
+          tags: ['Angular', 'Node.js', 'Express', 'MySQL'],
+          year: '2025',
+          duration: 'Full-year DAW final project',
+          summary: 'Final DAW project developed across the full academic year and built entirely in English. It includes separate frontend and backend repositories, PDF documentation, and research supported by AI sources without using AI to write code.',
+          compactTitle: true,
+          pdfPath: 'docs/CineFlix_BryanJoya_MarcMuntane_PolCarvajal.pdf',
+          repoLinks: [
+            { label: 'Frontend', url: 'https://github.com/MarcMunta/EnfermeriaFrontend' },
+            { label: 'Backend', url: 'https://github.com/MarcMunta/enfermeria_back_end' },
+          ],
+        },
+        {
+          id: 5,
+          title: 'Project GM',
           category: 'Full Stack',
           image: 'images/projects/curriculum-cover.jpg',
           tags: ['Angular', 'PHP', 'API', 'Auth'],
@@ -2013,10 +2217,31 @@ export default function App() {
     { icon: <Rocket size={24} />, ...locale.process.steps[3] },
   ];
   const experienceItems = locale.experienceItems;
+
+  const resolveProjectPdfPath = (rawPath) => {
+    if (!rawPath) return null;
+
+    // Keep absolute URLs and root-relative paths untouched.
+    if (/^(?:[a-z]+:)?\/\//i.test(rawPath) || rawPath.startsWith('/')) {
+      return rawPath;
+    }
+
+    if (typeof window === 'undefined') {
+      return rawPath;
+    }
+
+    const pathname = window.location.pathname.endsWith('/')
+      ? window.location.pathname
+      : `${window.location.pathname}/`;
+
+    return new URL(rawPath, `${window.location.origin}${pathname}`).toString();
+  };
+
   const activePdfProject = activePdfProjectId
     ? projects.find((project) => project.id === activePdfProjectId) || null
     : null;
-  const activePdfPreviewPath = activePdfProject?.pdfPath ? `${activePdfProject.pdfPath}${pdfViewerParams}` : null;
+  const activePdfPath = activePdfProject?.pdfPath ? resolveProjectPdfPath(activePdfProject.pdfPath) : null;
+  const activePdfPreviewPath = activePdfPath ? `${activePdfPath}${pdfViewerParams}` : null;
 
   useEffect(() => {
     // Precarga imagenes de previsualizacion para respuesta instantanea.
@@ -2516,139 +2741,168 @@ export default function App() {
         </section>
 
         {/* --- TRABAJOS DESTACADOS --- */}
-        <section id="projects" data-gsap-section className="w-full relative z-10 pt-10 pb-48 border-t border-white/5">
-          <div className="sticky top-0 z-30 w-full bg-[var(--bg-primary)]/90 backdrop-blur-xl border-b border-white/10 pt-20 pb-8 mb-16">
-            <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-end gap-6">
-              <Reveal>
-                <h2 className="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter leading-none">
+        <section ref={projectsSectionRef} id="projects" data-gsap-section data-gsap-projects className="w-full relative z-10 border-t border-white/5 overflow-hidden">
+          <div ref={projectsPinRef} className="projects-horizontal-pin">
+            <div className="max-w-7xl w-full mx-auto px-6 pt-16 pb-3">
+              <div className="flex flex-col md:flex-row justify-between items-end gap-6">
+                <h2 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter leading-none">
                   {locale.projectsSection.titleTop}<br/>{locale.projectsSection.titleBottom}
                 </h2>
-              </Reveal>
-              <Reveal delay={100}>
-                <p className="text-gray-400 max-w-sm text-lg md:text-right pb-3 font-light">
+                <p className="text-gray-400 max-w-sm text-base md:text-right font-light">
                   {locale.projectsSection.desc}
                 </p>
-              </Reveal>
-            </div>
-            <div className="absolute top-full left-0 w-full h-16 bg-gradient-to-b from-[var(--bg-primary)] to-transparent pointer-events-none" />
-          </div>
-
-          <div className="max-w-7xl mx-auto px-6 flex flex-col pb-32">
-            {projects.map((project, index) => (
-              <div key={project.id} data-gsap-project-card className="sticky-card-wrapper w-full" style={{ zIndex: index, top: `calc(28vh + ${index * 35}px)`, marginBottom: '3rem' }}>
-                <MagneticElement strength={0.015} spring="cubic-bezier(0.16, 1, 0.3, 1)" className="w-full h-full bg-[var(--bg-secondary)] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-[var(--shadow-card)] transition-colors hover:border-white/20">
-                  <div className="flex flex-col lg:flex-row min-h-[65vh] pointer-events-none w-full">
-                    
-                    <div className="w-full lg:w-5/12 p-10 md:p-16 flex flex-col justify-center border-r border-white/5 relative bg-gradient-to-br from-[var(--bg-elevated)] to-[var(--bg-primary)]">
-                      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.03),transparent_50%)]" />
-                      
-                      <div className="flex items-center gap-4 mb-8 text-sm font-bold tracking-widest uppercase text-gray-500 relative z-10">
-                        <span>{project.year}</span>
-                        <div className="w-12 h-[1px] bg-gray-700" />
-                        <span className="text-blue-400">{project.category}</span>
-                      </div>
-
-                      <p className="text-xs md:text-sm text-blue-200/80 tracking-wide mb-3 relative z-10 uppercase">
-                        {project.duration}
-                      </p>
-                      
-                      <h3
-                        className={`font-display font-bold mb-6 text-white relative z-10 tracking-tight leading-[1] break-normal ${
-                          project.compactTitle
-                            ? 'text-xl sm:text-2xl lg:text-4xl xl:text-5xl'
-                            : 'text-2xl sm:text-3xl lg:text-5xl xl:text-6xl'
-                        }`}
-                      >
-                        {project.title}
-                      </h3>
-                      
-                      <p className="text-gray-300/90 text-sm md:text-base leading-relaxed mb-6 relative z-10">
-                        {project.summary}
-                      </p>
-
-                      <div className="flex flex-wrap gap-3 mb-8 relative z-10">
-                        {project.tags.map(tag => (
-                          <span key={tag} className="px-5 py-2.5 text-xs font-bold rounded-full bg-white/5 border border-white/10 text-gray-300 tracking-wide">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {project.stackIcons ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-8 relative z-10">
-                          {project.stackIcons.map((stackItem) => (
-                            <div key={stackItem.label} className="inline-flex items-center gap-2 text-xs text-gray-300 bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2">
-                              <span className="text-blue-300">{stackItem.icon}</span>
-                              <span className="leading-tight">{stackItem.label}</span>
-                            </div>
-                          ))}
-                        </div>
-                      ) : null}
-
-                      {project.fullStack ? (
-                        <div className="flex flex-wrap gap-2 mb-8 relative z-10">
-                          {project.fullStack.map((tech) => (
-                            <span
-                              key={tech.name}
-                              className="inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-3 py-1.5 bg-white/[0.04] border border-white/10 text-gray-200 tracking-wide hover:bg-white/[0.08] transition-colors"
-                            >
-                              <span
-                                className="w-2 h-2 rounded-full flex-shrink-0"
-                                style={{ backgroundColor: tech.color }}
-                              />
-                              {tech.name}
-                            </span>
-                          ))}
-                        </div>
-                      ) : null}
-                      
-                      <div className="mt-auto relative z-10 pointer-events-auto w-fit flex items-center gap-3">
-                        <MagneticElement inline strength={0.2}>
-                          {project.pdfPath ? (
-                            <button
-                              type="button"
-                              onClick={() => setActivePdfProjectId(project.id)}
-                              aria-label={`${locale.labels.openPdfPreviewOf} ${project.title}`}
-                              className="cursor-morph cta-btn flex items-center justify-center w-14 h-14 rounded-full bg-[var(--cta-bg)] text-[var(--cta-text)] hover:scale-110 hover:bg-[var(--cta-hover-bg)] transition-all shadow-[var(--cta-shadow)]"
-                            >
-                              <FileText size={22} />
-                            </button>
-                          ) : (
-                            <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`${locale.labels.openProjectOf} ${project.title}`} className="cursor-morph cta-btn flex items-center justify-center w-14 h-14 rounded-full bg-[var(--cta-bg)] text-[var(--cta-text)] hover:scale-110 hover:bg-[var(--cta-hover-bg)] transition-all shadow-[var(--cta-shadow)]">
-                              <ArrowUpRight size={24} />
-                            </a>
-                          )}
-                        </MagneticElement>
-                        {project.repoUrl ? (
-                          <MagneticElement inline strength={0.2}>
-                            <a
-                              href={project.repoUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`${locale.labels.openRepoOf} ${project.title}`}
-                              className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full border border-white/20 text-white hover:scale-110 hover:bg-white/10 transition-all"
-                            >
-                              <Github size={22} />
-                            </a>
-                          </MagneticElement>
-                        ) : null}
-                      </div>
-                    </div>
-
-                    <div className="w-full lg:w-7/12 relative overflow-hidden group">
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700 z-10 pointer-events-auto" />
-                      <img src={project.image} alt={project.title} loading="lazy" decoding="async" style={{ transitionDuration: "1000ms" }} className="absolute inset-0 w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all ease-out pointer-events-none" />
-                    </div>
-
-                  </div>
-                </MagneticElement>
               </div>
-            ))}
+
+              <div className="mt-5 flex justify-center md:justify-end">
+                <div data-project-counter className="px-4 py-2 rounded-full border border-white/15 bg-white/[0.03] text-xs tracking-[0.24em] font-semibold text-blue-200/80">
+                  {String(activeProjectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                </div>
+              </div>
+            </div>
+
+            <div className="projects-horizontal-viewport pb-1">
+              <div ref={projectsTrackRef} className="projects-horizontal-track">
+              {projects.map((project, index) => {
+                const isActive = index === activeProjectIndex;
+                const repoLinks = Array.isArray(project.repoLinks)
+                  ? project.repoLinks
+                  : project.repoUrl
+                    ? [{ label: 'GitHub', url: project.repoUrl }]
+                    : [];
+
+                return (
+                  <div
+                    key={project.id}
+                    data-gsap-project-card
+                    data-project-slide
+                    className={`projects-horizontal-slide ${isActive ? 'is-active' : ''}`}
+                  >
+                    <MagneticElement
+                      strength={0.015}
+                      spring="cubic-bezier(0.16, 1, 0.3, 1)"
+                      className={`w-full h-full bg-[var(--bg-secondary)] border rounded-[2.5rem] overflow-hidden transition-all duration-500 ${isActive ? 'border-white/25 shadow-[0_25px_70px_rgba(0,0,0,0.42)]' : 'border-white/10 shadow-[var(--shadow-card)]'}`}
+                    >
+                      <div className="flex flex-col lg:flex-row h-full pointer-events-none w-full">
+                        <div className="w-full lg:w-5/12 p-7 md:p-9 flex flex-col justify-center border-r border-white/5 relative bg-gradient-to-br from-[var(--bg-elevated)] to-[var(--bg-primary)] min-h-0">
+                          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.03),transparent_50%)]" />
+
+                          <div className="flex items-center gap-4 mb-5 text-xs md:text-sm font-bold tracking-widest uppercase text-gray-500 relative z-10">
+                            <span>{project.year}</span>
+                            <div className="w-12 h-[1px] bg-gray-700" />
+                            <span className="text-blue-400">{project.category}</span>
+                          </div>
+
+                          <p className="text-xs md:text-sm text-blue-200/80 tracking-wide mb-3 relative z-10 uppercase">
+                            {project.duration}
+                          </p>
+
+                          <h3
+                            className={`font-display font-bold mb-6 text-white relative z-10 tracking-tight leading-[1] break-normal ${
+                              project.compactTitle
+                                ? 'text-xl sm:text-2xl lg:text-4xl xl:text-5xl'
+                                : 'text-2xl sm:text-3xl lg:text-5xl xl:text-6xl'
+                            }`}
+                          >
+                            {project.title}
+                          </h3>
+
+                          <p className="text-gray-300/90 text-sm md:text-[0.95rem] leading-relaxed mb-4 relative z-10">
+                            {project.summary}
+                          </p>
+
+                          <div className="flex flex-wrap gap-2 mb-4 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
+                            {project.tags.map(tag => (
+                              <span key={tag} className="px-5 py-2.5 text-xs font-bold rounded-full bg-white/5 border border-white/10 text-gray-300 tracking-wide">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+
+                          {project.stackIcons ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
+                              {project.stackIcons.map((stackItem) => (
+                                <div key={stackItem.label} className="inline-flex items-center gap-2 text-xs text-gray-300 bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2">
+                                  <span className="text-blue-300">{stackItem.icon}</span>
+                                  <span className="leading-tight">{stackItem.label}</span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : null}
+
+                          {project.fullStack ? (
+                            <div className="flex flex-wrap gap-2 mb-5 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
+                              {project.fullStack.map((tech) => (
+                                <span
+                                  key={tech.name}
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-3 py-1.5 bg-white/[0.04] border border-white/10 text-gray-200 tracking-wide hover:bg-white/[0.08] transition-colors"
+                                >
+                                  <span
+                                    className="w-2 h-2 rounded-full flex-shrink-0"
+                                    style={{ backgroundColor: tech.color }}
+                                  />
+                                  {tech.name}
+                                </span>
+                              ))}
+                            </div>
+                          ) : null}
+
+                          <div className="mt-auto relative z-10 pointer-events-auto w-fit flex items-center gap-3">
+                            <MagneticElement inline strength={0.2}>
+                              {project.pdfPath ? (
+                                <button
+                                  type="button"
+                                  onClick={() => setActivePdfProjectId(project.id)}
+                                  aria-label={`${locale.labels.openPdfPreviewOf} ${project.title}`}
+                                  className="cursor-morph cta-btn flex items-center justify-center w-14 h-14 rounded-full bg-[var(--cta-bg)] text-[var(--cta-text)] hover:scale-110 hover:bg-[var(--cta-hover-bg)] transition-all shadow-[var(--cta-shadow)]"
+                                >
+                                  <FileText size={22} />
+                                </button>
+                              ) : (
+                                <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`${locale.labels.openProjectOf} ${project.title}`} className="cursor-morph cta-btn flex items-center justify-center w-14 h-14 rounded-full bg-[var(--cta-bg)] text-[var(--cta-text)] hover:scale-110 hover:bg-[var(--cta-hover-bg)] transition-all shadow-[var(--cta-shadow)]">
+                                  {project.ctaIcon === 'github' ? <Github size={22} /> : <ArrowUpRight size={24} />}
+                                </a>
+                              )}
+                            </MagneticElement>
+                            {repoLinks.map((repoItem, repoIndex) => (
+                              <MagneticElement inline strength={0.2} key={`${project.id}-repo-${repoItem.url}-${repoIndex}`}>
+                                <a
+                                  href={repoItem.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title={repoItem.label || 'GitHub'}
+                                  aria-label={`${locale.labels.openRepoOf} ${project.title}${repoItem.label ? ` (${repoItem.label})` : ''}`}
+                                  className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full border border-white/20 text-white hover:scale-110 hover:bg-white/10 transition-all"
+                                >
+                                  <Github size={22} />
+                                </a>
+                              </MagneticElement>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="w-full lg:w-7/12 relative overflow-hidden group">
+                          <div className={`absolute inset-0 transition-colors duration-700 z-10 pointer-events-auto ${isActive ? 'bg-black/10 group-hover:bg-transparent' : 'bg-black/35'}`} />
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            loading="lazy"
+                            decoding="async"
+                            style={{ transitionDuration: '1000ms' }}
+                            className={`absolute inset-0 w-full h-full object-cover transition-all ease-out pointer-events-none ${isActive ? 'grayscale-[8%] scale-105' : 'grayscale-[38%] scale-100'}`}
+                          />
+                        </div>
+                      </div>
+                    </MagneticElement>
+                  </div>
+                );
+              })}
+              </div>
+            </div>
           </div>
         </section>
 
         {/* --- CV / CURRICULUM --- */}
-        <section id="cv" data-gsap-section className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+        <section id="cv" data-gsap-section className="max-w-7xl mx-auto px-6 pt-6 pb-32 border-t border-white/5">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
             <Reveal>
               <h2 className="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter leading-none">
@@ -2740,55 +2994,58 @@ export default function App() {
           </div>
         </section>
 
-        {activePdfProject ? (
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${locale.labels.pdfPreviewOf} ${activePdfProject.title}`}
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 backdrop-blur-md px-4 py-8"
-            onClick={(event) => {
-              if (event.target === event.currentTarget) {
-                closePdfModal();
-              }
-            }}
-          >
-            <div ref={modalCardRef} className="w-full max-w-6xl h-[88vh] bg-[var(--bg-modal)] border border-white/15 rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.3)]">
-              <div className="h-16 border-b border-white/10 px-5 md:px-7 flex items-center justify-between bg-black/40">
-                <div className="min-w-0">
-                  <p className="text-sm text-blue-300/80 uppercase tracking-widest">{activePdfProject.category}</p>
-                  <h3 className="text-base md:text-lg text-white font-semibold truncate">{activePdfProject.title}</h3>
-                </div>
-                <div className="flex items-center gap-2">
-                  <a
-                    href={activePdfProject.pdfPath}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors"
-                  >
-                    <ArrowUpRight size={16} />
-                    {locale.labels.openPdf}
-                  </a>
-                  <button
-                    type="button"
-                    onClick={closePdfModal}
-                    aria-label={locale.labels.closePreview}
-                    className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-              </div>
+        {activePdfProject && typeof document !== 'undefined'
+          ? createPortal(
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-label={`${locale.labels.pdfPreviewOf} ${activePdfProject.title}`}
+                className="fixed inset-0 z-[1600] flex items-center justify-center bg-black/80 backdrop-blur-md px-4 py-8"
+                onClick={(event) => {
+                  if (event.target === event.currentTarget) {
+                    closePdfModal();
+                  }
+                }}
+              >
+                <div ref={modalCardRef} className="w-full max-w-6xl h-[88vh] bg-[var(--bg-modal)] border border-white/15 rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.3)]">
+                  <div className="h-16 border-b border-white/10 px-5 md:px-7 flex items-center justify-between bg-black/40">
+                    <div className="min-w-0">
+                      <p className="text-sm text-blue-300/80 uppercase tracking-widest">{activePdfProject.category}</p>
+                      <h3 className="text-base md:text-lg text-white font-semibold truncate">{activePdfProject.title}</h3>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={activePdfPath || activePdfProject.pdfPath}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cta-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] hover:bg-[var(--cta-hover-bg)] transition-colors"
+                      >
+                        <ArrowUpRight size={16} />
+                        {locale.labels.openPdf}
+                      </a>
+                      <button
+                        type="button"
+                        onClick={closePdfModal}
+                        aria-label={locale.labels.closePreview}
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors"
+                      >
+                        <X size={18} />
+                      </button>
+                    </div>
+                  </div>
 
-              <div className="h-[calc(88vh-4rem)] bg-[var(--bg-tertiary)]">
-                <iframe
-                  src={activePdfPreviewPath || activePdfProject.pdfPath}
-                  title={`PDF ${activePdfProject.title}`}
-                  className="w-full h-full"
-                />
-              </div>
-            </div>
-          </div>
-        ) : null}
+                  <div className="h-[calc(88vh-4rem)] bg-[var(--bg-tertiary)]">
+                    <iframe
+                      src={activePdfPreviewPath || activePdfPath || activePdfProject.pdfPath}
+                      title={`PDF ${activePdfProject.title}`}
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+              </div>,
+              document.body
+            )
+          : null}
 
       </main>
       </div>
