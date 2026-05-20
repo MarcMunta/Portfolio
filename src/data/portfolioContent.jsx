@@ -118,7 +118,7 @@ export const CONTENT_BY_LANGUAGE = {
       projectsSection: {
         titleTop: 'Projectes',
         titleBottom: 'Destacats.',
-        desc: 'Cinc projectes clau: aquest portfolio interactiu, un proxim projecte web del cole, una entrega web rapida, un cas full stack amb PDF i el projecte final de DAW.',
+        desc: 'Sis projectes clau: aquest portfolio interactiu, Vortex com IA local amb memoria en PDF, un proxim projecte web del cole, una entrega web rapida, un cas full stack i el projecte final de DAW.',
       },
       cvSection: {
         titleStart: 'El meu',
@@ -189,6 +189,17 @@ export const CONTENT_BY_LANGUAGE = {
           url: 'https://github.com/MarcMunta/Portfolio',
           ctaIcon: 'github',
           fullStack: COMMON_FULL_STACK,
+        },
+        {
+          id: 6,
+          title: 'Vortex',
+          category: 'IA Local',
+          image: 'images/projects/vortex-cover.png',
+          tags: ['React', 'Python', 'LLM local', 'RAG', 'Agent'],
+          year: '2026',
+          duration: 'Projecte personal IA local amb memoria tecnica en PDF',
+          summary: 'IA local propia amb frontend React, API Python, RAG, memoria local, permisos visibles i mode agent. Documentacio final preparada per presentar el projecte dins del porfolio.',
+          pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
         },
         {
           id: 2,
@@ -323,7 +334,7 @@ export const CONTENT_BY_LANGUAGE = {
       projectsSection: {
         titleTop: 'Proyectos',
         titleBottom: 'Destacados.',
-        desc: 'Cinco proyectos clave: este portfolio interactivo, un proximo proyecto web del cole, una entrega web rapida, un caso full stack con PDF y el proyecto final de DAW.',
+        desc: 'Seis proyectos clave: este portfolio interactivo, Vortex como IA local con memoria en PDF, un proximo proyecto web del cole, una entrega web rapida, un caso full stack y el proyecto final de DAW.',
       },
       cvSection: {
         titleStart: 'Mi',
@@ -394,6 +405,17 @@ export const CONTENT_BY_LANGUAGE = {
           url: 'https://github.com/MarcMunta/Portfolio',
           ctaIcon: 'github',
           fullStack: COMMON_FULL_STACK,
+        },
+        {
+          id: 6,
+          title: 'Vortex',
+          category: 'IA Local',
+          image: 'images/projects/vortex-cover.png',
+          tags: ['React', 'Python', 'LLM local', 'RAG', 'Agente'],
+          year: '2026',
+          duration: 'Proyecto personal de IA local con memoria tecnica en PDF',
+          summary: 'IA local propia con frontend React, API Python, RAG, memoria local, permisos visibles y modo agente. Documentacion final preparada para presentar el proyecto dentro del porfolio.',
+          pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
         },
         {
           id: 2,
@@ -528,7 +550,7 @@ export const CONTENT_BY_LANGUAGE = {
       projectsSection: {
         titleTop: 'Featured',
         titleBottom: 'Projects.',
-        desc: 'Five key projects: this interactive portfolio, an upcoming school web project, a one-week web delivery, a full-stack case with PDF, and the DAW final project.',
+        desc: 'Six key projects: this interactive portfolio, Vortex as a local AI project with PDF documentation, an upcoming school web project, a one-week web delivery, a full-stack case, and the DAW final project.',
       },
       cvSection: {
         titleStart: 'My',
@@ -601,6 +623,17 @@ export const CONTENT_BY_LANGUAGE = {
           fullStack: COMMON_FULL_STACK,
         },
         {
+          id: 6,
+          title: 'Vortex',
+          category: 'Local AI',
+          image: 'images/projects/vortex-cover.png',
+          tags: ['React', 'Python', 'Local LLM', 'RAG', 'Agent'],
+          year: '2026',
+          duration: 'Personal local AI project with technical PDF documentation',
+          summary: 'Own local AI project with React frontend, Python API, RAG, local memory, visible permissions, and agent mode. Final documentation prepared for the portfolio projects section.',
+          pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
+        },
+        {
           id: 2,
           title: 'Social Challenges',
           category: 'Web · Upcoming',
@@ -663,4 +696,3 @@ export const CONTENT_BY_LANGUAGE = {
       ],
     },
   };
-
