@@ -507,6 +507,11 @@ html {
     will-change: transform, opacity;
   }
 
+  .portfolio-cursor {
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 22px rgba(255, 255, 255, 0.55);
+  }
+
   /* MUY IMPORTANTE: Evita que la burbuja parpadee o se pierda al pasar por el texto de los botones */
   .cursor-morph * {
     pointer-events: none !important;
@@ -754,9 +759,9 @@ html {
   }
 
   [data-theme="light"] .portfolio-cursor {
-    background: rgba(56, 189, 248, 0.2) !important;
-    border: 1px solid rgba(37, 99, 235, 0.18);
-    box-shadow: 0 0 18px rgba(37, 99, 235, 0.18) !important;
+    background: rgba(56, 189, 248, 0.26) !important;
+    border: 1px solid rgba(37, 99, 235, 0.32);
+    box-shadow: 0 0 24px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(37, 99, 235, 0.22) !important;
     mix-blend-mode: multiply !important;
   }
 
