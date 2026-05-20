@@ -20,7 +20,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Marc Muntané Clara | Portfolio",
   description:
-    "Desarrollador web y multiplataforma en formacion. React, WordPress, Flutter y documentacion tecnica.",
+    "Desarrollador web y multiplataforma en formación. React, WordPress, Flutter y documentación técnica.",
   authors: [{ name: "Marc Muntané Clara" }],
   icons: {
     icon: "/favicon.svg",
@@ -35,7 +35,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

@@ -2,7 +2,7 @@ import React from 'react';
 
 export function ProcessVisual({ activeProcessStep }) {
   return (
-    <div className="w-full lg:w-1/2 h-[450px] bg-[var(--bg-tertiary)] border border-white/10 rounded-[2.5rem] relative overflow-hidden flex items-center justify-center shadow-2xl">
+    <div className="process-visual-panel w-full lg:w-1/2 h-[450px] bg-[var(--bg-tertiary)] border border-white/10 rounded-[2.5rem] relative overflow-hidden flex items-center justify-center shadow-2xl">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_60%)]" />
 
       <svg style={{ width: 0, height: 0, position: 'absolute' }}>
@@ -69,7 +69,7 @@ function DesignVisual({ active }) {
 function DevelopmentVisual({ active }) {
   return (
     <VisualLayer active={active} className={active ? '' : '!translate-y-0'}>
-      <div className="font-mono text-sm bg-black/80 border border-blue-500/30 w-72 p-6 rounded-xl shadow-[0_0_40px_rgba(59,130,246,0.15)] anim-float">
+      <div className="code-panel font-mono text-sm bg-black/80 border border-blue-500/30 w-72 p-6 rounded-xl shadow-[0_0_40px_rgba(59,130,246,0.15)] anim-float">
         <div className="flex gap-1.5 mb-4 border-b border-white/10 pb-3">
           <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
           <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />

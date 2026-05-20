@@ -15,7 +15,7 @@ export default function PortfolioPage() {
   return (
     <div
       ref={refs.appRef}
-      className="bg-[var(--bg-primary)] min-h-screen text-white relative selection:bg-blue-500/30 selection:text-white"
+      className="bg-[var(--bg-primary)] min-h-screen text-white relative"
     >
       <div className="fixed top-0 left-0 right-0 z-[130] h-[3px] pointer-events-none" aria-hidden="true">
         <div

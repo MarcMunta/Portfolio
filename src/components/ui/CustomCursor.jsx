@@ -26,7 +26,7 @@ const CustomCursor = () => {
       const tx = (Math.random() - 0.5) * (70 + weight * 3);
       const ty = (Math.random() - 0.5) * (70 + weight * 3);
       const dur = Math.random() * 0.3 + 0.3;
-      dot.className = 'fixed bg-white rounded-full pointer-events-none z-[99] mix-blend-difference hidden md:block';
+      dot.className = 'portfolio-cursor-particle fixed bg-white rounded-full pointer-events-none z-[99] mix-blend-difference hidden md:block';
       dot.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px;--tx:${tx}px;--ty:${ty}px;animation:bubble-pop ${dur}s cubic-bezier(0.16,1,0.3,1) forwards`;
       particleContainerRef.current.appendChild(dot);
       setTimeout(() => dot.remove(), 800);
@@ -62,7 +62,7 @@ const CustomCursor = () => {
 
     const updatePhysics = () => {
       if (isHoveringBtn.current && currentInteractive.current) {
-        // Al calcular en el loop de requestAnimationFrame, se mantiene pegado aunque hagas scroll con la rueda del ratÃ³n
+        // Al calcular en requestAnimationFrame, se mantiene pegado aunque hagas scroll con la rueda.
         const rect = currentInteractive.current.getBoundingClientRect();
         const style = window.getComputedStyle(currentInteractive.current);
         const rx = parseInt(style.borderRadius) || 12;
@@ -75,7 +75,7 @@ const CustomCursor = () => {
         target.current.r = rx === 0 ? 12 : rx;
       }
 
-      // Salto rÃ¡pido al entrar, suavidad al salir
+      // Salto rápido al entrar, suavidad al salir.
       const lerpFactor = isHoveringBtn.current ? 0.4 : 0.25; 
       
       current.current.x += (target.current.x - current.current.x) * lerpFactor;
@@ -106,7 +106,7 @@ const CustomCursor = () => {
     <>
       <div 
         ref={cursorRef}
-        className="fixed top-0 left-0 pointer-events-none z-[100] hidden md:block bg-white mix-blend-difference shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+        className="portfolio-cursor fixed top-0 left-0 pointer-events-none z-[100] hidden md:block bg-white mix-blend-difference shadow-[0_0_15px_rgba(255,255,255,0.4)]"
         style={{ transform: 'translate3d(-100px, -100px, 0)' }}
       />
       <div ref={particleContainerRef} />

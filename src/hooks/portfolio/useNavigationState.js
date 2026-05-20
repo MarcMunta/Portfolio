@@ -74,13 +74,29 @@ export function useNavigationState() {
 
         lastScrollY.current = currentScrollY;
 
-        for (const section of [...SECTION_IDS].reverse()) {
+        const activationLine = window.innerHeight * 0.4;
+        let nearestSection = 'hero';
+        let nearestDistance = Number.POSITIVE_INFINITY;
+
+        for (const section of SECTION_IDS) {
           const element = document.getElementById(section);
-          if (element && currentScrollY >= element.offsetTop - window.innerHeight / 2.5) {
+          if (!element) continue;
+
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= activationLine && rect.bottom > activationLine) {
             setActiveSection(section);
+            nearestSection = null;
             break;
           }
+
+          const distance = Math.abs(rect.top - activationLine);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestSection = section;
+          }
         }
+
+        if (nearestSection) setActiveSection(nearestSection);
 
         ticking = false;
       });

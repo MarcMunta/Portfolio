@@ -34,7 +34,7 @@ function DesktopNavbar({
           showNav ? 'translate-y-0 opacity-100' : '-translate-y-32 opacity-0'
         }`}
       >
-        <nav className="pointer-events-auto flex items-center justify-between gap-6 md:gap-14 px-8 py-3.5 rounded-full bg-[var(--bg-nav)] backdrop-blur-xl border border-[var(--border-primary)] shadow-[var(--shadow-nav)] hover:border-[var(--border-primary)] transition-all duration-500">
+        <nav className="portfolio-nav pointer-events-auto flex items-center justify-between gap-6 md:gap-14 px-8 py-3.5 rounded-full bg-[var(--bg-nav)] backdrop-blur-xl border border-[var(--border-primary)] shadow-[var(--shadow-nav)] hover:border-[var(--border-primary)] transition-all duration-500">
           <BrandLink clicked={clickedNav === 'hero'} onClick={(event) => onNavClick('hero', event)} />
 
           <div className="flex gap-8 md:gap-10 text-sm md:text-base font-semibold text-gray-100">
@@ -104,7 +104,7 @@ function MobileNavbar({
         showNav ? 'translate-y-0 opacity-100' : '-translate-y-28 opacity-0'
       }`}
     >
-      <nav className="rounded-[1.6rem] border border-[var(--border-primary)] bg-[var(--bg-nav)] backdrop-blur-xl shadow-[var(--shadow-nav)] p-2.5">
+      <nav className="portfolio-nav rounded-[1.6rem] border border-[var(--border-primary)] bg-[var(--bg-nav)] backdrop-blur-xl shadow-[var(--shadow-nav)] p-2.5">
         <div className="flex items-center justify-between gap-3">
           <BrandLink clicked={clickedNav === 'hero'} onClick={(event) => onNavClick('hero', event)} />
           <LanguageThemeControls
@@ -171,9 +171,9 @@ function DesktopNavItem({ item, labels, clicked, active, onNavClick }) {
         href={`#${item.id}`}
         aria-label={`${labels.goTo} ${item.label}`}
         onClick={(event) => onNavClick(item.id, event)}
-        className={`relative block px-3 py-1 cursor-morph tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.12)] transition-colors duration-300 ${
+        className={`portfolio-nav-link relative block px-3 py-1 cursor-morph tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.12)] transition-colors duration-300 ${
           clicked ? 'nav-clicked' : ''
-        } ${active ? 'text-white' : 'text-gray-100 hover:text-white'}`}
+        } ${active ? 'is-active text-white' : 'text-gray-100 hover:text-white'}`}
       >
         {item.label}
         <span
@@ -198,15 +198,15 @@ function LanguageThemeControls({
   const buttonSize = compact ? 'w-8 h-8' : 'w-9 h-9';
 
   return (
-    <div className={`flex items-center gap-1.5 rounded-full border border-[var(--border-primary)] bg-[var(--bg-nav)] backdrop-blur-xl px-1.5 py-1 shadow-[var(--shadow-nav)]`}>
+    <div className={`portfolio-control-group flex items-center gap-1.5 rounded-full border border-[var(--border-primary)] bg-[var(--bg-nav)] backdrop-blur-xl px-1.5 py-1 shadow-[var(--shadow-nav)]`}>
       {languageOptions.map((option) => (
         <button
           key={option.code}
           type="button"
           onClick={() => setLanguage(option.code)}
           aria-label={`${labels.switchLanguageTo} ${option.label}`}
-          className={`cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all ${
-            language === option.code ? 'bg-[var(--process-active-bg)] scale-105' : 'bg-transparent hover:bg-[var(--process-active-bg)]'
+          className={`portfolio-control-button cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all ${
+            language === option.code ? 'is-selected bg-[var(--process-active-bg)] scale-105' : 'bg-transparent hover:bg-[var(--process-active-bg)]'
           }`}
         >
           <FlagIcon code={option.code} />
@@ -217,7 +217,7 @@ function LanguageThemeControls({
         type="button"
         onClick={toggleTheme}
         aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-        className={`cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all hover:bg-[var(--process-active-bg)]`}
+        className={`portfolio-control-button cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all hover:bg-[var(--process-active-bg)]`}
       >
         {theme === 'dark' ? <Sun size={16} className="text-[var(--text-primary)]" /> : <Moon size={16} className="text-[var(--text-primary)]" />}
       </button>

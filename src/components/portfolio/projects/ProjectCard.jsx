@@ -12,7 +12,7 @@ export function ProjectCard({ project, isActive, labels, onOpenPdf }) {
       <MagneticElement
         strength={0.015}
         spring="cubic-bezier(0.16, 1, 0.3, 1)"
-        className={`w-full h-full bg-[var(--bg-secondary)] border rounded-[2.5rem] overflow-hidden transition-all duration-500 ${
+        className={`project-card-shell w-full h-full bg-[var(--bg-secondary)] border rounded-[2.5rem] overflow-hidden transition-all duration-500 ${
           isActive ? 'border-white/25 shadow-[0_25px_70px_rgba(0,0,0,0.42)]' : 'border-white/10 shadow-[var(--shadow-card)]'
         }`}
       >
@@ -27,7 +27,7 @@ export function ProjectCard({ project, isActive, labels, onOpenPdf }) {
 
 function ProjectInfo({ project, labels, repoLinks, onOpenPdf }) {
   return (
-    <div className="w-full lg:w-5/12 p-7 md:p-9 flex flex-col justify-center border-r border-white/5 relative bg-gradient-to-br from-[var(--bg-elevated)] to-[var(--bg-primary)] min-h-0">
+    <div className="project-info-panel w-full lg:w-5/12 p-7 md:p-9 flex flex-col justify-center border-r border-white/5 relative bg-gradient-to-br from-[var(--bg-elevated)] to-[var(--bg-primary)] min-h-0">
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.03),transparent_50%)]" />
 
       <ProjectMeta project={project} />

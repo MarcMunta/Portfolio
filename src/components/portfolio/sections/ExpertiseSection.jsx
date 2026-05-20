@@ -75,7 +75,7 @@ function FrontendCard({ locale }) {
             <h3 className="text-3xl font-display font-bold text-white mb-3">{locale.expertise.frontendTitle}</h3>
             <p className="text-gray-400 text-base mb-6">{locale.expertise.frontendDesc}</p>
           </div>
-          <div className="bg-black/60 rounded-xl p-4 border border-white/5 font-mono text-xs text-gray-400 relative overflow-hidden group-hover:border-white/20 transition-colors pointer-events-none">
+          <div className="code-panel bg-black/60 rounded-xl p-4 border border-white/5 font-mono text-xs text-gray-400 relative overflow-hidden group-hover:border-white/20 transition-colors pointer-events-none">
             <div className="flex gap-1.5 mb-3">
               <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
               <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
@@ -108,10 +108,10 @@ function MobileCard({ locale }) {
             <p className="text-gray-400 text-base mb-6">{locale.expertise.mobileDesc}</p>
           </div>
           <div className="flex flex-col gap-2 z-10 font-semibold pointer-events-none">
-            <div className="px-4 py-3 bg-black/40 border border-white/5 rounded-xl text-emerald-300 flex justify-between group-hover:border-white/10 transition-colors">
+            <div className="mobile-stack-chip px-4 py-3 bg-black/40 border border-white/5 rounded-xl text-emerald-300 flex justify-between group-hover:border-white/10 transition-colors">
               <span>Flutter</span> <span>Dart</span>
             </div>
-            <div className="px-4 py-3 bg-black/40 border border-white/5 rounded-xl text-white flex justify-between opacity-70 group-hover:border-white/10 transition-colors">
+            <div className="mobile-stack-chip px-4 py-3 bg-black/40 border border-white/5 rounded-xl text-white flex justify-between opacity-70 group-hover:border-white/10 transition-colors">
               <span>Flutter Web</span> <span>Mapbox</span>
             </div>
           </div>
