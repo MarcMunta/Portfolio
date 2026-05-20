@@ -53,6 +53,7 @@ const PROJECT_BASE = {
     image: 'images/projects/vortex-cover.png',
     tags: ['React', 'Python', 'LLM local', 'RAG', 'Agente'],
     year: '2026',
+    repoUrl: 'https://github.com/MarcMunta/Vortex',
     pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
   },
   retos: {
