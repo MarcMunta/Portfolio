@@ -42,7 +42,7 @@ function Footer({ locale }) {
   return (
     <div className="mt-40 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm gap-6 border-t border-white/5 pt-10 relative z-10">
       <p className="font-semibold tracking-wide">
-        &copy; {new Date().getFullYear()} Marc Muntané Clara. {locale.footer.copyright}
+        &copy; {new Date().getFullYear()} Marc Muntané Clarà.
       </p>
       <div className="flex gap-8">
         <MagneticElement inline strength={0.2}>

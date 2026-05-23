@@ -106,7 +106,7 @@ export const CONTENT_BY_LANGUAGE = {
         desc: 'Estic obert a pràctiques i oportunitats júnior en desenvolupament web i apps multiplataforma.',
       },
       footer: {
-        copyright: 'Dissenyat i desenvolupat per mi.',
+        copyright: '',
         githubAria: 'GitHub de Marc Muntané',
         linkedinAria: 'LinkedIn de Marc Muntané',
       },
@@ -237,7 +237,7 @@ export const CONTENT_BY_LANGUAGE = {
         desc: 'Estoy abierto a prácticas y oportunidades junior en desarrollo web y apps multiplataforma.',
       },
       footer: {
-        copyright: 'Diseñado y desarrollado por mí.',
+        copyright: '',
         githubAria: 'GitHub de Marc Muntané',
         linkedinAria: 'LinkedIn de Marc Muntané',
       },
@@ -368,7 +368,7 @@ export const CONTENT_BY_LANGUAGE = {
         desc: 'I am open to internships and junior opportunities in web development and cross-platform apps.',
       },
       footer: {
-        copyright: 'Designed and developed by me.',
+        copyright: '',
         githubAria: 'Marc Muntané GitHub',
         linkedinAria: 'Marc Muntané LinkedIn',
       },

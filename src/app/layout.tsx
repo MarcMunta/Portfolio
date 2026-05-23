@@ -18,10 +18,10 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Marc Muntané Clara | Portfolio",
+  title: "Marc Muntané Clarà | Portfolio",
   description:
     "Desarrollador web y multiplataforma en formación. React, WordPress, Flutter y documentación técnica.",
-  authors: [{ name: "Marc Muntané Clara" }],
+  authors: [{ name: "Marc Muntané Clarà" }],
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

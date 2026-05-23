@@ -1,4 +1,4 @@
-# Portfolio - Marc Muntane Clara
+# Portfolio - Marc Muntané Clarà
 
 ## Presentacion
 Soy Marc Muntané Clarà, desarrollador web y multiplataforma en formacion.  
@@ -69,4 +69,3 @@ Puedes abrir la web publicada aqui:
 - GitHub: https://github.com/MarcMunta
 - LinkedIn: https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/
 - Email: marcmclara@gmail.com
-
