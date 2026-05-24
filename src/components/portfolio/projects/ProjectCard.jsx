@@ -2,6 +2,7 @@
 import React from 'react';
 import { ArrowUpRight, FileText, Github } from 'lucide-react';
 
+import { resolveProjectPdfPath } from '../../../lib/portfolio/pdf';
 import { MagneticElement } from '../../ui/MagneticElement';
 
 export function ProjectCard({ project, isActive, labels, onOpenPdf }) {
@@ -117,8 +118,10 @@ function FullStackList({ items }) {
 }
 
 function ProjectActions({ project, labels, repoLinks, onOpenPdf }) {
+  const pdfHref = project.pdfPath ? resolveProjectPdfPath(project.pdfPath) : null;
+
   return (
-    <div className="mt-auto relative z-10 pointer-events-auto w-fit flex items-center gap-3">
+    <div className="mt-auto relative z-10 pointer-events-auto w-full max-w-full flex flex-wrap items-center gap-3">
       <MagneticElement inline strength={0.2}>
         {project.pdfPath ? (
           <button
@@ -141,6 +144,21 @@ function ProjectActions({ project, labels, repoLinks, onOpenPdf }) {
           </a>
         )}
       </MagneticElement>
+
+      {pdfHref ? (
+        <MagneticElement inline strength={0.2}>
+          <a
+            href={pdfHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={labels.openPdf}
+            aria-label={`${labels.openPdf} ${project.title}`}
+            className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full border border-white/20 text-white hover:scale-110 hover:bg-white/10 transition-all"
+          >
+            <ArrowUpRight size={22} />
+          </a>
+        </MagneticElement>
+      ) : null}
 
       {repoLinks.map((repoItem, repoIndex) => (
         <MagneticElement inline strength={0.2} key={`${project.id}-repo-${repoItem.url}-${repoIndex}`}>

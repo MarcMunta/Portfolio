@@ -89,7 +89,7 @@ export const CONTENT_BY_LANGUAGE = {
       projectsSection: {
         titleTop: 'Projectes',
         titleBottom: 'Destacats.',
-        desc: 'Sis projectes clau: aquest portfolio interactiu, Vortex com a IA local amb memòria en PDF, un pròxim projecte web del cole, una entrega web ràpida, un cas full stack i el projecte final de DAW.',
+        desc: 'Set projectes clau: aquest portfolio interactiu, Vortex com a IA local amb memòria en PDF, Fichestu com a projecte final de DAM, un projecte web del cole, una entrega web ràpida, un cas full stack i el projecte final de DAW.',
       },
       cvSection: {
         titleStart: 'El meu',
@@ -220,7 +220,7 @@ export const CONTENT_BY_LANGUAGE = {
       projectsSection: {
         titleTop: 'Proyectos',
         titleBottom: 'Destacados.',
-        desc: 'Seis proyectos clave: este portfolio interactivo, Vortex como IA local con memoria en PDF, un próximo proyecto web del cole, una entrega web rápida, un caso full stack y el proyecto final de DAW.',
+        desc: 'Siete proyectos clave: este portfolio interactivo, Vortex como IA local con memoria en PDF, Fichestu como proyecto final de DAM, un proyecto web del cole, una entrega web rápida, un caso full stack y el proyecto final de DAW.',
       },
       cvSection: {
         titleStart: 'Mi',
@@ -351,7 +351,7 @@ export const CONTENT_BY_LANGUAGE = {
       projectsSection: {
         titleTop: 'Featured',
         titleBottom: 'Projects.',
-        desc: 'Six key projects: this interactive portfolio, Vortex as a local AI project with PDF documentation, an upcoming school web project, a one-week web delivery, a full-stack case, and the DAW final project.',
+        desc: 'Seven key projects: this interactive portfolio, Vortex as a local AI project with PDF documentation, Fichestu as the DAM final project, a school web project, a one-week web delivery, a full-stack case, and the DAW final project.',
       },
       cvSection: {
         titleStart: 'My',

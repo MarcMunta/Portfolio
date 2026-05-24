@@ -1,5 +1,17 @@
 import React from 'react';
-import { Briefcase, Code2, Layers, Rocket, Smartphone, Terminal } from 'lucide-react';
+import {
+  Briefcase,
+  Code2,
+  Database,
+  Gamepad2,
+  Layers,
+  Radio,
+  Rocket,
+  Server,
+  ShieldCheck,
+  Smartphone,
+  Terminal,
+} from 'lucide-react';
 
 const COMMON_FULL_STACK = [
   { name: 'HTML5', color: '#E34F26' },
@@ -38,6 +50,15 @@ const GM_STACK_ICONS = [
   { label: 'Flujo Front/Back', icon: <Code2 size={14} /> },
 ];
 
+const FICHESTU_STACK_ICONS = [
+  { label: 'Android Kotlin + Compose', icon: <Smartphone size={14} /> },
+  { label: 'Spring Boot REST API', icon: <Server size={14} /> },
+  { label: 'JWT + Google Sign-In', icon: <ShieldCheck size={14} /> },
+  { label: 'WebSocket realtime', icon: <Radio size={14} /> },
+  { label: 'JPA + Flyway DB', icon: <Database size={14} /> },
+  { label: 'Game loops + minijuegos', icon: <Gamepad2 size={14} /> },
+];
+
 const PROJECT_BASE = {
   portfolio: {
     id: 1,
@@ -55,6 +76,19 @@ const PROJECT_BASE = {
     year: '2026',
     repoUrl: 'https://github.com/MarcMunta/Vortex',
     pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
+  },
+  fichestu: {
+    id: 7,
+    image: 'images/projects/fichestu-cover.svg',
+    tags: ['Kotlin', 'Jetpack Compose', 'Spring Boot', 'Java 17', 'JWT', 'WebSocket', 'Flyway', 'MySQL', 'Supabase'],
+    year: '2026',
+    compactTitle: true,
+    pdfPath: 'docs/fichestu-doc-mpj-v2.pdf',
+    repoLinks: [
+      { label: 'Frontend', url: 'https://github.com/MarcMunta/Fichestu-Frontend' },
+      { label: 'Backend', url: 'https://github.com/MarcMunta/Fichestu-Backend' },
+    ],
+    stackIcons: FICHESTU_STACK_ICONS,
   },
   retos: {
     id: 2,
@@ -95,7 +129,7 @@ const PROJECT_BASE = {
   },
 };
 
-const PROJECT_ORDER = ['portfolio', 'vortex', 'retos', 'sostenibilidad', 'daw', 'gm'];
+const PROJECT_ORDER = ['portfolio', 'vortex', 'fichestu', 'retos', 'sostenibilidad', 'daw', 'gm'];
 
 const PROJECT_COPY = {
   ca: {
@@ -112,6 +146,13 @@ const PROJECT_COPY = {
       duration: 'Projecte personal d’IA local amb memòria tècnica en PDF',
       summary:
         'IA local pròpia amb frontend React, API Python, RAG, memòria local, permisos visibles i mode agent. Documentació final preparada per presentar el projecte dins del porfolio.',
+    },
+    fichestu: {
+      title: 'Fichestu',
+      category: 'Projecte Final DAM',
+      duration: 'Projecte final de DAM · app Android nativa + backend Spring Boot',
+      summary:
+        'Projecte final de DAM: app Android nativa amb Kotlin + Jetpack Compose connectada a Spring Boot. Inclou JWT/Google Sign-In, mercat, minijocs, perfil, notificacions, WebSocket realtime, Flyway, MySQL/Supabase, Docker i Render.',
     },
     retos: {
       title: 'Reptes Socials',
@@ -157,6 +198,13 @@ const PROJECT_COPY = {
       summary:
         'IA local propia con frontend React, API Python, RAG, memoria local, permisos visibles y modo agente. Documentación final preparada para presentar el proyecto dentro del porfolio.',
     },
+    fichestu: {
+      title: 'Fichestu',
+      category: 'Proyecto Final DAM',
+      duration: 'Proyecto final de DAM · app Android nativa + backend Spring Boot',
+      summary:
+        'Proyecto final de DAM: app Android nativa en Kotlin + Jetpack Compose conectada a Spring Boot. Incluye JWT/Google Sign-In, mercado, minijuegos, perfil, notificaciones, WebSocket realtime, Flyway, MySQL/Supabase, Docker y Render.',
+    },
     retos: {
       title: 'Retos Sociales',
       category: 'Web · Próximo',
@@ -201,6 +249,13 @@ const PROJECT_COPY = {
       duration: 'Personal local AI project with technical PDF documentation',
       summary:
         'Own local AI project with React frontend, Python API, RAG, local memory, visible permissions, and agent mode. Final documentation prepared for the portfolio projects section.',
+    },
+    fichestu: {
+      title: 'Fichestu',
+      category: 'DAM Final Project',
+      duration: 'DAM final project · native Android app + Spring Boot backend',
+      summary:
+        'Final DAM project: native Android app with Kotlin + Jetpack Compose connected to Spring Boot. Includes JWT/Google Sign-In, market, minigames, profile, notifications, realtime WebSocket, Flyway, MySQL/Supabase, Docker, and Render.',
     },
     retos: {
       title: 'Social Challenges',
