@@ -59,6 +59,15 @@ const FICHESTU_STACK_ICONS = [
   { label: 'Game loops + minijuegos', icon: <Gamepad2 size={14} /> },
 ];
 
+const ACCESO_DATOS_TIENDA_STACK_ICONS = [
+  { label: 'Java 17 + Maven WAR', icon: <Server size={14} /> },
+  { label: 'JSP + Servlets Tomcat', icon: <Layers size={14} /> },
+  { label: 'Hibernate/JPA + MySQL', icon: <Database size={14} /> },
+  { label: 'MongoDB pedidos JSON', icon: <Terminal size={14} /> },
+  { label: 'ObjectDB usuarios', icon: <ShieldCheck size={14} /> },
+  { label: '48 tests automatizados', icon: <Code2 size={14} /> },
+];
+
 const PROJECT_BASE = {
   portfolio: {
     id: 1,
@@ -89,6 +98,15 @@ const PROJECT_BASE = {
       { label: 'Backend', url: 'https://github.com/MarcMunta/Fichestu-Backend' },
     ],
     stackIcons: FICHESTU_STACK_ICONS,
+  },
+  accesoDatosTienda: {
+    id: 8,
+    image: 'images/projects/acceso-datos-tienda-cover.png',
+    tags: ['Java 17', 'JSP', 'Servlets', 'Hibernate/JPA', 'MySQL', 'MongoDB', 'ObjectDB', 'Maven', 'JUnit'],
+    year: '2026',
+    repoUrl: 'https://github.com/MarcMunta/Acceso_Datos_Tienda',
+    compactTitle: true,
+    stackIcons: ACCESO_DATOS_TIENDA_STACK_ICONS,
   },
   retos: {
     id: 2,
@@ -129,7 +147,7 @@ const PROJECT_BASE = {
   },
 };
 
-const PROJECT_ORDER = ['portfolio', 'vortex', 'fichestu', 'retos', 'sostenibilidad', 'daw', 'gm'];
+const PROJECT_ORDER = ['portfolio', 'fichestu', 'accesoDatosTienda', 'vortex', 'retos', 'sostenibilidad', 'daw', 'gm'];
 
 const PROJECT_COPY = {
   ca: {
@@ -153,6 +171,13 @@ const PROJECT_COPY = {
       duration: 'Projecte final de DAM · app Android nativa + backend Spring Boot',
       summary:
         'Projecte final de DAM: app Android nativa amb Kotlin + Jetpack Compose connectada a Spring Boot. Inclou JWT/Google Sign-In, mercat, minijocs, perfil, notificacions, WebSocket realtime, Flyway, MySQL/Supabase, Docker i Render.',
+    },
+    accesoDatosTienda: {
+      title: 'Acceso Datos Tienda',
+      category: 'Java Backend · E-commerce',
+      duration: 'Projecte acadèmic refactoritzat · Java 17 + persistència multi-base de dades',
+      summary:
+        'Aplicació e-commerce JSP/Servlet desplegable en Tomcat. Vaig treballar accés a dades amb Hibernate/JPA, MySQL, MongoDB i ObjectDB, fluxos de compra, stock atòmic, login, backoffice, repositoris/DAO i 48 tests automatitzats.',
     },
     retos: {
       title: 'Reptes Socials',
@@ -205,6 +230,13 @@ const PROJECT_COPY = {
       summary:
         'Proyecto final de DAM: app Android nativa en Kotlin + Jetpack Compose conectada a Spring Boot. Incluye JWT/Google Sign-In, mercado, minijuegos, perfil, notificaciones, WebSocket realtime, Flyway, MySQL/Supabase, Docker y Render.',
     },
+    accesoDatosTienda: {
+      title: 'Acceso Datos Tienda',
+      category: 'Java Backend · E-commerce',
+      duration: 'Proyecto académico refactorizado · Java 17 + persistencia multi-base de datos',
+      summary:
+        'Aplicación e-commerce JSP/Servlet desplegable en Tomcat. Trabajé acceso a datos con Hibernate/JPA, MySQL, MongoDB y ObjectDB, flujos de compra, stock atómico, login, backoffice, repositorios/DAO y 48 tests automatizados.',
+    },
     retos: {
       title: 'Retos Sociales',
       category: 'Web · Próximo',
@@ -256,6 +288,13 @@ const PROJECT_COPY = {
       duration: 'DAM final project · native Android app + Spring Boot backend',
       summary:
         'Final DAM project: native Android app with Kotlin + Jetpack Compose connected to Spring Boot. Includes JWT/Google Sign-In, market, minigames, profile, notifications, realtime WebSocket, Flyway, MySQL/Supabase, Docker, and Render.',
+    },
+    accesoDatosTienda: {
+      title: 'Acceso Datos Tienda',
+      category: 'Java Backend · E-commerce',
+      duration: 'Refactored academic project · Java 17 + multi-database persistence',
+      summary:
+        'JSP/Servlet e-commerce app deployable on Tomcat. I worked on data access with Hibernate/JPA, MySQL, MongoDB and ObjectDB, checkout flows, atomic stock updates, login, backoffice, repositories/DAO, and 48 automated tests.',
     },
     retos: {
       title: 'Social Challenges',
