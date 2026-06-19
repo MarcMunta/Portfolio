@@ -18,10 +18,32 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Marc Muntané Clarà | Portfolio",
+  title: "Marc Muntané Clarà | Full-Stack Junior · Java, UI/UX e IA & Big Data",
   description:
-    "Desarrollador web y multiplataforma en formación. React, WordPress, Flutter y documentación técnica.",
+    "Portfolio de Marc Muntané, desarrollador Full-Stack Junior centrado en Java, UI/UX, IA & Big Data, APIs REST, bases de datos y frontend moderno.",
   authors: [{ name: "Marc Muntané Clarà" }],
+  keywords: [
+    "Marc Muntané",
+    "Junior Full-Stack Developer",
+    "Java",
+    "Spring Boot",
+    "UI/UX",
+    "IA",
+    "Big Data",
+    "Backend",
+    "REST APIs",
+    "React",
+    "Barcelona",
+  ],
+  openGraph: {
+    title: "Marc Muntané Clarà | Full-Stack Junior · Java, UI/UX e IA & Big Data",
+    description:
+      "Portfolio de Marc Muntané, desarrollador Full-Stack Junior centrado en Java, UI/UX, IA & Big Data, APIs REST, bases de datos y frontend moderno.",
+    url: "https://marcmunta.github.io/Portfolio/",
+    siteName: "Portfolio Marc Muntané",
+    locale: "es_ES",
+    type: "website",
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

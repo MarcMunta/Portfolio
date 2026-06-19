@@ -36,6 +36,7 @@ function ProjectInfo({ project, labels, repoLinks, onOpenPdf }) {
       <p className="text-gray-300/90 text-sm md:text-[0.95rem] leading-relaxed mb-4 relative z-10">{project.summary}</p>
 
       <TagList tags={project.tags} />
+      <ProjectDetails project={project} labels={labels} />
       <StackIconGrid items={project.stackIcons} />
       <FullStackList items={project.fullStack} />
 
@@ -79,6 +80,28 @@ function TagList({ tags }) {
         <span key={tag} className="px-5 py-2.5 text-xs font-bold rounded-full bg-white/5 border border-white/10 text-gray-300 tracking-wide">
           {tag}
         </span>
+      ))}
+    </div>
+  );
+}
+
+function ProjectDetails({ project, labels }) {
+  const details = [
+    [labels.detailBackend, project.backendResponsibilities],
+    [labels.detailFrontend, project.frontendResponsibilities],
+    [labels.detailData, project.dataUsage],
+    [labels.detailLearned, project.learned],
+  ].filter(([, value]) => Boolean(value));
+
+  if (!details.length) return null;
+
+  return (
+    <div className="mb-4 relative z-10 max-h-36 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto space-y-2">
+      {details.map(([label, value]) => (
+        <p key={label} className="text-xs leading-relaxed text-gray-400">
+          <span className="text-blue-200/80 font-bold uppercase tracking-[0.16em]">{label}: </span>
+          {value}
+        </p>
       ))}
     </div>
   );

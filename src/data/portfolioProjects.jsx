@@ -13,83 +13,104 @@ import {
   Terminal,
 } from 'lucide-react';
 
-const COMMON_FULL_STACK = [
-  { name: 'HTML5', color: '#E34F26' },
-  { name: 'CSS3', color: '#1572B6' },
-  { name: 'JavaScript', color: '#F7DF1E' },
-  { name: 'TypeScript', color: '#3178C6' },
-  { name: 'React', color: '#61DAFB' },
-  { name: 'Node.js', color: '#339933' },
-  { name: 'PHP', color: '#777BB4' },
-  { name: 'Laravel', color: '#FF2D20' },
-  { name: 'Symfony', color: '#000000' },
+const PORTFOLIO_STACK = [
   { name: 'Java', color: '#ED8B00' },
-  { name: 'Python', color: '#3776AB' },
-  { name: 'Kotlin', color: '#7F52FF' },
-  { name: 'Dart', color: '#0175C2' },
-  { name: 'Flutter', color: '#02569B' },
+  { name: 'Spring Boot', color: '#6DB33F' },
+  { name: 'REST APIs', color: '#38BDF8' },
   { name: 'MySQL', color: '#4479A1' },
-  { name: 'MongoDB', color: '#47A248' },
+  { name: 'React', color: '#61DAFB' },
+  { name: 'Next.js', color: '#FFFFFF' },
+  { name: 'Tailwind CSS', color: '#38BDF8' },
   { name: 'Git', color: '#F05032' },
-  { name: 'Unity', color: '#FFFFFF' },
-  { name: 'Mapbox', color: '#4264FB' },
-  { name: 'WordPress', color: '#21759B' },
-  { name: 'PrestaShop', color: '#DF0067' },
-  { name: 'Hostinger', color: '#673DE6' },
-  { name: 'pfSense', color: '#212121' },
-  { name: 'Ubuntu Server', color: '#E95420' },
-  { name: 'Windows Server', color: '#0078D6' },
+  { name: 'GitHub Pages', color: '#FFFFFF' },
 ];
 
-const GM_STACK_ICONS = [
-  { label: 'Angular Forms & Login', icon: <Layers size={14} /> },
-  { label: 'Listado & UI', icon: <Smartphone size={14} /> },
-  { label: 'Backend PHP Endpoints', icon: <Terminal size={14} /> },
-  { label: 'Auth + localStorage', icon: <Briefcase size={14} /> },
-  { label: 'Integración API', icon: <Rocket size={14} /> },
-  { label: 'Flujo Front/Back', icon: <Code2 size={14} /> },
-];
-
-const FICHESTU_STACK_ICONS = [
-  { label: 'Android Kotlin + Compose', icon: <Smartphone size={14} /> },
-  { label: 'Spring Boot REST API', icon: <Server size={14} /> },
-  { label: 'JWT + Google Sign-In', icon: <ShieldCheck size={14} /> },
-  { label: 'WebSocket realtime', icon: <Radio size={14} /> },
-  { label: 'JPA + Flyway DB', icon: <Database size={14} /> },
-  { label: 'Game loops + minijuegos', icon: <Gamepad2 size={14} /> },
-];
-
-const ACCESO_DATOS_TIENDA_STACK_ICONS = [
-  { label: 'Java 17 + Maven WAR', icon: <Server size={14} /> },
-  { label: 'JSP + Servlets Tomcat', icon: <Layers size={14} /> },
-  { label: 'Hibernate/JPA + MySQL', icon: <Database size={14} /> },
-  { label: 'MongoDB pedidos JSON', icon: <Terminal size={14} /> },
-  { label: 'ObjectDB usuarios', icon: <ShieldCheck size={14} /> },
-  { label: '48 tests automatizados', icon: <Code2 size={14} /> },
-];
+const LOCALIZED_STACK_ICONS = {
+  ca: {
+    gm: [
+      { label: 'Formularis i login Angular', icon: <Layers size={14} /> },
+      { label: 'Llistat i interfície', icon: <Smartphone size={14} /> },
+      { label: 'Endpoints PHP', icon: <Terminal size={14} /> },
+      { label: 'Auth + localStorage', icon: <Briefcase size={14} /> },
+      { label: 'Integració API', icon: <Rocket size={14} /> },
+      { label: 'Flux front/back', icon: <Code2 size={14} /> },
+    ],
+    fichestu: [
+      { label: 'Android Kotlin + Compose', icon: <Smartphone size={14} /> },
+      { label: 'Spring Boot REST API', icon: <Server size={14} /> },
+      { label: 'JWT + Google Sign-In', icon: <ShieldCheck size={14} /> },
+      { label: 'WebSocket realtime', icon: <Radio size={14} /> },
+      { label: 'JPA + Flyway + DB', icon: <Database size={14} /> },
+      { label: 'Minijocs i lògica', icon: <Gamepad2 size={14} /> },
+    ],
+    acceso: [
+      { label: 'Java 17 + Maven WAR', icon: <Server size={14} /> },
+      { label: 'JSP + Servlets Tomcat', icon: <Layers size={14} /> },
+      { label: 'Hibernate/JPA + MySQL', icon: <Database size={14} /> },
+      { label: 'Comandes JSON a MongoDB', icon: <Terminal size={14} /> },
+      { label: 'Usuaris amb ObjectDB', icon: <ShieldCheck size={14} /> },
+      { label: '48 tests automatitzats', icon: <Code2 size={14} /> },
+    ],
+  },
+  es: {
+    gm: [
+      { label: 'Formularios y login Angular', icon: <Layers size={14} /> },
+      { label: 'Listado e interfaz', icon: <Smartphone size={14} /> },
+      { label: 'Endpoints PHP', icon: <Terminal size={14} /> },
+      { label: 'Auth + localStorage', icon: <Briefcase size={14} /> },
+      { label: 'Integración API', icon: <Rocket size={14} /> },
+      { label: 'Flujo front/back', icon: <Code2 size={14} /> },
+    ],
+    fichestu: [
+      { label: 'Android Kotlin + Compose', icon: <Smartphone size={14} /> },
+      { label: 'Spring Boot REST API', icon: <Server size={14} /> },
+      { label: 'JWT + Google Sign-In', icon: <ShieldCheck size={14} /> },
+      { label: 'WebSocket realtime', icon: <Radio size={14} /> },
+      { label: 'JPA + Flyway + DB', icon: <Database size={14} /> },
+      { label: 'Minijuegos y lógica', icon: <Gamepad2 size={14} /> },
+    ],
+    acceso: [
+      { label: 'Java 17 + Maven WAR', icon: <Server size={14} /> },
+      { label: 'JSP + Servlets Tomcat', icon: <Layers size={14} /> },
+      { label: 'Hibernate/JPA + MySQL', icon: <Database size={14} /> },
+      { label: 'Pedidos JSON en MongoDB', icon: <Terminal size={14} /> },
+      { label: 'Usuarios con ObjectDB', icon: <ShieldCheck size={14} /> },
+      { label: '48 tests automatizados', icon: <Code2 size={14} /> },
+    ],
+  },
+  en: {
+    gm: [
+      { label: 'Angular forms and login', icon: <Layers size={14} /> },
+      { label: 'List view and interface', icon: <Smartphone size={14} /> },
+      { label: 'PHP endpoints', icon: <Terminal size={14} /> },
+      { label: 'Auth + localStorage', icon: <Briefcase size={14} /> },
+      { label: 'API integration', icon: <Rocket size={14} /> },
+      { label: 'Front/back flow', icon: <Code2 size={14} /> },
+    ],
+    fichestu: [
+      { label: 'Android Kotlin + Compose', icon: <Smartphone size={14} /> },
+      { label: 'Spring Boot REST API', icon: <Server size={14} /> },
+      { label: 'JWT + Google Sign-In', icon: <ShieldCheck size={14} /> },
+      { label: 'Realtime WebSocket', icon: <Radio size={14} /> },
+      { label: 'JPA + Flyway + DB', icon: <Database size={14} /> },
+      { label: 'Minigames and logic', icon: <Gamepad2 size={14} /> },
+    ],
+    acceso: [
+      { label: 'Java 17 + Maven WAR', icon: <Server size={14} /> },
+      { label: 'JSP + Tomcat servlets', icon: <Layers size={14} /> },
+      { label: 'Hibernate/JPA + MySQL', icon: <Database size={14} /> },
+      { label: 'JSON orders in MongoDB', icon: <Terminal size={14} /> },
+      { label: 'Users with ObjectDB', icon: <ShieldCheck size={14} /> },
+      { label: '48 automated tests', icon: <Code2 size={14} /> },
+    ],
+  },
+};
 
 const PROJECT_BASE = {
-  portfolio: {
-    id: 1,
-    image: 'images/projects/firewall-cover.jpg',
-    tags: ['React', 'Next.js', 'Tailwind CSS'],
-    year: '2026',
-    url: 'https://github.com/MarcMunta/Portfolio',
-    ctaIcon: 'github',
-    fullStack: COMMON_FULL_STACK,
-  },
-  vortex: {
-    id: 6,
-    image: 'images/projects/vortex-cover.png',
-    tags: ['React', 'Python', 'LLM local', 'RAG', 'Agente'],
-    year: '2026',
-    repoUrl: 'https://github.com/MarcMunta/Vortex',
-    pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
-  },
   fichestu: {
-    id: 7,
+    id: 1,
     image: 'images/projects/fichestu-cover.svg',
-    tags: ['Kotlin', 'Jetpack Compose', 'Spring Boot', 'Java 17', 'JWT', 'WebSocket', 'Flyway', 'MySQL', 'Supabase'],
+    tags: ['Java', 'Spring Boot', 'Backend', 'REST API', 'JWT', 'WebSocket', 'JPA', 'MySQL', 'Full-Stack'],
     year: '2026',
     compactTitle: true,
     pdfPath: 'docs/fichestu-doc-mpj-v2.pdf',
@@ -97,38 +118,19 @@ const PROJECT_BASE = {
       { label: 'Frontend', url: 'https://github.com/MarcMunta/Fichestu-Frontend' },
       { label: 'Backend', url: 'https://github.com/MarcMunta/Fichestu-Backend' },
     ],
-    stackIcons: FICHESTU_STACK_ICONS,
   },
   accesoDatosTienda: {
-    id: 8,
+    id: 2,
     image: 'images/projects/acceso-datos-tienda-cover.png',
-    tags: ['Java 17', 'JSP', 'Servlets', 'Hibernate/JPA', 'MySQL', 'MongoDB', 'ObjectDB', 'Maven', 'JUnit'],
+    tags: ['Java 17', 'Backend', 'JSP', 'Servlets', 'Hibernate/JPA', 'MySQL', 'MongoDB', 'Maven', 'JUnit'],
     year: '2026',
     repoUrl: 'https://github.com/MarcMunta/Acceso_Datos_Tienda',
     compactTitle: true,
-    stackIcons: ACCESO_DATOS_TIENDA_STACK_ICONS,
-  },
-  retos: {
-    id: 2,
-    image: 'images/projects/sostenibilidad-actions.jpg',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    year: '2026',
-    url: 'https://marcmunta.github.io/Retos-Sociales/',
-    repoUrl: 'https://github.com/MarcMunta/Retos-Sociales',
-  },
-  sostenibilidad: {
-    id: 3,
-    image: 'images/projects/sostenibilidad-cover.jpg',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    year: '2025',
-    url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
-    repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
-    compactTitle: true,
   },
   daw: {
-    id: 4,
+    id: 3,
     image: 'images/projects/curriculum-wireframes.jpg',
-    tags: ['Angular', 'Node.js', 'Express', 'MySQL'],
+    tags: ['Full-Stack', 'Angular', 'Node.js', 'Express', 'MySQL', 'API'],
     year: '2025',
     compactTitle: true,
     pdfPath: 'docs/CineFlix_BryanJoya_MarcMuntane_PolCarvajal.pdf',
@@ -138,199 +140,397 @@ const PROJECT_BASE = {
     ],
   },
   gm: {
-    id: 5,
+    id: 4,
     image: 'images/projects/curriculum-cover.jpg',
-    tags: ['Angular', 'PHP', 'API', 'Auth'],
+    tags: ['Full-Stack', 'Angular', 'PHP', 'API', 'Auth'],
     year: '2024',
     pdfPath: 'docs/pr08-front-end-back-end.pdf',
-    stackIcons: GM_STACK_ICONS,
+  },
+  portfolio: {
+    id: 5,
+    image: 'images/projects/firewall-cover.jpg',
+    tags: ['Frontend', 'React', 'Next.js', 'Tailwind CSS', 'SEO'],
+    year: '2026',
+    url: 'https://github.com/MarcMunta/Portfolio',
+    ctaIcon: 'github',
+    fullStack: PORTFOLIO_STACK,
+  },
+  retos: {
+    id: 6,
+    image: 'images/projects/sostenibilidad-actions.jpg',
+    tags: ['Frontend', 'HTML', 'CSS', 'JavaScript', 'Responsive'],
+    year: '2026',
+    url: 'https://marcmunta.github.io/Retos-Sociales/',
+    repoUrl: 'https://github.com/MarcMunta/Retos-Sociales',
+  },
+  sostenibilidad: {
+    id: 7,
+    image: 'images/projects/sostenibilidad-cover.jpg',
+    tags: ['Frontend', 'HTML', 'CSS', 'JavaScript'],
+    year: '2025',
+    url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
+    repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
+    compactTitle: true,
+  },
+  vortex: {
+    id: 8,
+    image: 'images/projects/vortex-cover.png',
+    tags: ['AI', 'React', 'Python', 'Local LLM', 'RAG', 'Agent'],
+    year: '2026',
+    repoUrl: 'https://github.com/MarcMunta/Vortex',
+    pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
   },
 };
 
-const PROJECT_ORDER = ['portfolio', 'fichestu', 'accesoDatosTienda', 'vortex', 'retos', 'sostenibilidad', 'daw', 'gm'];
+const PROJECT_ORDER = [
+  'fichestu',
+  'accesoDatosTienda',
+  'daw',
+  'gm',
+  'portfolio',
+  'retos',
+  'sostenibilidad',
+  'vortex',
+];
 
 const PROJECT_COPY = {
   ca: {
-    portfolio: {
-      title: 'Portfolio Interactiu',
-      category: 'Projecte Personal',
-      duration: 'Projecte personal · actualitzat el 2026 i en evolució constant',
-      summary:
-        'Aquest portfolio: cursor personalitzat amb partícules, animacions de scroll reactives, fons interactiu amb SVG i cometes, targetes magnètiques i desplegament automàtic a GitHub Pages.',
-    },
-    vortex: {
-      title: 'Vortex',
-      category: 'IA Local',
-      duration: 'Projecte personal d’IA local amb memòria tècnica en PDF',
-      summary:
-        'IA local pròpia amb frontend React, API Python, RAG, memòria local, permisos visibles i mode agent. Documentació final preparada per presentar el projecte dins del porfolio.',
-    },
     fichestu: {
       title: 'Fichestu',
-      category: 'Projecte Final DAM',
-      duration: 'Projecte final de DAM · app Android nativa + backend Spring Boot',
+      category: 'Spring Boot · Full-Stack',
+      duration: 'Projecte final DAM · app Android nativa + backend Spring Boot',
       summary:
-        'Projecte final de DAM: app Android nativa amb Kotlin + Jetpack Compose connectada a Spring Boot. Inclou JWT/Google Sign-In, mercat, minijocs, perfil, notificacions, WebSocket realtime, Flyway, MySQL/Supabase, Docker i Render.',
+        'Aplicació full-stack amb app Android en Kotlin + Jetpack Compose connectada a un backend Spring Boot. Inclou autenticació, realtime, persistència i desplegament.',
+      backendResponsibilities:
+        'API REST amb Spring Boot, autenticació JWT/Google Sign-In, WebSocket, serveis, persistència JPA/Flyway i base de dades MySQL/Supabase.',
+      frontendResponsibilities:
+        'App Android nativa amb Kotlin i Jetpack Compose, pantalles de perfil, mercat, minijocs i notificacions.',
+      dataUsage: 'MySQL/Supabase, Flyway, JPA, endpoints REST i comunicació realtime.',
+      learned:
+        'Integració real entre client mòbil, backend, autenticació, dades persistents i desplegament.',
+      stackIcons: LOCALIZED_STACK_ICONS.ca.fichestu,
     },
     accesoDatosTienda: {
       title: 'Acceso Datos Tienda',
       category: 'Java Backend · E-commerce',
       duration: 'Projecte acadèmic refactoritzat · Java 17 + persistència multi-base de dades',
       summary:
-        'Aplicació e-commerce JSP/Servlet desplegable en Tomcat. Vaig treballar accés a dades amb Hibernate/JPA, MySQL, MongoDB i ObjectDB, fluxos de compra, stock atòmic, login, backoffice, repositoris/DAO i 48 tests automatitzats.',
-    },
-    retos: {
-      title: 'Reptes Socials',
-      category: 'Web · Pròxim',
-      duration: 'Pròxim projecte · objectiu: 1 setmana · treball del cole',
-      summary:
-        'Següent lliurament acadèmic centrat en reptes socials: desenvolupament web en una setmana amb focus en claredat, responsive i entrega completa.',
-    },
-    sostenibilidad: {
-      title: 'Sostenibilitat',
-      category: 'Web',
-      duration: 'Completat en 1 setmana · treball del grau superior',
-      summary:
-        'Landing informativa sobre hàbits sostenibles, dissenyada i desenvolupada en una setmana amb focus en claredat de contingut, responsive i accessibilitat base.',
+        'Projecte acadèmic refactoritzat per al portfolio, centrat en lògica backend, estructura mantenible, accés a dades i bones pràctiques Java.',
+      backendResponsibilities:
+        'Servlets, repositoris/DAO, flux de compra, stock atòmic, login, backoffice, persistència Hibernate/JPA i tests automatitzats.',
+      frontendResponsibilities:
+        'Vistes JSP per a catàleg, carret, login i administració bàsica.',
+      dataUsage: 'MySQL, MongoDB, ObjectDB, Hibernate/JPA i operacions CRUD.',
+      learned:
+        'Persistència amb diverses bases de dades, separació de responsabilitats i proves sobre lògica crítica.',
+      stackIcons: LOCALIZED_STACK_ICONS.ca.acceso,
     },
     daw: {
-      title: 'Final DAW Project - Nursing Platform',
-      category: 'Projecte Final DAW',
+      title: 'Projecte Final DAW - Plataforma d’Infermeria',
+      category: 'Full-Stack acadèmic',
       duration: 'Projecte anual de final de curs DAW',
       summary:
-        'Projecte de final de DAW desenvolupat durant tot el curs i fet completament en anglès. Inclou frontend i backend separats, memòria en PDF i dos repositoris. S’ha extret informació d’algunes IA, però sense usar IA per programar.',
+        'Projecte full-stack desenvolupat durant el curs amb frontend i backend separats, documentació tècnica en PDF i repositoris independents.',
+      backendResponsibilities:
+        'Backend Node.js/Express, endpoints, connexió amb MySQL i estructura separada del frontend.',
+      frontendResponsibilities:
+        'Frontend Angular, pantalles, formularis, navegació i integració amb API.',
+      dataUsage: 'MySQL, API pròpia i documentació del flux de dades.',
+      learned:
+        'Separació frontend/backend, treball en equip, documentació i cicle complet d’entrega.',
     },
     gm: {
       title: 'Projecte GM',
-      category: 'Full Stack',
+      category: 'Full-Stack acadèmic',
       duration: 'Pràctica tècnica completa',
       summary:
         'Projecte integrat amb frontend en Angular, backend en PHP amb endpoints, autenticació amb localStorage i integració frontend-backend sobre API.',
+      backendResponsibilities:
+        'Endpoints PHP, control de login i respostes consumides pel frontend.',
+      frontendResponsibilities:
+        'Angular amb formularis, llistat, login i consum d’API.',
+      dataUsage: 'API pròpia, autenticació bàsica i emmagatzematge local.',
+      learned:
+        'Flux complet entre interfície, API i autenticació bàsica.',
+      stackIcons: LOCALIZED_STACK_ICONS.ca.gm,
     },
-  },
-  es: {
     portfolio: {
-      title: 'Portfolio Interactivo',
-      category: 'Proyecto Personal',
-      duration: 'Proyecto personal · actualizado en 2026 y en evolución constante',
+      title: 'Portfolio Interactiu',
+      category: 'Frontend tècnic',
+      duration: 'Projecte personal · actualitzat el 2026',
       summary:
-        'Este portfolio: cursor personalizado con partículas, animaciones de scroll reactivas, fondo interactivo con SVG y cometas, cards magnéticas y despliegue automático en GitHub Pages.',
+        'Portfolio construït amb Next.js, React i Tailwind. Manté una experiència visual premium i comunica els pilars Java, UI/UX i IA & Big Data.',
+      backendResponsibilities:
+        'Sense backend propi en aquest repositori; funciona com a plataforma de presentació tècnica.',
+      frontendResponsibilities:
+        'Components React, animacions GSAP, responsive, SEO, dades separades i desplegament a GitHub Pages.',
+      dataUsage: 'Contingut modular en fitxers de dades i assets estàtics.',
+      learned:
+        'Arquitectura frontend mantenible, refactor de contingut i comunicació professional.',
+    },
+    retos: {
+      title: 'Reptes Socials',
+      category: 'Frontend acadèmic',
+      duration: 'Projecte acadèmic · entrega web d’una setmana',
+      summary:
+        'Entrega acadèmica centrada en desenvolupament web, claredat de contingut, estructura responsive i publicació a GitHub Pages.',
+      backendResponsibilities: 'No inclou backend propi.',
+      frontendResponsibilities: 'HTML, CSS, JavaScript, responsive i estructura de contingut.',
+      dataUsage: 'Dades estàtiques del lloc.',
+      learned:
+        'Entrega ràpida, organització visual i publicació web.',
+    },
+    sostenibilidad: {
+      title: 'Sostenibilitat',
+      category: 'Frontend acadèmic',
+      duration: 'Completat en 1 setmana · treball del grau superior',
+      summary:
+        'Landing informativa sobre hàbits sostenibles, desenvolupada en una setmana amb focus en claredat, responsive i accessibilitat base.',
+      backendResponsibilities: 'No inclou backend propi.',
+      frontendResponsibilities: 'HTML, CSS, JavaScript, maquetació responsive i contingut accessible.',
+      dataUsage: 'Dades estàtiques del lloc.',
+      learned:
+        'Planificació d’entrega curta, responsive i comunicació visual clara.',
     },
     vortex: {
       title: 'Vortex',
-      category: 'IA Local',
-      duration: 'Proyecto personal de IA local con memoria técnica en PDF',
+      category: 'IA local complementària',
+      duration: 'Projecte personal d’IA local amb memòria tècnica en PDF',
       summary:
-        'IA local propia con frontend React, API Python, RAG, memoria local, permisos visibles y modo agente. Documentación final preparada para presentar el proyecto dentro del porfolio.',
+        'Projecte d’IA local amb frontend React, API Python, RAG, memòria local, permisos visibles i mode agent. Complementa el perfil IA & Big Data.',
+      backendResponsibilities:
+        'API Python, endpoints per a interacció local i gestió de context.',
+      frontendResponsibilities:
+        'Frontend React per interactuar amb l’agent i visualitzar estats.',
+      dataUsage: 'RAG, memòria local i permisos visibles.',
+      learned:
+        'Ús d’IA com a suport productiu, integració tècnica i documentació de sistemes locals.',
     },
+  },
+  es: {
     fichestu: {
       title: 'Fichestu',
-      category: 'Proyecto Final DAM',
-      duration: 'Proyecto final de DAM · app Android nativa + backend Spring Boot',
+      category: 'Spring Boot · Full-Stack',
+      duration: 'Proyecto final DAM · app Android nativa + backend Spring Boot',
       summary:
-        'Proyecto final de DAM: app Android nativa en Kotlin + Jetpack Compose conectada a Spring Boot. Incluye JWT/Google Sign-In, mercado, minijuegos, perfil, notificaciones, WebSocket realtime, Flyway, MySQL/Supabase, Docker y Render.',
+        'Aplicación full-stack con app Android en Kotlin + Jetpack Compose conectada a un backend Spring Boot. Incluye autenticación, realtime, persistencia y despliegue.',
+      backendResponsibilities:
+        'API REST con Spring Boot, autenticación JWT/Google Sign-In, WebSocket, servicios, persistencia JPA/Flyway y base de datos MySQL/Supabase.',
+      frontendResponsibilities:
+        'App Android nativa con Kotlin y Jetpack Compose, pantallas de perfil, mercado, minijuegos y notificaciones.',
+      dataUsage: 'MySQL/Supabase, Flyway, JPA, endpoints REST y comunicación realtime.',
+      learned:
+        'Integración real entre cliente móvil, backend, autenticación, datos persistentes y despliegue.',
+      stackIcons: LOCALIZED_STACK_ICONS.es.fichestu,
     },
     accesoDatosTienda: {
       title: 'Acceso Datos Tienda',
       category: 'Java Backend · E-commerce',
       duration: 'Proyecto académico refactorizado · Java 17 + persistencia multi-base de datos',
       summary:
-        'Aplicación e-commerce JSP/Servlet desplegable en Tomcat. Trabajé acceso a datos con Hibernate/JPA, MySQL, MongoDB y ObjectDB, flujos de compra, stock atómico, login, backoffice, repositorios/DAO y 48 tests automatizados.',
-    },
-    retos: {
-      title: 'Retos Sociales',
-      category: 'Web · Próximo',
-      duration: 'Próximo proyecto · objetivo: 1 semana · trabajo del cole',
-      summary:
-        'Siguiente entrega académica centrada en retos sociales: desarrollo web en una semana, siguiendo una metodología similar a Sostenibilidad con foco en claridad, responsive y entrega completa.',
-    },
-    sostenibilidad: {
-      title: 'Sostenibilidad',
-      category: 'Web',
-      duration: 'Completado en 1 semana · trabajo del grado superior',
-      summary:
-        'Landing informativa sobre hábitos sostenibles, diseñada y desarrollada en una semana con enfoque en claridad de contenido, responsive y accesibilidad base.',
+        'Proyecto académico refactorizado para portfolio, centrado en lógica backend, estructura mantenible, acceso a datos y buenas prácticas Java.',
+      backendResponsibilities:
+        'Servlets, repositorios/DAO, flujo de compra, stock atómico, login, backoffice, persistencia Hibernate/JPA y tests automatizados.',
+      frontendResponsibilities:
+        'Vistas JSP para catálogo, carrito, login y administración básica.',
+      dataUsage: 'MySQL, MongoDB, ObjectDB, Hibernate/JPA y operaciones CRUD.',
+      learned:
+        'Persistencia con varias bases de datos, separación de responsabilidades y pruebas sobre lógica crítica.',
+      stackIcons: LOCALIZED_STACK_ICONS.es.acceso,
     },
     daw: {
       title: 'Proyecto Final DAW - Plataforma de Enfermería',
-      category: 'Proyecto Final DAW',
-      duration: 'Proyecto anual de fin de curso DAW',
+      category: 'Full-Stack académico',
+      duration: 'Proyecto anual de final de curso DAW',
       summary:
-        'Proyecto de final de DAW desarrollado durante todo el año y hecho completamente en inglés. Incluye frontend y backend separados, memoria en PDF y dos repositorios. Se sacó información de algunas IA, pero sin usar IA para programar.',
+        'Proyecto full-stack desarrollado durante el curso con frontend y backend separados, documentación técnica en PDF y repositorios independientes.',
+      backendResponsibilities:
+        'Backend Node.js/Express, endpoints, conexión con MySQL y estructura separada del frontend.',
+      frontendResponsibilities:
+        'Frontend Angular, pantallas, formularios, navegación e integración con API.',
+      dataUsage: 'MySQL, API propia y documentación del flujo de datos.',
+      learned:
+        'Separación frontend/backend, trabajo en equipo, documentación y ciclo completo de entrega.',
     },
     gm: {
       title: 'Proyecto GM',
-      category: 'Full Stack',
+      category: 'Full-Stack académico',
       duration: 'Práctica técnica completa',
       summary:
-        'Proyecto integrado con frontend en Angular (formularios, login, listado), backend en PHP con endpoints, autenticación con localStorage e integración frontend-backend sobre API.',
+        'Proyecto integrado con frontend en Angular, backend en PHP con endpoints, autenticación con localStorage e integración frontend-backend sobre API.',
+      backendResponsibilities:
+        'Endpoints PHP, control de login y respuestas consumidas por el frontend.',
+      frontendResponsibilities:
+        'Angular con formularios, listado, login y consumo de API.',
+      dataUsage: 'API propia, autenticación básica y almacenamiento local.',
+      learned:
+        'Flujo completo entre interfaz, API y autenticación básica.',
+      stackIcons: LOCALIZED_STACK_ICONS.es.gm,
     },
-  },
-  en: {
     portfolio: {
-      title: 'Interactive Portfolio',
-      category: 'Personal Project',
-      duration: 'Personal project · updated in 2026 and constantly evolving',
+      title: 'Portfolio Interactivo',
+      category: 'Frontend técnico',
+      duration: 'Proyecto personal · actualizado en 2026',
       summary:
-        'This portfolio: custom particle cursor, reactive scroll animations, interactive SVG/comet background, magnetic cards, and automatic deployment on GitHub Pages.',
+        'Portfolio construido con Next.js, React y Tailwind. Mantiene una experiencia visual premium y comunica los pilares Java, UI/UX e IA & Big Data.',
+      backendResponsibilities:
+        'Sin backend propio en este repositorio; funciona como plataforma de presentación técnica.',
+      frontendResponsibilities:
+        'Componentes React, animaciones GSAP, responsive, SEO, datos separados y despliegue en GitHub Pages.',
+      dataUsage: 'Contenido modular en archivos de datos y assets estáticos.',
+      learned:
+        'Arquitectura frontend mantenible, refactor de contenido y comunicación profesional.',
+    },
+    retos: {
+      title: 'Retos Sociales',
+      category: 'Frontend académico',
+      duration: 'Proyecto académico · entrega web de una semana',
+      summary:
+        'Entrega académica centrada en desarrollo web, claridad de contenido, estructura responsive y publicación en GitHub Pages.',
+      backendResponsibilities: 'No incluye backend propio.',
+      frontendResponsibilities: 'HTML, CSS, JavaScript, responsive y estructura de contenido.',
+      dataUsage: 'Datos estáticos del sitio.',
+      learned:
+        'Entrega rápida, organización visual y publicación web.',
+    },
+    sostenibilidad: {
+      title: 'Sostenibilidad',
+      category: 'Frontend académico',
+      duration: 'Completado en 1 semana · trabajo del grado superior',
+      summary:
+        'Landing informativa sobre hábitos sostenibles, desarrollada en una semana con foco en claridad, responsive y accesibilidad base.',
+      backendResponsibilities: 'No incluye backend propio.',
+      frontendResponsibilities: 'HTML, CSS, JavaScript, maquetación responsive y contenido accesible.',
+      dataUsage: 'Datos estáticos del sitio.',
+      learned:
+        'Planificación de entrega corta, responsive y comunicación visual clara.',
     },
     vortex: {
       title: 'Vortex',
-      category: 'Local AI',
-      tags: ['React', 'Python', 'Local LLM', 'RAG', 'Agent'],
-      duration: 'Personal local AI project with technical PDF documentation',
+      category: 'IA local complementaria',
+      duration: 'Proyecto personal de IA local con memoria técnica en PDF',
       summary:
-        'Own local AI project with React frontend, Python API, RAG, local memory, visible permissions, and agent mode. Final documentation prepared for the portfolio projects section.',
+        'Proyecto de IA local con frontend React, API Python, RAG, memoria local, permisos visibles y modo agente. Complementa el perfil IA & Big Data.',
+      backendResponsibilities:
+        'API Python, endpoints para interacción local y gestión de contexto.',
+      frontendResponsibilities:
+        'Frontend React para interacción con el agente y visualización de estados.',
+      dataUsage: 'RAG, memoria local y permisos visibles.',
+      learned:
+        'Uso de IA como apoyo productivo, integración técnica y documentación de sistemas locales.',
     },
+  },
+  en: {
     fichestu: {
       title: 'Fichestu',
-      category: 'DAM Final Project',
+      category: 'Spring Boot · Full-Stack',
       duration: 'DAM final project · native Android app + Spring Boot backend',
       summary:
-        'Final DAM project: native Android app with Kotlin + Jetpack Compose connected to Spring Boot. Includes JWT/Google Sign-In, market, minigames, profile, notifications, realtime WebSocket, Flyway, MySQL/Supabase, Docker, and Render.',
+        'Full-stack application with a Kotlin + Jetpack Compose Android app connected to a Spring Boot backend. It includes authentication, realtime features, persistence, and deployment.',
+      backendResponsibilities:
+        'REST API with Spring Boot, JWT/Google Sign-In authentication, WebSocket, services, JPA/Flyway persistence, and a MySQL/Supabase database.',
+      frontendResponsibilities:
+        'Native Android app with Kotlin and Jetpack Compose, including profile, market, minigame, and notification screens.',
+      dataUsage: 'MySQL/Supabase, Flyway, JPA, REST endpoints, and realtime communication.',
+      learned:
+        'Real integration between mobile client, backend, authentication, persistent data, and deployment.',
+      stackIcons: LOCALIZED_STACK_ICONS.en.fichestu,
     },
     accesoDatosTienda: {
       title: 'Acceso Datos Tienda',
       category: 'Java Backend · E-commerce',
       duration: 'Refactored academic project · Java 17 + multi-database persistence',
       summary:
-        'JSP/Servlet e-commerce app deployable on Tomcat. I worked on data access with Hibernate/JPA, MySQL, MongoDB and ObjectDB, checkout flows, atomic stock updates, login, backoffice, repositories/DAO, and 48 automated tests.',
-    },
-    retos: {
-      title: 'Social Challenges',
-      category: 'Web · Upcoming',
-      duration: 'Upcoming project · goal: 1 week · school assignment',
-      summary:
-        'Next academic delivery focused on social challenges: one-week web development with emphasis on clarity, responsive behavior, and complete delivery.',
-    },
-    sostenibilidad: {
-      title: 'Sustainability',
-      category: 'Web',
-      duration: 'Completed in 1 week · higher-degree assignment',
-      summary:
-        'Informative landing page about sustainable habits, designed and developed in one week with focus on content clarity, responsive layout, and base accessibility.',
+        'Academic project refactored for the portfolio, focused on backend logic, maintainable structure, data access, and Java best practices.',
+      backendResponsibilities:
+        'Servlets, repositories/DAO, checkout flow, atomic stock handling, login, backoffice, Hibernate/JPA persistence, and automated tests.',
+      frontendResponsibilities:
+        'JSP views for catalog, cart, login, and basic administration.',
+      dataUsage: 'MySQL, MongoDB, ObjectDB, Hibernate/JPA, and CRUD operations.',
+      learned:
+        'Persistence with several databases, separation of responsibilities, and testing around critical logic.',
+      stackIcons: LOCALIZED_STACK_ICONS.en.acceso,
     },
     daw: {
       title: 'DAW Final Project - Nursing Platform',
-      category: 'DAW Final Project',
-      duration: 'Full-year DAW final project',
+      category: 'Academic full-stack',
+      duration: 'Year-long DAW final project',
       summary:
-        'Final DAW project developed across the full academic year and built entirely in English. It includes separate frontend and backend repositories, PDF documentation, and research supported by AI sources without using AI to write code.',
+        'Full-stack project developed during the course with separate frontend and backend repositories plus technical PDF documentation.',
+      backendResponsibilities:
+        'Node.js/Express backend, endpoints, MySQL connection, and a structure separated from the frontend.',
+      frontendResponsibilities:
+        'Angular frontend, screens, forms, navigation, and API integration.',
+      dataUsage: 'MySQL, custom API, and documentation of the data flow.',
+      learned:
+        'Frontend/backend separation, teamwork, documentation, and a complete delivery cycle.',
     },
     gm: {
-      title: 'Project GM',
-      category: 'Full Stack',
+      title: 'GM Project',
+      category: 'Academic full-stack',
       duration: 'Complete technical practice',
       summary:
-        'Integrated project with Angular frontend (forms, login, list), PHP backend endpoints, localStorage auth, and frontend-backend API integration.',
-      stackIcons: [
-        { label: 'Angular Forms & Login', icon: <Layers size={14} /> },
-        { label: 'List & UI', icon: <Smartphone size={14} /> },
-        { label: 'PHP Backend Endpoints', icon: <Terminal size={14} /> },
-        { label: 'Auth + localStorage', icon: <Briefcase size={14} /> },
-        { label: 'API Integration', icon: <Rocket size={14} /> },
-        { label: 'Front/Back Flow', icon: <Code2 size={14} /> },
-      ],
+        'Integrated project with an Angular frontend, PHP backend endpoints, localStorage authentication, and frontend-backend API integration.',
+      backendResponsibilities:
+        'PHP endpoints, login handling, and responses consumed by the frontend.',
+      frontendResponsibilities:
+        'Angular with forms, listing, login, and API consumption.',
+      dataUsage: 'Custom API, basic authentication, and local storage.',
+      learned:
+        'Complete flow between interface, API, and basic authentication.',
+      stackIcons: LOCALIZED_STACK_ICONS.en.gm,
+    },
+    portfolio: {
+      title: 'Interactive Portfolio',
+      category: 'Technical frontend',
+      duration: 'Personal project · updated in 2026',
+      summary:
+        'Portfolio built with Next.js, React, and Tailwind. It keeps a premium visual experience and communicates the Java, UI/UX, and AI & Big Data pillars.',
+      backendResponsibilities:
+        'No custom backend in this repository; it works as a technical presentation platform.',
+      frontendResponsibilities:
+        'React components, GSAP animations, responsive layout, SEO, separated data, and GitHub Pages deployment.',
+      dataUsage: 'Modular content in data files and static assets.',
+      learned:
+        'Maintainable frontend architecture, content refactoring, and professional communication.',
+    },
+    retos: {
+      title: 'Social Challenges',
+      category: 'Academic frontend',
+      duration: 'Academic project · one-week web delivery',
+      summary:
+        'Academic delivery focused on web development, content clarity, responsive structure, and GitHub Pages publishing.',
+      backendResponsibilities: 'No custom backend included.',
+      frontendResponsibilities: 'HTML, CSS, JavaScript, responsive layout, and content structure.',
+      dataUsage: 'Static site data.',
+      learned:
+        'Fast delivery, visual organization, and web publishing.',
+    },
+    sostenibilidad: {
+      title: 'Sustainability',
+      category: 'Academic frontend',
+      duration: 'Completed in 1 week · higher-degree assignment',
+      summary:
+        'Informative landing page about sustainable habits, developed in one week with a focus on clarity, responsive layout, and basic accessibility.',
+      backendResponsibilities: 'No custom backend included.',
+      frontendResponsibilities: 'HTML, CSS, JavaScript, responsive layout, and accessible content.',
+      dataUsage: 'Static site data.',
+      learned:
+        'Short delivery planning, responsive layout, and clear visual communication.',
+    },
+    vortex: {
+      title: 'Vortex',
+      category: 'Complementary local AI',
+      duration: 'Personal local AI project with technical PDF documentation',
+      summary:
+        'Local AI project with React frontend, Python API, RAG, local memory, visible permissions, and agent mode. It complements the AI & Big Data pillar.',
+      backendResponsibilities:
+        'Python API, endpoints for local interaction, and context handling.',
+      frontendResponsibilities:
+        'React frontend for interacting with the agent and showing states.',
+      dataUsage: 'RAG, local memory, and visible permissions.',
+      learned:
+        'Using AI as a productivity support, technical integration, and documentation for local systems.',
     },
   },
 };

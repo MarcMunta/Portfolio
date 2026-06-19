@@ -35,6 +35,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 *.err.log
+*.out.log
 *.run.log
 .err.log
 .run.log

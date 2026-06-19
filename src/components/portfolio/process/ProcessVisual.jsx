@@ -16,9 +16,11 @@ export function ProcessVisual({ activeProcessStep }) {
 
       <div className="relative w-full h-full flex items-center justify-center transition-all duration-700">
         <DiscoveryVisual active={activeProcessStep === 0} />
-        <DesignVisual active={activeProcessStep === 1} />
-        <DevelopmentVisual active={activeProcessStep === 2} />
-        <DeliveryVisual active={activeProcessStep === 3} />
+        <ArchitectureVisual active={activeProcessStep === 1} />
+        <BackendVisual active={activeProcessStep === 2} />
+        <IntegrationVisual active={activeProcessStep === 3} />
+        <TestingVisual active={activeProcessStep === 4} />
+        <RefactorVisual active={activeProcessStep === 5} />
       </div>
     </div>
   );
@@ -49,7 +51,7 @@ function DiscoveryVisual({ active }) {
   );
 }
 
-function DesignVisual({ active }) {
+function ArchitectureVisual({ active }) {
   return (
     <VisualLayer active={active} className={active ? '' : '!translate-y-0'}>
       <svg viewBox="0 0 240 200" fill="none" className="w-80 h-auto anim-float-rev">
@@ -76,22 +78,64 @@ function DevelopmentVisual({ active }) {
           <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
         </div>
         <p className="text-pink-400">
-          import <span className="text-white">React</span> from <span className="text-green-300">'react'</span>;
+          fetch(<span className="text-green-300">'/api/projects'</span>)
         </p>
         <p className="text-blue-400 mt-4">
-          const <span className="text-yellow-200">System</span> = () =&gt; {'{'}
+          .then(<span className="text-yellow-200">response</span> =&gt;
         </p>
         <p className="pl-4 text-gray-400">
-          return <span className="text-blue-300">&lt;Masterpiece /&gt;</span>;
+          response.json()
         </p>
-        <p className="text-blue-400">{'}'};</p>
+        <p className="text-blue-400">);</p>
         <div className="w-2 h-4 bg-white/50 mt-2 animate-pulse" />
       </div>
     </VisualLayer>
   );
 }
 
-function DeliveryVisual({ active }) {
+function BackendVisual({ active }) {
+  return (
+    <VisualLayer active={active} className={active ? '' : '!translate-y-0'}>
+      <div className="code-panel font-mono text-sm bg-black/80 border border-blue-500/30 w-72 p-6 rounded-xl shadow-[0_0_40px_rgba(59,130,246,0.15)] anim-float">
+        <div className="flex gap-1.5 mb-4 border-b border-white/10 pb-3">
+          <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+          <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+        </div>
+        <p className="text-pink-400">
+          @RestController
+        </p>
+        <p className="text-blue-400 mt-3">
+          class <span className="text-yellow-200">ProjectController</span> {'{'}
+        </p>
+        <p className="pl-4 text-gray-300">
+          GET <span className="text-green-300">/api/projects</span>
+        </p>
+        <p className="text-blue-400">{'}'}</p>
+        <div className="w-2 h-4 bg-white/50 mt-2 animate-pulse" />
+      </div>
+    </VisualLayer>
+  );
+}
+
+function IntegrationVisual({ active }) {
+  return <DevelopmentVisual active={active} />;
+}
+
+function TestingVisual({ active }) {
+  return (
+    <VisualLayer active={active}>
+      <div className="w-72 rounded-2xl border border-white/10 bg-black/70 p-6 font-mono text-sm shadow-[0_0_40px_rgba(59,130,246,0.15)]">
+        <p className="text-green-300">✓ API status 200</p>
+        <p className="text-green-300 mt-3">✓ validación DTO</p>
+        <p className="text-green-300 mt-3">✓ CRUD MySQL</p>
+        <p className="text-blue-300 mt-5">tests: 48 passed</p>
+      </div>
+    </VisualLayer>
+  );
+}
+
+function RefactorVisual({ active }) {
   return (
     <VisualLayer active={active}>
       <svg viewBox="0 0 200 200" fill="none" className="w-64 h-64">

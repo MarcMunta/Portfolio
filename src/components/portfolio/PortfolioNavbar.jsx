@@ -29,7 +29,6 @@ function DesktopNavbar({
   return (
     <>
       <div
-        data-gsap-nav
         className={`hidden md:flex fixed top-6 left-0 w-full justify-center z-50 pointer-events-none transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${
           showNav ? 'translate-y-0 opacity-100' : '-translate-y-32 opacity-0'
         }`}
@@ -66,7 +65,6 @@ function DesktopNavbar({
       </div>
 
       <div
-        data-gsap-nav
         className={`hidden md:block fixed top-6 right-6 z-50 pointer-events-auto transition-all duration-700 ${
           showNav ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
         }`}
@@ -99,7 +97,6 @@ function MobileNavbar({
 }) {
   return (
     <div
-      data-gsap-nav
       className={`md:hidden fixed top-4 left-4 right-4 z-50 pointer-events-auto transition-all duration-700 ${
         showNav ? 'translate-y-0 opacity-100' : '-translate-y-28 opacity-0'
       }`}
@@ -196,27 +193,30 @@ function LanguageThemeControls({
   toggleTheme,
 }) {
   const buttonSize = compact ? 'w-8 h-8' : 'w-9 h-9';
+  const showLanguageButtons = languageOptions.length > 1;
 
   return (
     <div className={`portfolio-control-group flex items-center gap-1.5 rounded-full border border-[var(--border-primary)] bg-[var(--bg-nav)] backdrop-blur-xl px-1.5 py-1 shadow-[var(--shadow-nav)]`}>
-      {languageOptions.map((option) => (
-        <button
-          key={option.code}
-          type="button"
-          onClick={() => setLanguage(option.code)}
-          aria-label={`${labels.switchLanguageTo} ${option.label}`}
-          className={`portfolio-control-button cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all ${
-            language === option.code ? 'is-selected bg-[var(--process-active-bg)] scale-105' : 'bg-transparent hover:bg-[var(--process-active-bg)]'
-          }`}
-        >
-          <FlagIcon code={option.code} />
-        </button>
-      ))}
-      <div className="w-px h-5 bg-[var(--border-secondary)]" />
+      {showLanguageButtons
+        ? languageOptions.map((option) => (
+            <button
+              key={option.code}
+              type="button"
+              onClick={() => setLanguage(option.code)}
+              aria-label={`${labels.switchLanguageTo} ${option.label}`}
+              className={`portfolio-control-button cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all ${
+                language === option.code ? 'is-selected bg-[var(--process-active-bg)] scale-105' : 'bg-transparent hover:bg-[var(--process-active-bg)]'
+              }`}
+            >
+              <FlagIcon code={option.code} />
+            </button>
+          ))
+        : null}
+      {showLanguageButtons ? <div className="w-px h-5 bg-[var(--border-secondary)]" /> : null}
       <button
         type="button"
         onClick={toggleTheme}
-        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-label={theme === 'dark' ? labels.switchToLight : labels.switchToDark}
         className={`portfolio-control-button cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all hover:bg-[var(--process-active-bg)]`}
       >
         {theme === 'dark' ? <Sun size={16} className="text-[var(--text-primary)]" /> : <Moon size={16} className="text-[var(--text-primary)]" />}

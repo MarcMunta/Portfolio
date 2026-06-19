@@ -1,71 +1,117 @@
 # Portfolio - Marc Muntané Clarà
 
-## Presentacion
-Soy Marc Muntané Clarà, desarrollador web y multiplataforma en formacion.  
-Me centro en crear productos digitales claros, funcionales y visualmente solidos, combinando diseno UI/UX con implementacion tecnica real.
+Portfolio personal diseñado para presentar mi perfil como:
 
-## Objetivo profesional
-Mi objetivo es crecer como programador enfocado en UI/UX:  
-- Disenar interfaces limpias, usables y accesibles.
-- Convertir disenos en codigo mantenible y escalable.
-- Participar en proyectos reales donde producto, experiencia de usuario y desarrollo vayan de la mano.
+**Desarrollador Full-Stack Junior centrado en Java, UI/UX e IA & Big Data.**
 
-## Stack y conocimientos
+## Propósito
 
-### Frontend y UI
-- HTML5
-- CSS3 / Tailwind CSS
-- JavaScript (ES6+)
-- TypeScript
-- React
+Este portfolio comunica una posición técnica clara: desarrollo full-stack junior apoyado en tres pilares clave: Java, UI/UX e IA & Big Data.
+
+La parte visual se mantiene premium y moderna, pero la jerarquía profesional muestra capacidad técnica, criterio de interfaz y crecimiento en IA/datos.
+
+## Tecnologías usadas
+
 - Next.js
-- UI/UX design, prototipado y documentacion tecnica
+- React
+- Tailwind CSS
+- GSAP
+- Lucide React
+- GitHub Pages
 
-### CMS y eCommerce
-- WordPress
-- PrestaShop
-- Shopify
+## Posicionamiento técnico
 
-### Mobile y multiplataforma
-- Flutter
-- Dart
-- Integraciones como Mapbox
+- Java y Spring Boot como base de programación y backend.
+- UI/UX y frontend moderno para construir interfaces claras y usables.
+- IA & Big Data como línea de especialización, productividad y experimentación.
+- APIs REST, servicios, controladores, DTOs, validación y gestión de errores.
+- SQL, MySQL, JDBC, JPA/Hibernate y operaciones CRUD.
+- Frontend moderno con React, Next.js, HTML, CSS, JavaScript y TypeScript.
+- IA como herramienta de productividad, documentación, exploración e integración.
 
-### Backend y datos
-- PHP
-- Laravel
-- Symfony
-- MySQL
-- MongoDB
-- APIs REST
+## Estructura del proyecto
 
-### Sistemas y soporte
-- Git y GitHub
-- Hosting y despliegues (incluyendo GitHub Pages)
-- pfSense
-- Ubuntu Server
-- Windows Server
-- Active Directory
-- DHCP / DNS
+```txt
+src/
+  app/
+    layout.tsx
+    globals.css
+    (routes)/page.jsx
+  components/
+    portfolio/
+      sections/
+      projects/
+      process/
+    ui/
+  data/
+    portfolioContent.jsx
+    portfolioProjects.jsx
+    portfolioSkills.js
+    portfolioTimeline.js
+  hooks/
+  lib/
+public/
+  docs/
+  images/
+scripts/
+```
 
-## Experiencia y enfoque
-- Practicas en entorno real con soporte tecnico y mantenimiento web.
-- Proyectos academicos con entregas en tiempos cortos (por ejemplo, 1 semana).
-- Erasmus+ desarrollando apps con Flutter y foco en frontend.
-- Plan de estudio en IA (2026-2027) en horario de tarde, manteniendo actividad laboral.
+## Secciones principales
 
-## Proyectos destacados
-- Portfolio interactivo (React + Next.js + Tailwind CSS)
-- Retos Sociales
-- Sostenibilidad
-- Pr08 Front-end & Back-end
+- Hero con posicionamiento Full-Stack Junior.
+- Stack técnico con Java/Spring Boot primero.
+- Tres pilares clave: Java, UI/UX e IA & Big Data.
+- Proyectos técnicos destacados.
+- Proceso de desarrollo.
+- Formación y trayectoria.
+- Proyectos full-stack, frontend e IA.
+- Sobre mí.
+- Actualmente reforzando.
+- CV y contacto.
 
-## Ver portfolio online (GitHub Pages)
-Puedes abrir la web publicada aqui:  
+## Ejecutar localmente
 
-**[Ir al portfolio en GitHub Pages](https://marcmunta.github.io/Portfolio/)**
+```bash
+npm install
+npm run dev
+```
+
+Abrir:
+
+```txt
+http://localhost:3000
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Lint
+
+```bash
+npm run lint
+```
+
+## Despliegue
+
+El portfolio está preparado para publicarse en GitHub Pages:
+
+https://marcmunta.github.io/Portfolio/
+
+## Mejoras futuras
+
+- Añadir más proyectos Java/Spring Boot verificables.
+- Añadir proyectos UI/UX documentados con decisiones de interfaz.
+- Añadir proyectos de IA & Big Data verificables.
+- Publicar una API REST Spring Boot con CRUD, DTOs, validación y tests.
+- Añadir un proyecto con Docker y despliegue backend documentado.
+- Mejorar cobertura de tests en proyectos Java.
+- Añadir capturas técnicas de APIs, bases de datos y arquitectura.
 
 ## Contacto
+
 - GitHub: https://github.com/MarcMunta
 - LinkedIn: https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/
 - Email: marcmclara@gmail.com

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Code2, Compass, PenTool, Rocket } from 'lucide-react';
+import { Bug, Code2, Compass, GitBranch, Layers3, Server } from 'lucide-react';
 
 import { Reveal } from '../../ui/Reveal';
 import { ProcessVisual } from '../process/ProcessVisual';
 
-const PROCESS_ICONS = [Compass, PenTool, Code2, Rocket];
+const PROCESS_ICONS = [Compass, Layers3, Server, Code2, Bug, GitBranch];
 
 export function ProcessSection({ locale, activeProcessStep, setActiveProcessStep }) {
   const processSteps = locale.process.steps.map((step, index) => ({
@@ -36,11 +36,13 @@ export function ProcessSection({ locale, activeProcessStep, setActiveProcessStep
 }
 
 function ProcessSteps({ steps, activeProcessStep, setActiveProcessStep }) {
+  const stepHeight = 100 / steps.length;
+
   return (
     <div className="w-full lg:w-1/2 flex flex-col gap-2 relative border-l border-white/10 pl-6 py-2">
       <div
         className="absolute left-[-1px] w-[2px] bg-blue-500 transition-all duration-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]"
-        style={{ top: `${activeProcessStep * 25}%`, height: '25%' }}
+        style={{ top: `${activeProcessStep * stepHeight}%`, height: `${stepHeight}%` }}
       />
 
       {steps.map(({ Icon, title, desc }, index) => (

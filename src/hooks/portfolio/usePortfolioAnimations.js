@@ -58,24 +58,31 @@ export function usePortfolioAnimations({
 }
 
 function animateIntro() {
-  gsap.fromTo(
-    '[data-gsap-nav]',
-    { y: -36, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out', stagger: 0.08 }
-  );
+  const navTargets = gsap.utils.toArray('[data-gsap-nav]');
+  const heroTargets = gsap.utils.toArray('[data-gsap-hero]');
 
-  gsap.fromTo(
-    '[data-gsap-hero]',
-    { y: 46, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: 'power3.out',
-      stagger: 0.12,
-      delay: 0.2,
-    }
-  );
+  if (navTargets.length) {
+    gsap.fromTo(
+      navTargets,
+      { y: -36, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out', stagger: 0.08 }
+    );
+  }
+
+  if (heroTargets.length) {
+    gsap.fromTo(
+      heroTargets,
+      { y: 46, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        stagger: 0.12,
+        delay: 0.2,
+      }
+    );
+  }
 }
 
 function animateScrollProgress(mainRef, scrollProgressRef) {

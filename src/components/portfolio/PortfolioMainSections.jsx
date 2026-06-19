@@ -1,10 +1,14 @@
 import React from 'react';
 
+import { AboutSection } from './sections/AboutSection';
+import { BackendSection } from './sections/BackendSection';
 import { ContactSection } from './sections/ContactSection';
+import { CurrentFocusSection } from './sections/CurrentFocusSection';
 import { CvSection } from './sections/CvSection';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { ExpertiseSection } from './sections/ExpertiseSection';
 import { HeroSection } from './sections/HeroSection';
+import { JavaProjectsSection } from './sections/JavaProjectsSection';
 import { ProcessSection } from './sections/ProcessSection';
 import { ProjectsSection } from './sections/ProjectsSection';
 import { SkillsMarquee } from './sections/SkillsMarquee';
@@ -30,6 +34,8 @@ export function PortfolioMainSections({
       <HeroSection locale={locale} scrollToSection={scrollToSection} />
       <SkillsMarquee theme={theme} />
       <ExpertiseSection locale={locale} />
+      <BackendSection locale={locale} scrollToSection={scrollToSection} />
+      <JavaProjectsSection locale={locale} />
       <ProcessSection
         locale={locale}
         activeProcessStep={activeProcessStep}
@@ -43,8 +49,10 @@ export function PortfolioMainSections({
         setActivePdfProjectId={setActivePdfProjectId}
         projectsSectionRef={projectsSectionRef}
         projectsPinRef={projectsPinRef}
-        projectsTrackRef={projectsTrackRef}
+          projectsTrackRef={projectsTrackRef}
       />
+      <AboutSection locale={locale} />
+      <CurrentFocusSection locale={locale} />
       <CvSection
         locale={locale}
         cvGeneralPreviewPages={cvGeneralPreviewPages}
