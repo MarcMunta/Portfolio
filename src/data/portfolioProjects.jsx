@@ -13,7 +13,7 @@ import {
   Terminal,
 } from 'lucide-react';
 
-const PORTFOLIO_STACK = [
+const PORTFOLIO_TECH_STACK = [
   { name: 'Java', color: '#ED8B00' },
   { name: 'Spring Boot', color: '#6DB33F' },
   { name: 'REST APIs', color: '#38BDF8' },
@@ -110,7 +110,8 @@ const PROJECT_BASE = {
   fichestu: {
     id: 1,
     image: 'images/projects/fichestu-cover.svg',
-    tags: ['Java', 'Spring Boot', 'Backend', 'REST API', 'JWT', 'WebSocket', 'JPA', 'MySQL', 'Full-Stack'],
+    tags: ['Java', 'Spring Boot', 'Backend', 'REST API', 'JWT', 'WebSocket', 'JPA', 'MySQL'],
+    fitTags: ['Java/Spring', 'Backend'],
     year: '2026',
     compactTitle: true,
     pdfPath: 'docs/fichestu-doc-mpj-v2.pdf',
@@ -123,6 +124,7 @@ const PROJECT_BASE = {
     id: 2,
     image: 'images/projects/acceso-datos-tienda-cover.png',
     tags: ['Java 17', 'Backend', 'JSP', 'Servlets', 'Hibernate/JPA', 'MySQL', 'MongoDB', 'Maven', 'JUnit'],
+    fitTags: ['Java', 'Data'],
     year: '2026',
     repoUrl: 'https://github.com/MarcMunta/Acceso_Datos_Tienda',
     compactTitle: true,
@@ -130,7 +132,8 @@ const PROJECT_BASE = {
   daw: {
     id: 3,
     image: 'images/projects/curriculum-wireframes.jpg',
-    tags: ['Full-Stack', 'Angular', 'Node.js', 'Express', 'MySQL', 'API'],
+    tags: ['Angular', 'Node.js', 'Express', 'MySQL', 'API'],
+    fitTags: ['UI/UX', 'Backend'],
     year: '2025',
     compactTitle: true,
     pdfPath: 'docs/CineFlix_BryanJoya_MarcMuntane_PolCarvajal.pdf',
@@ -142,7 +145,8 @@ const PROJECT_BASE = {
   gm: {
     id: 4,
     image: 'images/projects/curriculum-cover.jpg',
-    tags: ['Full-Stack', 'Angular', 'PHP', 'API', 'Auth'],
+    tags: ['Angular', 'PHP', 'API', 'Auth'],
+    fitTags: ['UI/UX', 'API'],
     year: '2024',
     pdfPath: 'docs/pr08-front-end-back-end.pdf',
   },
@@ -150,15 +154,17 @@ const PROJECT_BASE = {
     id: 5,
     image: 'images/projects/firewall-cover.jpg',
     tags: ['Frontend', 'React', 'Next.js', 'Tailwind CSS', 'SEO'],
+    fitTags: ['React/UI', 'UX'],
     year: '2026',
     url: 'https://github.com/MarcMunta/Portfolio',
     ctaIcon: 'github',
-    fullStack: PORTFOLIO_STACK,
+    techStack: PORTFOLIO_TECH_STACK,
   },
   retos: {
     id: 6,
     image: 'images/projects/sostenibilidad-actions.jpg',
     tags: ['Frontend', 'HTML', 'CSS', 'JavaScript', 'Responsive'],
+    fitTags: ['UI/UX'],
     year: '2026',
     url: 'https://marcmunta.github.io/Retos-Sociales/',
     repoUrl: 'https://github.com/MarcMunta/Retos-Sociales',
@@ -167,6 +173,7 @@ const PROJECT_BASE = {
     id: 7,
     image: 'images/projects/sostenibilidad-cover.jpg',
     tags: ['Frontend', 'HTML', 'CSS', 'JavaScript'],
+    fitTags: ['UI/UX'],
     year: '2025',
     url: 'https://marcmunta.github.io/Sostenibilidad_v1/',
     repoUrl: 'https://github.com/MarcMunta/Sostenibilidad_v1',
@@ -176,6 +183,7 @@ const PROJECT_BASE = {
     id: 8,
     image: 'images/projects/vortex-cover.png',
     tags: ['AI', 'React', 'Python', 'Local LLM', 'RAG', 'Agent'],
+    fitTags: ['AI', 'React/UI'],
     year: '2026',
     repoUrl: 'https://github.com/MarcMunta/Vortex',
     pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
@@ -183,24 +191,24 @@ const PROJECT_BASE = {
 };
 
 const PROJECT_ORDER = [
+  'vortex',
+  'portfolio',
   'fichestu',
   'accesoDatosTienda',
   'daw',
   'gm',
-  'portfolio',
   'retos',
   'sostenibilidad',
-  'vortex',
 ];
 
 const PROJECT_COPY = {
   ca: {
     fichestu: {
       title: 'Fichestu',
-      category: 'Spring Boot · Full-Stack',
+      category: 'Java · Spring Boot',
       duration: 'Projecte final DAM · app Android nativa + backend Spring Boot',
       summary:
-        'Aplicació full-stack amb app Android en Kotlin + Jetpack Compose connectada a un backend Spring Boot. Inclou autenticació, realtime, persistència i desplegament.',
+        'App Android en Kotlin + Jetpack Compose connectada a un backend Spring Boot. Inclou autenticació, realtime, persistència i desplegament.',
       backendResponsibilities:
         'API REST amb Spring Boot, autenticació JWT/Google Sign-In, WebSocket, serveis, persistència JPA/Flyway i base de dades MySQL/Supabase.',
       frontendResponsibilities:
@@ -227,10 +235,10 @@ const PROJECT_COPY = {
     },
     daw: {
       title: 'Projecte Final DAW - Plataforma d’Infermeria',
-      category: 'Full-Stack acadèmic',
+      category: 'Angular + Node.js acadèmic',
       duration: 'Projecte anual de final de curs DAW',
       summary:
-        'Projecte full-stack desenvolupat durant el curs amb frontend i backend separats, documentació tècnica en PDF i repositoris independents.',
+        'Projecte de curs amb frontend Angular, backend Node.js/Express, documentació tècnica en PDF i repositoris independents.',
       backendResponsibilities:
         'Backend Node.js/Express, endpoints, connexió amb MySQL i estructura separada del frontend.',
       frontendResponsibilities:
@@ -241,7 +249,7 @@ const PROJECT_COPY = {
     },
     gm: {
       title: 'Projecte GM',
-      category: 'Full-Stack acadèmic',
+      category: 'Angular + PHP acadèmic',
       duration: 'Pràctica tècnica completa',
       summary:
         'Projecte integrat amb frontend en Angular, backend en PHP amb endpoints, autenticació amb localStorage i integració frontend-backend sobre API.',
@@ -259,7 +267,7 @@ const PROJECT_COPY = {
       category: 'Frontend tècnic',
       duration: 'Projecte personal · actualitzat el 2026',
       summary:
-        'Portfolio construït amb Next.js, React i Tailwind. Manté una experiència visual premium i comunica els pilars Java, UI/UX i IA & Big Data.',
+        'Portfolio construït amb Next.js, React i Tailwind. Manté una experiència visual clara i comunica IA & Big Data, React/UI/UX i Java Spring Boot.',
       backendResponsibilities:
         'Sense backend propi en aquest repositori; funciona com a plataforma de presentació tècnica.',
       frontendResponsibilities:
@@ -310,10 +318,10 @@ const PROJECT_COPY = {
   es: {
     fichestu: {
       title: 'Fichestu',
-      category: 'Spring Boot · Full-Stack',
+      category: 'Java · Spring Boot',
       duration: 'Proyecto final DAM · app Android nativa + backend Spring Boot',
       summary:
-        'Aplicación full-stack con app Android en Kotlin + Jetpack Compose conectada a un backend Spring Boot. Incluye autenticación, realtime, persistencia y despliegue.',
+        'App Android en Kotlin + Jetpack Compose conectada a un backend Spring Boot. Incluye autenticación, realtime, persistencia y despliegue.',
       backendResponsibilities:
         'API REST con Spring Boot, autenticación JWT/Google Sign-In, WebSocket, servicios, persistencia JPA/Flyway y base de datos MySQL/Supabase.',
       frontendResponsibilities:
@@ -340,10 +348,10 @@ const PROJECT_COPY = {
     },
     daw: {
       title: 'Proyecto Final DAW - Plataforma de Enfermería',
-      category: 'Full-Stack académico',
+      category: 'Angular + Node.js académico',
       duration: 'Proyecto anual de final de curso DAW',
       summary:
-        'Proyecto full-stack desarrollado durante el curso con frontend y backend separados, documentación técnica en PDF y repositorios independientes.',
+        'Proyecto de curso con frontend Angular, backend Node.js/Express, documentación técnica en PDF y repositorios independientes.',
       backendResponsibilities:
         'Backend Node.js/Express, endpoints, conexión con MySQL y estructura separada del frontend.',
       frontendResponsibilities:
@@ -354,7 +362,7 @@ const PROJECT_COPY = {
     },
     gm: {
       title: 'Proyecto GM',
-      category: 'Full-Stack académico',
+      category: 'Angular + PHP académico',
       duration: 'Práctica técnica completa',
       summary:
         'Proyecto integrado con frontend en Angular, backend en PHP con endpoints, autenticación con localStorage e integración frontend-backend sobre API.',
@@ -372,7 +380,7 @@ const PROJECT_COPY = {
       category: 'Frontend técnico',
       duration: 'Proyecto personal · actualizado en 2026',
       summary:
-        'Portfolio construido con Next.js, React y Tailwind. Mantiene una experiencia visual premium y comunica los pilares Java, UI/UX e IA & Big Data.',
+        'Portfolio construido con Next.js, React y Tailwind. Mantiene una experiencia visual clara y comunica IA & Big Data, React/UI/UX y Java Spring Boot.',
       backendResponsibilities:
         'Sin backend propio en este repositorio; funciona como plataforma de presentación técnica.',
       frontendResponsibilities:
@@ -423,10 +431,10 @@ const PROJECT_COPY = {
   en: {
     fichestu: {
       title: 'Fichestu',
-      category: 'Spring Boot · Full-Stack',
+      category: 'Java · Spring Boot',
       duration: 'DAM final project · native Android app + Spring Boot backend',
       summary:
-        'Full-stack application with a Kotlin + Jetpack Compose Android app connected to a Spring Boot backend. It includes authentication, realtime features, persistence, and deployment.',
+        'Kotlin + Jetpack Compose Android app connected to a Spring Boot backend, with authentication, realtime features, persistence, and deployment.',
       backendResponsibilities:
         'REST API with Spring Boot, JWT/Google Sign-In authentication, WebSocket, services, JPA/Flyway persistence, and a MySQL/Supabase database.',
       frontendResponsibilities:
@@ -453,10 +461,10 @@ const PROJECT_COPY = {
     },
     daw: {
       title: 'DAW Final Project - Nursing Platform',
-      category: 'Academic full-stack',
+      category: 'Academic Angular + Node.js',
       duration: 'Year-long DAW final project',
       summary:
-        'Full-stack project developed during the course with separate frontend and backend repositories plus technical PDF documentation.',
+        'Course project with Angular frontend, Node.js/Express backend, technical PDF documentation, and separate repositories.',
       backendResponsibilities:
         'Node.js/Express backend, endpoints, MySQL connection, and a structure separated from the frontend.',
       frontendResponsibilities:
@@ -467,7 +475,7 @@ const PROJECT_COPY = {
     },
     gm: {
       title: 'GM Project',
-      category: 'Academic full-stack',
+      category: 'Academic Angular + PHP',
       duration: 'Complete technical practice',
       summary:
         'Integrated project with an Angular frontend, PHP backend endpoints, localStorage authentication, and frontend-backend API integration.',
@@ -485,7 +493,7 @@ const PROJECT_COPY = {
       category: 'Technical frontend',
       duration: 'Personal project · updated in 2026',
       summary:
-        'Portfolio built with Next.js, React, and Tailwind. It keeps a premium visual experience and communicates the Java, UI/UX, and AI & Big Data pillars.',
+        'Portfolio built with Next.js, React, and Tailwind. It keeps a clear visual experience and communicates AI & Big Data, React/UI/UX, and Java Spring Boot.',
       backendResponsibilities:
         'No custom backend in this repository; it works as a technical presentation platform.',
       frontendResponsibilities:

@@ -1,0 +1,102 @@
+{
+  "name": "Marc Muntane Clara",
+  "canonicalUrl": "https://marcmunta.github.io/Portfolio/",
+  "targetRoles": [
+    "AI & Big Data junior role",
+    "React UI/UX junior role",
+    "Java Spring Boot junior role"
+  ],
+  "positioning": "Junior developer candidate focused on applied AI, clear React UI/UX, and maintainable Java Spring Boot backend work.",
+  "strengths": [
+    "Fast learning",
+    "Product judgment",
+    "Organized technical work",
+    "Clear communication",
+    "Care for interface clarity",
+    "Maintainable backend structure"
+  ],
+  "skills": {
+    "aiBigData": [
+      "Applied AI",
+      "Prompt engineering",
+      "Basic RAG",
+      "Automation",
+      "Basic data analysis",
+      "AI-assisted documentation"
+    ],
+    "reactUiUx": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Responsive design",
+      "UI/UX",
+      "Accessibility basics",
+      "API integration"
+    ],
+    "javaSpringBoot": [
+      "Java",
+      "Spring Boot",
+      "REST APIs",
+      "JPA/Hibernate",
+      "MySQL",
+      "Testing",
+      "Maven",
+      "Git"
+    ]
+  },
+  "projects": [
+    {
+      "name": "Vortex",
+      "fit": [
+        "AI & Big Data",
+        "React UI/UX"
+      ],
+      "evidence": "Local AI project with React frontend, Python API, basic RAG, local memory, visible permissions, and agent mode."
+    },
+    {
+      "name": "Portfolio",
+      "fit": [
+        "React UI/UX"
+      ],
+      "evidence": "Next.js, React, Tailwind CSS, GSAP, multilingual content, SEO, structured data, and GitHub Pages deployment."
+    },
+    {
+      "name": "Fichestu Backend",
+      "fit": [
+        "Java Spring Boot"
+      ],
+      "evidence": "Spring Boot backend with REST API, JWT/Google Sign-In, WebSocket, JPA/Flyway, MySQL/Supabase, Docker, and deployment."
+    },
+    {
+      "name": "Acceso Datos Tienda",
+      "fit": [
+        "Java",
+        "Data access"
+      ],
+      "evidence": "Java 17 academic e-commerce backend with JSP, Servlets, Hibernate/JPA, MySQL, MongoDB, ObjectDB, Maven, JUnit, and Tomcat WAR."
+    }
+  ],
+  "communicationGuidance": {
+    "use": [
+      "junior developer candidate",
+      "AI & Big Data focus",
+      "React UI/UX care",
+      "Java Spring Boot backend base",
+      "fast learner",
+      "organized worker",
+      "clear communicator"
+    ],
+    "avoid": [
+      "senior",
+      "expert",
+      "generic broad positioning",
+      "unverified professional experience"
+    ]
+  },
+  "contact": {
+    "github": "https://github.com/MarcMunta",
+    "linkedin": "https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/",
+    "email": "marcmclara@gmail.com"
+  }
+}

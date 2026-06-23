@@ -133,8 +133,9 @@ const COMMON_JAVA_PROJECTS = {
 const LOCALE_DATA = {
   ca: {
     navItems: [
+      { id: 'role-paths', label: 'Rutes' },
       { id: 'expertise', label: 'Stack' },
-      { id: 'backend', label: 'Pilars' },
+      { id: 'candidate-signal', label: 'Treball' },
       { id: 'projects', label: 'Projectes' },
       { id: 'experience', label: 'Formació' },
       { id: 'cv', label: 'CV' },
@@ -147,9 +148,20 @@ const LOCALE_DATA = {
       switchToLight: 'Canviar a mode clar',
       switchToDark: 'Canviar a mode fosc',
       available: 'Disponible per a rols júnior',
-      viewProjects: 'Veure projectes destacats',
-      viewStack: 'Veure stack tècnic',
+      viewPaths: 'Tria ruta',
+      viewProjects: 'Projectes',
+      viewStack: 'Stack',
+      viewWork: 'Com treballo',
       contact: 'Contactar',
+      roleFit: 'Rol',
+      roleProof: 'Prova',
+      roleSignal: 'Senyal',
+      roleCta: 'Veure proves',
+      projectFit: 'Encaixa per',
+      projectProof: 'Prova visible',
+      projectProofPdf: 'PDF tècnic',
+      projectProofRepo: 'GitHub',
+      projectProofDemo: 'Demo',
       openPdfPreviewOf: 'Obrir vista prèvia PDF de',
       openProjectOf: 'Obrir projecte',
       openRepoOf: 'Obrir repositori de',
@@ -166,42 +178,98 @@ const LOCALE_DATA = {
       demo: 'Demo',
     },
     hero: {
-      titleLines: ['Desenvolupador', 'Full-Stack', 'Júnior'],
+      titleLines: ['IA & Big Data', 'React UI/UX', 'Java Spring Boot'],
       subtitle:
-        'Perfil tècnic basat en tres pilars: Java per a lògica i backend, UI/UX per a interfícies clares, i IA & Big Data com a línia d’especialització.',
-      mobileSubtitle: 'Java, UI/UX i IA & Big Data com a tres pilars tècnics.',
+        'IA aplicada, dades, interfícies clares i backend Java com a base tècnica.',
+      mobileSubtitle: 'IA, React/UI/UX i Java/Spring Boot.',
       supporting:
-        'Construeixo aplicacions combinant estructura de software, criteri visual i eines d’IA. Busco créixer com a desenvolupador júnior capaç d’unir backend, frontend i solucions data/AI aplicades.',
+        'Tres rutes, un perfil: automatització útil, experiència d’usuari clara i APIs mantenibles.',
       mobileSupporting:
-        'Full-stack júnior amb base Java, criteri d’interfície i interès real per IA aplicada.',
+        'IA aplicada, UI clara i backend Java.',
       scroll: 'Scroll',
+    },
+    rolePaths: {
+      titleStart: 'Tria la',
+      titleAccent: 'lectura.',
+      desc:
+        'Tres portes d’entrada segons el rol que vols cobrir. Mateix perfil: aprenc ràpid, cuido el detall i baixo idees a producte.',
+      routes: [
+        {
+          key: 'ai',
+          title: 'IA & Big Data',
+          fit: 'Per equips que busquen algú amb criteri tècnic, curiositat real per IA i base de dades.',
+          proof: 'Vortex: IA local amb React, API Python, RAG bàsic, memòria local i permisos visibles.',
+          signal: 'Aporto automatització, documentació clara i capacitat d’explorar solucions sense perdre el producte.',
+          target: 'projects',
+        },
+        {
+          key: 'ui',
+          title: 'React UI/UX',
+          fit: 'Per productes que necessiten interfícies clares, ordre visual i experiència responsive.',
+          proof: 'Aquest portfolio: React, Next.js, Tailwind, GSAP, multidioma, SEO i dades separades.',
+          signal: 'Penso en estats, jerarquia, lectura ràpida i petits detalls que fan que la web sembli cuidada.',
+          target: 'projects',
+        },
+        {
+          key: 'java',
+          title: 'Java Spring Boot',
+          fit: 'Per equips que valoren backend mantenible, APIs, persistència i estructura.',
+          proof: 'Fichestu Backend: Spring Boot, JWT, WebSocket, JPA/Flyway, MySQL/Supabase i desplegament.',
+          signal: 'Treballo amb responsabilitat: separar capes, validar dades, documentar decisions i deixar una base neta.',
+          target: 'projects',
+        },
+      ],
     },
     expertise: {
       titleStart: 'El meu Stack',
       titleAccent: 'Tècnic.',
       desc:
-        'Organitzat al voltant dels tres pilars del perfil: Java, UI/UX i IA & Big Data, amb dades i eines com a suport.',
+        'Tres línies clares: IA & Big Data, React/UI/UX i Java/Spring Boot.',
       groups: getStackGroups('ca'),
     },
     backend: {
-      titleStart: 'Tres pilars',
-      titleAccent: 'clau.',
+      titleStart: 'Tres línies',
+      titleAccent: 'clares.',
       desc:
-        'El portfolio se centra en Java, UI/UX i IA & Big Data. Java sosté la base tècnica, UI/UX aporta criteri d’interfície i la IA amplia la capacitat d’automatitzar, analitzar i integrar solucions.',
+        'El portfolio prioritza IA aplicada, producte visual i backend Java. Menys etiquetes, més evidència.',
       body:
-        'L’objectiu és mostrar un perfil júnior full-stack equilibrat: codi, producte i IA aplicada sense exagerar experiència professional.',
+        'Projectes reals, decisions visibles i una direcció tècnica neta.',
       cards: [
         {
-          title: 'Java i backend',
-          text: 'Java, Spring Boot en reforç, APIs REST, serveis, controladors, DTOs, validació, persistència i bases de dades.',
-        },
-        {
-          title: 'UI/UX i frontend',
-          text: 'Interfícies clares, responsive, experiència d’usuari, React, disseny visual i connexió real amb APIs.',
-        },
-        {
           title: 'IA & Big Data',
-          text: 'IA assistida, prompt engineering, projectes d’IA local, automatització, RAG bàsic i formació en IA & Big Data.',
+          text: 'IA aplicada, automatització, RAG bàsic, anàlisi de dades i formació especialitzada.',
+        },
+        {
+          title: 'React i UI/UX',
+          text: 'Interfícies netes, responsive, components React i criteri visual orientat a usuari.',
+        },
+        {
+          title: 'Java i Spring Boot',
+          text: 'Java, Spring Boot, APIs REST, persistència, validació, testing i bases de dades.',
+        },
+      ],
+    },
+    candidateSignal: {
+      titleStart: 'Forma de',
+      titleAccent: 'treballar.',
+      desc:
+        'El que vull transmetre quan algú entra al portfolio: criteri, cura, comunicació i ganes reals d’aportar.',
+      signals: [
+        {
+          title: 'Aprenentatge ràpid',
+          text: 'Entenc el problema, valido el camí i baixo a codi sense perdre context.',
+        },
+        {
+          title: 'Criteri de producte',
+          text: 'Cuido la interfície, els estats i la claredat perquè l’usuari no hagi d’endevinar.',
+        },
+        {
+          title: 'Treball ordenat',
+          text: 'Separo responsabilitats, documento decisions i deixo el projecte fàcil de continuar.',
+        },
+        {
+          title: 'Comunicació clara',
+          text: 'Explico decisions, límits i següents passos sense inflar el que encara estic aprenent.',
         },
       ],
     },
@@ -209,7 +277,7 @@ const LOCALE_DATA = {
       titleStart: 'Actualment',
       titleAccent: 'reforçant.',
       desc:
-        'Ruta d’aprenentatge per consolidar un perfil júnior full-stack amb base Java, UI/UX i IA aplicada.',
+        'Focus pràctic: IA, React/UI i backend Java.',
       items: getCurrentlyReinforcing('ca'),
     },
     process: {
@@ -228,26 +296,26 @@ const LOCALE_DATA = {
     experienceSection: {
       titleStart: 'Formació i',
       titleAccent: 'trajectòria.',
-      desc: 'Base real: STUCOM, DAW/DAM, pràctiques, sistemes, frontend, Java, UI/UX i IA.',
+      desc: 'Base real: IA en formació, frontend, Java, STUCOM, DAW/DAM, pràctiques i sistemes.',
     },
     javaProjectsSection: {
       titleStart: 'Projectes tècnics',
       titleAccent: 'destacats.',
-      desc: 'Projectes orientats als tres pilars: Java/backend, UI/UX/frontend i IA & Big Data.',
+      desc: 'Projectes alineats amb IA & Big Data, React/UI/UX i Java/Spring Boot.',
       projects: COMMON_JAVA_PROJECTS.ca,
     },
     projectsSection: {
       titleTop: 'Projectes',
       titleBottom: 'Destacats.',
-      desc: 'Selecció equilibrada entre Java/backend, UI/UX/frontend i IA & Big Data.',
+      desc: 'Una selecció curta per veure IA, interfície i backend amb claredat.',
     },
     about: {
       titleStart: 'Sobre',
       titleAccent: 'mi.',
       desc:
-        'Soc desenvolupador Full-Stack Júnior amb focus en Java, UI/UX i IA & Big Data. M’agrada convertir idees en aplicacions funcionals, clares i mantenibles.',
+        'Soc desenvolupador júnior enfocat en IA & Big Data, React/UI/UX i Java Spring Boot.',
       extra:
-        'Utilitzo la IA per millorar productivitat, documentar, explorar solucions i integrar eines quan aporten valor. Busco pràctiques o oportunitats júnior on créixer professionalment.',
+        'Busco pràctiques o oportunitats júnior on construir productes simples, útils i ben acabats.',
     },
     cvSection: {
       titleStart: 'El meu',
@@ -261,7 +329,7 @@ const LOCALE_DATA = {
       titleTop: 'CONTACTE',
       titleStart: 'PER A ROLS',
       titleAccent: 'JÚNIOR.',
-      desc: 'Obert a pràctiques i oportunitats júnior en Java, UI/UX, IA & Big Data i frontend modern.',
+      desc: 'Obert a pràctiques i oportunitats júnior en IA & Big Data, React/UI/UX i Java Spring Boot.',
     },
     footer: {
       githubAria: 'GitHub de Marc Muntané',
@@ -270,8 +338,9 @@ const LOCALE_DATA = {
   },
   es: {
     navItems: [
+      { id: 'role-paths', label: 'Rutas' },
       { id: 'expertise', label: 'Stack' },
-      { id: 'backend', label: 'Pilares' },
+      { id: 'candidate-signal', label: 'Trabajo' },
       { id: 'projects', label: 'Proyectos' },
       { id: 'experience', label: 'Formación' },
       { id: 'cv', label: 'CV' },
@@ -284,9 +353,20 @@ const LOCALE_DATA = {
       switchToLight: 'Cambiar a modo claro',
       switchToDark: 'Cambiar a modo oscuro',
       available: 'Disponible para roles junior',
-      viewProjects: 'Ver proyectos destacados',
-      viewStack: 'Ver stack técnico',
+      viewPaths: 'Elige ruta',
+      viewProjects: 'Proyectos',
+      viewStack: 'Stack',
+      viewWork: 'Cómo trabajo',
       contact: 'Contactar',
+      roleFit: 'Rol',
+      roleProof: 'Prueba',
+      roleSignal: 'Señal',
+      roleCta: 'Ver pruebas',
+      projectFit: 'Encaja para',
+      projectProof: 'Prueba visible',
+      projectProofPdf: 'PDF técnico',
+      projectProofRepo: 'GitHub',
+      projectProofDemo: 'Demo',
       openPdfPreviewOf: 'Abrir vista previa PDF de',
       openProjectOf: 'Abrir proyecto',
       openRepoOf: 'Abrir repositorio de',
@@ -303,42 +383,98 @@ const LOCALE_DATA = {
       demo: 'Demo',
     },
     hero: {
-      titleLines: ['Desarrollador', 'Full-Stack', 'Junior'],
+      titleLines: ['IA & Big Data', 'React UI/UX', 'Java Spring Boot'],
       subtitle:
-        'Perfil técnico construido sobre tres pilares: Java para lógica y backend, UI/UX para interfaces claras, e IA & Big Data como línea de especialización.',
-      mobileSubtitle: 'Java, UI/UX e IA & Big Data como tres pilares técnicos.',
+        'IA aplicada, datos, interfaces claras y backend Java como base técnica.',
+      mobileSubtitle: 'IA, React/UI/UX y Java/Spring Boot.',
       supporting:
-        'Construyo aplicaciones combinando estructura de software, criterio visual y herramientas de IA. Busco crecer como desarrollador junior capaz de unir backend, frontend y soluciones data/AI aplicadas.',
+        'Tres rutas, un perfil: automatización útil, experiencia de usuario clara y APIs mantenibles.',
       mobileSupporting:
-        'Full-stack junior con base Java, criterio de interfaz e interés real por IA aplicada.',
+        'IA aplicada, UI clara y backend Java.',
       scroll: 'Scroll',
+    },
+    rolePaths: {
+      titleStart: 'Elige tu',
+      titleAccent: 'lectura.',
+      desc:
+        'Tres puertas de entrada según el rol que quieres cubrir. Mismo perfil: aprendo rápido, cuido el detalle y bajo ideas a producto.',
+      routes: [
+        {
+          key: 'ai',
+          title: 'IA & Big Data',
+          fit: 'Para equipos que buscan criterio técnico, curiosidad real por IA y base de datos.',
+          proof: 'Vortex: IA local con React, API Python, RAG básico, memoria local y permisos visibles.',
+          signal: 'Aporto automatización, documentación clara y capacidad de explorar soluciones sin perder el producto.',
+          target: 'projects',
+        },
+        {
+          key: 'ui',
+          title: 'React UI/UX',
+          fit: 'Para productos que necesitan interfaces claras, orden visual y experiencia responsive.',
+          proof: 'Este portfolio: React, Next.js, Tailwind, GSAP, multidioma, SEO y datos separados.',
+          signal: 'Pienso en estados, jerarquía, lectura rápida y pequeños detalles que hacen que la web parezca cuidada.',
+          target: 'projects',
+        },
+        {
+          key: 'java',
+          title: 'Java Spring Boot',
+          fit: 'Para equipos que valoran backend mantenible, APIs, persistencia y estructura.',
+          proof: 'Fichestu Backend: Spring Boot, JWT, WebSocket, JPA/Flyway, MySQL/Supabase y despliegue.',
+          signal: 'Trabajo con responsabilidad: separar capas, validar datos, documentar decisiones y dejar base limpia.',
+          target: 'projects',
+        },
+      ],
     },
     expertise: {
       titleStart: 'Mi Stack',
       titleAccent: 'Técnico.',
       desc:
-        'Organizado alrededor de los tres pilares del perfil: Java, UI/UX e IA & Big Data, con datos y herramientas como soporte.',
+        'Tres líneas claras: IA & Big Data, React/UI/UX y Java/Spring Boot.',
       groups: getStackGroups('es'),
     },
     backend: {
-      titleStart: 'Tres pilares',
-      titleAccent: 'clave.',
+      titleStart: 'Tres líneas',
+      titleAccent: 'claras.',
       desc:
-        'El portfolio se centra en Java, UI/UX e IA & Big Data. Java sostiene la base técnica, UI/UX aporta criterio de interfaz y la IA amplía la capacidad de automatizar, analizar e integrar soluciones.',
+        'El portfolio prioriza IA aplicada, producto visual y backend Java. Menos etiquetas, más evidencia.',
       body:
-        'El objetivo es mostrar un perfil junior full-stack equilibrado: código, producto e IA aplicada sin exagerar experiencia profesional.',
+        'Proyectos reales, decisiones visibles y una dirección técnica limpia.',
       cards: [
         {
-          title: 'Java y backend',
-          text: 'Java, Spring Boot en refuerzo, APIs REST, servicios, controladores, DTOs, validación, persistencia y bases de datos.',
-        },
-        {
-          title: 'UI/UX y frontend',
-          text: 'Interfaces claras, responsive, experiencia de usuario, React, diseño visual y conexión real con APIs.',
-        },
-        {
           title: 'IA & Big Data',
-          text: 'IA asistida, prompt engineering, proyectos de IA local, automatización, RAG básico y formación en IA & Big Data.',
+          text: 'IA aplicada, automatización, RAG básico, análisis de datos y formación especializada.',
+        },
+        {
+          title: 'React y UI/UX',
+          text: 'Interfaces limpias, responsive, componentes React y criterio visual orientado a usuario.',
+        },
+        {
+          title: 'Java y Spring Boot',
+          text: 'Java, Spring Boot, APIs REST, persistencia, validación, testing y bases de datos.',
+        },
+      ],
+    },
+    candidateSignal: {
+      titleStart: 'Forma de',
+      titleAccent: 'trabajar.',
+      desc:
+        'Lo que quiero transmitir cuando alguien entra al portfolio: criterio, cuidado, comunicación y ganas reales de aportar.',
+      signals: [
+        {
+          title: 'Aprendizaje rápido',
+          text: 'Entiendo el problema, valido el camino y bajo a código sin perder contexto.',
+        },
+        {
+          title: 'Criterio de producto',
+          text: 'Cuido la interfaz, los estados y la claridad para que el usuario no tenga que adivinar.',
+        },
+        {
+          title: 'Trabajo ordenado',
+          text: 'Separo responsabilidades, documento decisiones y dejo el proyecto fácil de continuar.',
+        },
+        {
+          title: 'Comunicación clara',
+          text: 'Explico decisiones, límites y siguientes pasos sin inflar lo que todavía estoy aprendiendo.',
         },
       ],
     },
@@ -346,7 +482,7 @@ const LOCALE_DATA = {
       titleStart: 'Actualmente',
       titleAccent: 'reforzando.',
       desc:
-        'Ruta de aprendizaje para consolidar un perfil junior full-stack con base Java, UI/UX e IA aplicada.',
+        'Focus práctico: IA, React/UI y backend Java.',
       items: getCurrentlyReinforcing('es'),
     },
     process: {
@@ -365,26 +501,26 @@ const LOCALE_DATA = {
     experienceSection: {
       titleStart: 'Formación y',
       titleAccent: 'trayectoria.',
-      desc: 'Base real: STUCOM, DAW/DAM, prácticas, sistemas, frontend, Java, UI/UX e IA.',
+      desc: 'Base real: IA en formación, frontend, Java, STUCOM, DAW/DAM, prácticas y sistemas.',
     },
     javaProjectsSection: {
       titleStart: 'Proyectos técnicos',
       titleAccent: 'destacados.',
-      desc: 'Proyectos orientados a los tres pilares: Java/backend, UI/UX/frontend e IA & Big Data.',
+      desc: 'Proyectos alineados con IA & Big Data, React/UI/UX y Java/Spring Boot.',
       projects: COMMON_JAVA_PROJECTS.es,
     },
     projectsSection: {
       titleTop: 'Proyectos',
       titleBottom: 'Destacados.',
-      desc: 'Selección equilibrada entre Java/backend, UI/UX/frontend e IA & Big Data.',
+      desc: 'Una selección corta para ver IA, interfaz y backend con claridad.',
     },
     about: {
       titleStart: 'Sobre',
       titleAccent: 'mí.',
       desc:
-        'Soy desarrollador Full-Stack Junior con foco en Java, UI/UX e IA & Big Data. Me gusta convertir ideas en aplicaciones funcionales, claras y mantenibles.',
+        'Soy desarrollador junior enfocado en IA & Big Data, React/UI/UX y Java Spring Boot.',
       extra:
-        'Uso IA para mejorar productividad, documentar, explorar soluciones e integrar herramientas cuando aportan valor. Busco prácticas u oportunidades junior donde pueda crecer profesionalmente.',
+        'Busco prácticas u oportunidades junior donde construir productos simples, útiles y bien acabados.',
     },
     cvSection: {
       titleStart: 'Mi',
@@ -398,7 +534,7 @@ const LOCALE_DATA = {
       titleTop: 'CONTACTO',
       titleStart: 'PARA ROLES',
       titleAccent: 'JUNIOR.',
-      desc: 'Abierto a prácticas y oportunidades junior en Java, UI/UX, IA & Big Data y frontend moderno.',
+      desc: 'Abierto a prácticas y oportunidades junior en IA & Big Data, React/UI/UX y Java Spring Boot.',
     },
     footer: {
       githubAria: 'GitHub de Marc Muntané',
@@ -407,8 +543,9 @@ const LOCALE_DATA = {
   },
   en: {
     navItems: [
+      { id: 'role-paths', label: 'Paths' },
       { id: 'expertise', label: 'Stack' },
-      { id: 'backend', label: 'Pillars' },
+      { id: 'candidate-signal', label: 'Work' },
       { id: 'projects', label: 'Projects' },
       { id: 'experience', label: 'Training' },
       { id: 'cv', label: 'CV' },
@@ -421,9 +558,20 @@ const LOCALE_DATA = {
       switchToLight: 'Switch to light mode',
       switchToDark: 'Switch to dark mode',
       available: 'Open to junior roles',
-      viewProjects: 'View featured projects',
-      viewStack: 'View technical stack',
+      viewPaths: 'Choose path',
+      viewProjects: 'Projects',
+      viewStack: 'Stack',
+      viewWork: 'How I work',
       contact: 'Contact',
+      roleFit: 'Role',
+      roleProof: 'Proof',
+      roleSignal: 'Signal',
+      roleCta: 'See proof',
+      projectFit: 'Fits',
+      projectProof: 'Visible proof',
+      projectProofPdf: 'Technical PDF',
+      projectProofRepo: 'GitHub',
+      projectProofDemo: 'Demo',
       openPdfPreviewOf: 'Open PDF preview of',
       openProjectOf: 'Open project',
       openRepoOf: 'Open repository for',
@@ -440,42 +588,98 @@ const LOCALE_DATA = {
       demo: 'Demo',
     },
     hero: {
-      titleLines: ['Junior', 'Full-Stack', 'Developer'],
+      titleLines: ['AI & Big Data', 'React UI/UX', 'Java Spring Boot'],
       subtitle:
-        'Technical profile built on three pillars: Java for logic and backend, UI/UX for clear interfaces, and AI & Big Data as a specialization path.',
-      mobileSubtitle: 'Java, UI/UX, and AI & Big Data as three technical pillars.',
+        'Applied AI, data, clear interfaces, and Java backend as a technical base.',
+      mobileSubtitle: 'AI, React/UI/UX, and Java/Spring Boot.',
       supporting:
-        'I build applications by combining software structure, visual judgment, and AI tools. I aim to grow as a junior developer who can connect backend, frontend, and applied data/AI solutions.',
+        'Three paths, one profile: useful automation, clear user experience, and maintainable APIs.',
       mobileSupporting:
-        'Junior full-stack profile with a Java base, interface judgment, and a real interest in applied AI.',
+        'Applied AI, clear UI, and Java backend.',
       scroll: 'Scroll',
+    },
+    rolePaths: {
+      titleStart: 'Choose your',
+      titleAccent: 'path.',
+      desc:
+        'Three entry points by hiring need. Same profile: fast learning, care for details, and ideas turned into product.',
+      routes: [
+        {
+          key: 'ai',
+          title: 'AI & Big Data',
+          fit: 'For teams looking for technical judgment, real AI curiosity, and a data foundation.',
+          proof: 'Vortex: local AI with React, Python API, basic RAG, local memory, and visible permissions.',
+          signal: 'I bring automation, clear documentation, and the ability to explore solutions without losing product context.',
+          target: 'projects',
+        },
+        {
+          key: 'ui',
+          title: 'React UI/UX',
+          fit: 'For products that need clear interfaces, visual order, and responsive experience.',
+          proof: 'This portfolio: React, Next.js, Tailwind, GSAP, multilingual content, SEO, and separated data.',
+          signal: 'I think about states, hierarchy, fast reading, and small details that make a web experience feel cared for.',
+          target: 'projects',
+        },
+        {
+          key: 'java',
+          title: 'Java Spring Boot',
+          fit: 'For teams that value maintainable backend work, APIs, persistence, and structure.',
+          proof: 'Fichestu Backend: Spring Boot, JWT, WebSocket, JPA/Flyway, MySQL/Supabase, and deployment.',
+          signal: 'I work responsibly: separated layers, validated data, documented decisions, and a clean base.',
+          target: 'projects',
+        },
+      ],
     },
     expertise: {
       titleStart: 'My Technical',
       titleAccent: 'Stack.',
       desc:
-        'Organized around the profile’s three pillars: Java, UI/UX, and AI & Big Data, supported by databases and tools.',
+        'Three clear lines: AI & Big Data, React/UI/UX, and Java/Spring Boot.',
       groups: getStackGroups('en'),
     },
     backend: {
-      titleStart: 'Three core',
-      titleAccent: 'pillars.',
+      titleStart: 'Three clear',
+      titleAccent: 'lines.',
       desc:
-        'The portfolio focuses on Java, UI/UX, and AI & Big Data. Java supports the technical base, UI/UX adds interface judgment, and AI expands my ability to automate, analyze, and integrate solutions.',
+        'The portfolio prioritizes applied AI, visual product work, and Java backend. Fewer labels, more evidence.',
       body:
-        'The goal is to show a balanced junior full-stack profile: code, product thinking, and applied AI without overstating professional experience.',
+        'Real projects, visible decisions, and a clean technical direction.',
       cards: [
         {
-          title: 'Java and backend',
-          text: 'Java, Spring Boot in progress, REST APIs, services, controllers, DTOs, validation, persistence, and databases.',
-        },
-        {
-          title: 'UI/UX and frontend',
-          text: 'Clear interfaces, responsive layouts, user experience, React, visual design, and real API connections.',
-        },
-        {
           title: 'AI & Big Data',
-          text: 'AI-assisted work, prompt engineering, local AI projects, automation, basic RAG, and AI & Big Data training.',
+          text: 'Applied AI, automation, basic RAG, data analysis, and specialized training.',
+        },
+        {
+          title: 'React and UI/UX',
+          text: 'Clean interfaces, responsive layouts, React components, and user-focused visual judgment.',
+        },
+        {
+          title: 'Java and Spring Boot',
+          text: 'Java, Spring Boot, REST APIs, persistence, validation, testing, and databases.',
+        },
+      ],
+    },
+    candidateSignal: {
+      titleStart: 'How I',
+      titleAccent: 'work.',
+      desc:
+        'The impression I want this portfolio to leave: judgment, care, communication, and real motivation to contribute.',
+      signals: [
+        {
+          title: 'Fast learning',
+          text: 'I understand the problem, validate the path, and move into code without losing context.',
+        },
+        {
+          title: 'Product judgment',
+          text: 'I care about interface states and clarity so users do not have to guess.',
+        },
+        {
+          title: 'Organized work',
+          text: 'I separate responsibilities, document decisions, and leave projects easy to continue.',
+        },
+        {
+          title: 'Clear communication',
+          text: 'I explain decisions, limits, and next steps without overstating what I am still learning.',
         },
       ],
     },
@@ -483,7 +687,7 @@ const LOCALE_DATA = {
       titleStart: 'Currently',
       titleAccent: 'strengthening.',
       desc:
-        'A learning path to consolidate a junior full-stack profile with Java, UI/UX, and applied AI foundations.',
+        'Practical focus: AI, React/UI, and Java backend.',
       items: getCurrentlyReinforcing('en'),
     },
     process: {
@@ -502,26 +706,26 @@ const LOCALE_DATA = {
     experienceSection: {
       titleStart: 'Training and',
       titleAccent: 'journey.',
-      desc: 'Real foundation: STUCOM, DAW/DAM, internships, systems, frontend, Java, UI/UX, and AI.',
+      desc: 'Real foundation: AI training, frontend, Java, STUCOM, DAW/DAM, internships, and systems.',
     },
     javaProjectsSection: {
       titleStart: 'Featured technical',
       titleAccent: 'projects.',
-      desc: 'Projects aligned with the three pillars: Java/backend, UI/UX/frontend, and AI & Big Data.',
+      desc: 'Projects aligned with AI & Big Data, React/UI/UX, and Java/Spring Boot.',
       projects: COMMON_JAVA_PROJECTS.en,
     },
     projectsSection: {
       titleTop: 'Featured',
       titleBottom: 'Projects.',
-      desc: 'A balanced selection across Java/backend, UI/UX/frontend, and AI & Big Data.',
+      desc: 'A short selection showing AI, interface work, and backend clearly.',
     },
     about: {
       titleStart: 'About',
       titleAccent: 'me.',
       desc:
-        'I am a Junior Full-Stack Developer focused on Java, UI/UX, and AI & Big Data. I enjoy turning ideas into functional, clear, and maintainable applications.',
+        'I am a junior developer focused on AI & Big Data, React/UI/UX, and Java Spring Boot.',
       extra:
-        'I use AI to improve productivity, document work, explore solutions, and integrate tools when they add value. I am looking for internships or junior opportunities where I can grow professionally.',
+        'I am looking for internships or junior opportunities to build simple, useful, polished products.',
     },
     cvSection: {
       titleStart: 'My',
@@ -535,7 +739,7 @@ const LOCALE_DATA = {
       titleTop: 'CONTACT',
       titleStart: 'FOR JUNIOR',
       titleAccent: 'ROLES.',
-      desc: 'Open to internships and junior opportunities in Java, UI/UX, AI & Big Data, and modern frontend.',
+      desc: 'Open to internships and junior opportunities in AI & Big Data, React/UI/UX, and Java Spring Boot.',
     },
     footer: {
       githubAria: 'Marc Muntané on GitHub',

@@ -37,7 +37,7 @@ export const EXPERIENCE_ITEMS_BY_LANGUAGE = {
       role: 'Formació tècnica a STUCOM',
       company: 'SMX, DAW i DAM',
       desc:
-        'Formació tècnica en desenvolupament web i multiplataforma, reforçant programació, Java, bases de dades, aplicacions web, arquitectura de software i desenvolupament full-stack.',
+        'Formació tècnica en desenvolupament web i multiplataforma, reforçant programació, Java, bases de dades, aplicacions web i arquitectura de software.',
       align: 'left',
     },
   ],
@@ -79,7 +79,7 @@ export const EXPERIENCE_ITEMS_BY_LANGUAGE = {
       role: 'Formación técnica en STUCOM',
       company: 'SMX, DAW y DAM',
       desc:
-        'Formación técnica en desarrollo web y multiplataforma, reforzando programación, Java, bases de datos, aplicaciones web, arquitectura de software y desarrollo full-stack.',
+        'Formación técnica en desarrollo web y multiplataforma, reforzando programación, Java, bases de datos, aplicaciones web y arquitectura de software.',
       align: 'left',
     },
   ],
@@ -121,7 +121,7 @@ export const EXPERIENCE_ITEMS_BY_LANGUAGE = {
       role: 'Technical training at STUCOM',
       company: 'SMX, DAW, and DAM',
       desc:
-        'Technical training in web and cross-platform development, strengthening programming, Java, databases, web applications, software architecture, and full-stack development.',
+        'Technical training in web and cross-platform development, strengthening programming, Java, databases, web applications, and software architecture.',
       align: 'left',
     },
   ],

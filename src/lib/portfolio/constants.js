@@ -1,8 +1,9 @@
 export const SECTION_IDS = [
   'hero',
+  'role-paths',
   'expertise',
   'backend',
-  'java-projects',
+  'candidate-signal',
   'process',
   'experience',
   'projects',
@@ -21,15 +22,13 @@ export const DEFAULT_THEME = 'dark';
 export const PDF_VIEWER_PARAMS = '#view=FitH&toolbar=0&navpanes=0&scrollbar=1';
 
 export const MARQUEE_ITEMS = [
+  { label: 'IA & BIG DATA', accent: true },
+  { label: 'REACT', highlighted: true },
+  { label: 'UI/UX', highlighted: true },
   { label: 'JAVA', highlighted: true },
   { label: 'SPRING BOOT', accent: true },
-  { label: 'UI/UX', highlighted: true },
-  { label: 'IA & BIG DATA', accent: true },
-  { label: 'REST APIs', highlighted: true },
-  { label: 'MYSQL', highlighted: true },
+  { label: 'REST APIs' },
+  { label: 'MYSQL' },
   { label: 'JPA/HIBERNATE' },
-  { label: 'BACKEND' },
-  { label: 'FULL-STACK' },
-  { label: 'REACT' },
   { label: 'CLEAN CODE' },
 ];

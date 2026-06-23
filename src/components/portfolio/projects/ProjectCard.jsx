@@ -13,7 +13,7 @@ export function ProjectCard({ project, isActive, labels, onOpenPdf }) {
       <MagneticElement
         strength={0.015}
         spring="cubic-bezier(0.16, 1, 0.3, 1)"
-        className={`project-card-shell w-full h-full bg-[var(--bg-secondary)] border rounded-[2.5rem] overflow-hidden transition-all duration-500 ${
+        className={`project-card-shell w-full h-full bg-[var(--bg-secondary)] border rounded-lg overflow-hidden transition-all duration-500 ${
           isActive ? 'border-white/25 shadow-[0_25px_70px_rgba(0,0,0,0.42)]' : 'border-white/10 shadow-[var(--shadow-card)]'
         }`}
       >
@@ -36,9 +36,10 @@ function ProjectInfo({ project, labels, repoLinks, onOpenPdf }) {
       <p className="text-gray-300/90 text-sm md:text-[0.95rem] leading-relaxed mb-4 relative z-10">{project.summary}</p>
 
       <TagList tags={project.tags} />
+      <ProjectFitProof project={project} labels={labels} repoLinks={repoLinks} />
       <ProjectDetails project={project} labels={labels} />
       <StackIconGrid items={project.stackIcons} />
-      <FullStackList items={project.fullStack} />
+      <TechStackList items={project.techStack} />
 
       <ProjectActions project={project} labels={labels} repoLinks={repoLinks} onOpenPdf={onOpenPdf} />
     </div>
@@ -74,13 +75,42 @@ function ProjectTitle({ project }) {
 }
 
 function TagList({ tags }) {
+  const visibleTags = tags.slice(0, 6);
+
   return (
     <div className="flex flex-wrap gap-2 mb-4 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
-      {tags.map((tag) => (
-        <span key={tag} className="px-5 py-2.5 text-xs font-bold rounded-full bg-white/5 border border-white/10 text-gray-300 tracking-wide">
+      {visibleTags.map((tag) => (
+        <span key={tag} className="px-3 py-1.5 text-xs font-bold rounded-full bg-white/5 border border-white/10 text-gray-300 tracking-wide">
           {tag}
         </span>
       ))}
+    </div>
+  );
+}
+
+function ProjectFitProof({ project, labels, repoLinks }) {
+  const proofSources = [
+    project.pdfPath ? labels.projectProofPdf : null,
+    repoLinks.length ? labels.projectProofRepo : null,
+    project.url ? labels.projectProofDemo : null,
+  ].filter(Boolean);
+
+  if (!project.fitTags?.length && !proofSources.length) return null;
+
+  return (
+    <div className="mb-4 relative z-10 space-y-2 rounded-lg border border-white/10 bg-white/[0.03] p-3 pointer-events-auto">
+      {project.fitTags?.length ? (
+        <p className="text-xs leading-relaxed text-gray-300">
+          <span className="text-blue-200/80 font-bold uppercase tracking-[0.16em]">{labels.projectFit}: </span>
+          {project.fitTags.join(' · ')}
+        </p>
+      ) : null}
+      {proofSources.length ? (
+        <p className="text-xs leading-relaxed text-gray-300">
+          <span className="text-blue-200/80 font-bold uppercase tracking-[0.16em]">{labels.projectProof}: </span>
+          {proofSources.join(' · ')}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -97,7 +127,7 @@ function ProjectDetails({ project, labels }) {
 
   return (
     <div className="mb-4 relative z-10 max-h-36 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto space-y-2">
-      {details.map(([label, value]) => (
+      {details.slice(0, 2).map(([label, value]) => (
         <p key={label} className="text-xs leading-relaxed text-gray-400">
           <span className="text-blue-200/80 font-bold uppercase tracking-[0.16em]">{label}: </span>
           {value}
@@ -112,7 +142,7 @@ function StackIconGrid({ items }) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
-      {items.map((stackItem) => (
+      {items.slice(0, 4).map((stackItem) => (
         <div key={stackItem.label} className="inline-flex items-center gap-2 text-xs text-gray-300 bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2">
           <span className="text-blue-300">{stackItem.icon}</span>
           <span className="leading-tight">{stackItem.label}</span>
@@ -122,12 +152,12 @@ function StackIconGrid({ items }) {
   );
 }
 
-function FullStackList({ items }) {
+function TechStackList({ items }) {
   if (!items) return null;
 
   return (
     <div className="flex flex-wrap gap-2 mb-5 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
-      {items.map((tech) => (
+      {items.slice(0, 6).map((tech) => (
         <span
           key={tech.name}
           className="inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-3 py-1.5 bg-white/[0.04] border border-white/10 text-gray-200 tracking-wide hover:bg-white/[0.08] transition-colors"

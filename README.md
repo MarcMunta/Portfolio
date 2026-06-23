@@ -2,13 +2,15 @@
 
 Portfolio personal diseñado para presentar mi perfil como:
 
-**Desarrollador Full-Stack Junior centrado en Java, UI/UX e IA & Big Data.**
+**Perfil junior centrado en IA & Big Data, React/UI/UX y Java Spring Boot.**
 
 ## Propósito
 
-Este portfolio comunica una posición técnica clara: desarrollo full-stack junior apoyado en tres pilares clave: Java, UI/UX e IA & Big Data.
+Este portfolio comunica una posición técnica clara: IA aplicada, producto visual y backend Java.
 
-La parte visual se mantiene premium y moderna, pero la jerarquía profesional muestra capacidad técnica, criterio de interfaz y crecimiento en IA/datos.
+La parte visual se mantiene simple, clara y moderna, con foco en proyectos verificables.
+
+También está pensado para lectura humana y lectura automática: recruiters, hiring managers y LLMs pueden entender rápido qué roles encajan mejor.
 
 ## Tecnologías usadas
 
@@ -21,9 +23,9 @@ La parte visual se mantiene premium y moderna, pero la jerarquía profesional mu
 
 ## Posicionamiento técnico
 
-- Java y Spring Boot como base de programación y backend.
-- UI/UX y frontend moderno para construir interfaces claras y usables.
 - IA & Big Data como línea de especialización, productividad y experimentación.
+- React/UI/UX para construir interfaces claras y usables.
+- Java y Spring Boot como base de programación y backend.
 - APIs REST, servicios, controladores, DTOs, validación y gestión de errores.
 - SQL, MySQL, JDBC, JPA/Hibernate y operaciones CRUD.
 - Frontend moderno con React, Next.js, HTML, CSS, JavaScript y TypeScript.
@@ -58,16 +60,23 @@ scripts/
 
 ## Secciones principales
 
-- Hero con posicionamiento Full-Stack Junior.
-- Stack técnico con Java/Spring Boot primero.
-- Tres pilares clave: Java, UI/UX e IA & Big Data.
+- Rutas de lectura por rol: IA & Big Data, React/UI/UX y Java Spring Boot.
+- Hero con posicionamiento IA & Big Data, React/UI/UX y Java Spring Boot.
+- Stack técnico con tres líneas claras.
+- Tres pilares clave: IA, React/UI y Java Spring Boot.
 - Proyectos técnicos destacados.
 - Proceso de desarrollo.
 - Formación y trayectoria.
-- Proyectos full-stack, frontend e IA.
+- Proyectos de IA, frontend y backend.
 - Sobre mí.
 - Actualmente reforzando.
 - CV y contacto.
+
+## Lectura para IA
+
+- `public/llms.txt`: resumen claro para modelos de lenguaje.
+- `public/candidate-profile.json`: perfil estructurado con roles objetivo, fortalezas, proyectos y contacto.
+- JSON-LD en `src/app/layout.tsx`: `Person` + `ProfilePage` con proyectos y tecnologías.
 
 ## Ejecutar localmente
 

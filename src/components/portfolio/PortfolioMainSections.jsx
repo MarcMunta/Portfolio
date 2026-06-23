@@ -2,15 +2,16 @@ import React from 'react';
 
 import { AboutSection } from './sections/AboutSection';
 import { BackendSection } from './sections/BackendSection';
+import { CandidateSignalSection } from './sections/CandidateSignalSection';
 import { ContactSection } from './sections/ContactSection';
 import { CurrentFocusSection } from './sections/CurrentFocusSection';
 import { CvSection } from './sections/CvSection';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { ExpertiseSection } from './sections/ExpertiseSection';
 import { HeroSection } from './sections/HeroSection';
-import { JavaProjectsSection } from './sections/JavaProjectsSection';
 import { ProcessSection } from './sections/ProcessSection';
 import { ProjectsSection } from './sections/ProjectsSection';
+import { RolePathsSection } from './sections/RolePathsSection';
 import { SkillsMarquee } from './sections/SkillsMarquee';
 
 export function PortfolioMainSections({
@@ -32,10 +33,11 @@ export function PortfolioMainSections({
   return (
     <main ref={mainRef} className="relative z-10">
       <HeroSection locale={locale} scrollToSection={scrollToSection} />
+      <RolePathsSection locale={locale} scrollToSection={scrollToSection} />
       <SkillsMarquee theme={theme} />
       <ExpertiseSection locale={locale} />
       <BackendSection locale={locale} scrollToSection={scrollToSection} />
-      <JavaProjectsSection locale={locale} />
+      <CandidateSignalSection locale={locale} />
       <ProcessSection
         locale={locale}
         activeProcessStep={activeProcessStep}

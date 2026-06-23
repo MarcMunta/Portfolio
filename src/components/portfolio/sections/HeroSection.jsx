@@ -5,8 +5,8 @@ import { MagneticElement } from '../../ui/MagneticElement';
 
 export function HeroSection({ locale, scrollToSection }) {
   const heroActions = [
-    { label: locale.labels.viewProjects, target: 'java-projects', primary: true },
-    { label: locale.labels.viewStack, target: 'expertise' },
+    { label: locale.labels.viewPaths, target: 'role-paths', primary: true },
+    { label: locale.labels.viewProjects, target: 'projects' },
     { label: locale.labels.contact, target: 'contact' },
   ];
   const [heroLineOne, heroLineTwo, heroLineThree] = locale.hero.titleLines;
@@ -36,7 +36,7 @@ export function HeroSection({ locale, scrollToSection }) {
               </p>
               <h1
                 className="font-display font-bold leading-[0.9] drop-shadow-2xl w-full text-center px-0"
-                style={{ fontSize: 'clamp(2.58rem, 8.7vw, 8.8rem)', letterSpacing: 0 }}
+                style={{ fontSize: 'clamp(2rem, 8vw, 8rem)', letterSpacing: 0 }}
               >
                 <span className="mx-auto block w-fit text-white">{heroLineOne}</span>
                 <span className="mx-auto block w-fit name-shimmer pt-2 pb-1">{heroLineTwo}</span>
