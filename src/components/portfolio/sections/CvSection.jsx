@@ -23,6 +23,7 @@ export function CvSection({ locale }) {
             rel="noopener noreferrer"
             className="cv-preview-link"
             aria-label={locale.cvSection.openLabel}
+            data-cursor-preserve-color
           >
             <div className="cv-preview-toolbar">
               <span>
@@ -41,7 +42,7 @@ export function CvSection({ locale }) {
                 decoding="async"
                 draggable="false"
               />
-              <span className="cv-preview-open" aria-hidden="true" data-cursor-preserve-color>
+              <span className="cv-preview-open" aria-hidden="true">
                 {locale.cvSection.openLabel}
                 <ArrowUpRight size={17} />
               </span>
