@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react';
 
 const DEFAULT_CURSOR_SIZE = 16;
 const CURSOR_PADDING = 10;
+const INTERACTIVE_SELECTOR = 'a, button, [data-cursor-morph], [data-cursor-preserve-color]';
+
+const preservesColor = (element) => element?.hasAttribute('data-cursor-preserve-color') ?? false;
 
 export function CustomCursor() {
   const cursorRef = useRef(null);
@@ -30,7 +33,7 @@ export function CustomCursor() {
       target.radius = 999;
     };
 
-    const spawnBubbles = (x, y, amount = 6) => {
+    const spawnBubbles = (x, y, amount = 6, preserveColor = false) => {
       if (!particlesRef.current) return;
 
       for (let index = 0; index < amount; index += 1) {
@@ -39,7 +42,7 @@ export function CustomCursor() {
         const distance = 22 + Math.random() * 38;
         const size = 3 + Math.random() * 6;
 
-        bubble.className = 'cursor-bubble-particle';
+        bubble.className = `cursor-bubble-particle${preserveColor ? ' is-color-preserving' : ''}`;
         bubble.style.cssText = [
           `left:${x}px`,
           `top:${y}px`,
@@ -63,22 +66,32 @@ export function CustomCursor() {
       root.classList.add('custom-cursor-active');
 
       const nextInteractive = event.target instanceof Element
-        ? event.target.closest('a, button, [data-cursor-morph]')
+        ? event.target.closest(INTERACTIVE_SELECTOR)
         : null;
 
-      if (activeElement && !nextInteractive) spawnBubbles(event.clientX, event.clientY, 5);
+      if (activeElement && !nextInteractive) {
+        spawnBubbles(event.clientX, event.clientY, 5, preservesColor(activeElement));
+      }
       activeElement = nextInteractive;
+      cursor.classList.toggle('is-color-preserving', preservesColor(activeElement));
 
       if (!activeElement) setDefaultTarget(event.clientX, event.clientY);
     };
 
     const handlePointerDown = (event) => {
-      if (event.pointerType === 'mouse') spawnBubbles(event.clientX, event.clientY, 8);
+      if (event.pointerType !== 'mouse') return;
+
+      const pressedInteractive = event.target instanceof Element
+        ? event.target.closest(INTERACTIVE_SELECTOR)
+        : null;
+
+      spawnBubbles(event.clientX, event.clientY, 8, preservesColor(pressedInteractive));
     };
 
     const handlePointerLeave = () => {
       root.classList.remove('custom-cursor-active');
       activeElement = null;
+      cursor.classList.remove('is-color-preserving');
     };
 
     const handleKeyboardNavigation = (event) => {
@@ -127,6 +140,7 @@ export function CustomCursor() {
       document.removeEventListener('mouseleave', handlePointerLeave);
       window.removeEventListener('keydown', handleKeyboardNavigation);
       root.classList.remove('custom-cursor-active');
+      cursor.classList.remove('is-color-preserving');
       root.style.removeProperty('--pointer-x');
       root.style.removeProperty('--pointer-y');
       particlesRef.current?.replaceChildren();

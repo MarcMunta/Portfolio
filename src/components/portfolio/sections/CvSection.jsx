@@ -41,7 +41,7 @@ export function CvSection({ locale }) {
                 decoding="async"
                 draggable="false"
               />
-              <span className="cv-preview-open" aria-hidden="true">
+              <span className="cv-preview-open" aria-hidden="true" data-cursor-preserve-color>
                 {locale.cvSection.openLabel}
                 <ArrowUpRight size={17} />
               </span>

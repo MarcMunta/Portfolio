@@ -86,6 +86,7 @@ function LanguageThemeControls({
             aria-label={`${labels.switchLanguageTo} ${option.label}`}
             aria-pressed={language === option.code}
             className={language === option.code ? 'is-selected' : ''}
+            data-cursor-preserve-color
           >
             <FlagIcon code={option.code} />
           </button>
