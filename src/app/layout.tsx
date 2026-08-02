@@ -5,49 +5,41 @@ import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Marc Muntané Clarà | IA & Big Data · React UI/UX · Java Spring Boot",
+  title: "Marc Muntané Clarà | Producto, IA y desarrollo full-stack",
   description:
-    "Portfolio de Marc Muntané, perfil junior centrado en IA & Big Data, React UI/UX, Java Spring Boot, APIs REST y frontend moderno.",
+    "Portfolio de Marc Muntané: productos web y mobile, IA local, React y TypeScript, y backend Java con Spring Boot.",
   authors: [{ name: "Marc Muntané Clarà" }],
   creator: "Marc Muntané Clarà",
-  robots: {
-    index: true,
-    follow: true,
-  },
-  alternates: {
-    canonical: "https://marcmunta.github.io/Portfolio/",
-  },
+  robots: { index: true, follow: true },
+  alternates: { canonical: "https://marcmunta.github.io/Portfolio/" },
   keywords: [
     "Marc Muntané",
-    "Junior Developer",
-    "AI and Big Data",
+    "Product developer",
+    "React",
+    "TypeScript",
+    "Local AI",
+    "RAG",
     "Java",
     "Spring Boot",
-    "React",
-    "UI/UX",
-    "IA",
-    "Big Data",
-    "Backend",
-    "REST APIs",
     "Barcelona",
   ],
   openGraph: {
-    title: "Marc Muntané Clarà | IA & Big Data · React UI/UX · Java Spring Boot",
+    title: "Marc Muntané Clarà | Portfolio",
     description:
-      "Portfolio de Marc Muntané, perfil junior centrado en IA & Big Data, React UI/UX, Java Spring Boot, APIs REST y frontend moderno.",
+      "Productos digitales verificables: Klime, ATLAS, Vortex y Fichestu.",
     url: "https://marcmunta.github.io/Portfolio/",
     siteName: "Portfolio Marc Muntané",
     locale: "es_ES",
@@ -61,8 +53,42 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#030303",
+  themeColor: "#0b0d10",
 };
+
+const selectedWork = [
+  {
+    "@type": "CreativeWork",
+    name: "Klime",
+    description:
+      "Editorial ecommerce prototype with a multilingual catalogue, persistent cart, product community, and a production-oriented commerce architecture.",
+    url: "https://marcmunta.github.io/Klime/",
+  },
+  {
+    "@type": "SoftwareApplication",
+    name: "ATLAS",
+    applicationCategory: "HealthApplication",
+    description:
+      "Local-first training planning and progress PWA built with Expo, React Native Web, TypeScript, and IndexedDB.",
+    url: "https://marcmunta.github.io/Atlas/",
+  },
+  {
+    "@type": "SoftwareSourceCode",
+    name: "Vortex",
+    programmingLanguage: ["Python", "TypeScript"],
+    description:
+      "Local AI support system with semantic retrieval, bounded answers, and human escalation.",
+    url: "https://github.com/MarcMunta/Vortex",
+  },
+  {
+    "@type": "SoftwareSourceCode",
+    name: "Fichestu",
+    programmingLanguage: ["Kotlin", "Java"],
+    description:
+      "Native Android client and Spring Boot backend with authentication, realtime communication, and persistent data.",
+    url: "https://github.com/MarcMunta/Fichestu-Backend",
+  },
+];
 
 const profileStructuredData = {
   "@context": "https://schema.org",
@@ -73,96 +99,43 @@ const profileStructuredData = {
       name: "Marc Muntané Clarà",
       url: "https://marcmunta.github.io/Portfolio/",
       email: "mailto:marcmclara@gmail.com",
-      jobTitle: "Junior developer focused on AI & Big Data, React UI/UX, and Java Spring Boot",
+      jobTitle: "Junior product-minded software developer",
       description:
-        "Junior candidate focused on applied AI, Big Data training, React UI/UX, Java Spring Boot, REST APIs, clear interfaces, and organized technical work.",
+        "Developer focused on usable digital products, React and TypeScript interfaces, local AI systems, and Java Spring Boot backends.",
       seeks: {
         "@type": "Demand",
-        name: "Internship or junior opportunity in AI & Big Data, React UI/UX, or Java Spring Boot",
+        name: "Junior software development opportunity",
       },
-      hasCredential: [
-        {
-          "@type": "EducationalOccupationalCredential",
-          name: "AI & Big Data training",
-          credentialCategory: "Technical training",
-        },
-        {
-          "@type": "EducationalOccupationalCredential",
-          name: "DAW/DAM technical training",
-          credentialCategory: "Software development training",
-        },
-      ],
       knowsAbout: [
-        "AI & Big Data",
-        "Applied AI",
-        "Prompt engineering",
-        "RAG",
+        "Product development",
         "React",
-        "UI/UX",
-        "Next.js",
+        "TypeScript",
+        "Responsive design",
+        "Local AI",
+        "RAG",
+        "Python",
         "Java",
         "Spring Boot",
         "REST APIs",
-        "JPA/Hibernate",
-        "MySQL",
+        "SQL",
       ],
       sameAs: [
         "https://github.com/MarcMunta",
         "https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/",
       ],
-      workExample: [
-        {
-          "@type": "CreativeWork",
-          name: "Vortex",
-          description: "Local AI project with React frontend, Python API, basic RAG, local memory, visible permissions, and agent mode.",
-          url: "https://github.com/MarcMunta/Vortex",
-        },
-        {
-          "@type": "CreativeWork",
-          name: "Portfolio",
-          description: "Next.js, React, Tailwind CSS, GSAP, multilingual content, SEO, structured data, and GitHub Pages deployment.",
-          url: "https://github.com/MarcMunta/Portfolio",
-        },
-        {
-          "@type": "CreativeWork",
-          name: "Fichestu Backend",
-          description: "Java Spring Boot backend with REST API, JWT/Google Sign-In, WebSocket, JPA/Flyway, MySQL/Supabase, Docker, and deployment.",
-          url: "https://github.com/MarcMunta/Fichestu-Backend",
-        },
-        {
-          "@type": "CreativeWork",
-          name: "Acceso Datos Tienda",
-          description: "Java 17 academic e-commerce backend with JSP, Servlets, Hibernate/JPA, MySQL, MongoDB, ObjectDB, Maven, JUnit, and Tomcat WAR.",
-          url: "https://github.com/MarcMunta/Acceso_Datos_Tienda",
-        },
-      ],
+      workExample: selectedWork,
       mainEntityOfPage: {
         "@id": "https://marcmunta.github.io/Portfolio/#profile-page",
       },
-      subjectOf: [
-        {
-          "@type": "DigitalDocument",
-          name: "LLM-readable candidate summary",
-          url: "https://marcmunta.github.io/Portfolio/llms.txt",
-        },
-        {
-          "@type": "DigitalDocument",
-          name: "Structured candidate profile",
-          url: "https://marcmunta.github.io/Portfolio/candidate-profile.json",
-        },
-      ],
     },
     {
       "@type": "ProfilePage",
       "@id": "https://marcmunta.github.io/Portfolio/#profile-page",
       url: "https://marcmunta.github.io/Portfolio/",
       name: "Marc Muntané Clarà Portfolio",
-      about: {
-        "@id": "https://marcmunta.github.io/Portfolio/#marc-muntane",
-      },
-      description:
-        "Portfolio for AI & Big Data, React UI/UX, and Java Spring Boot junior opportunities.",
-      inLanguage: "es",
+      about: { "@id": "https://marcmunta.github.io/Portfolio/#marc-muntane" },
+      description: "Selected software product work by Marc Muntané Clarà.",
+      inLanguage: ["es", "ca", "en"],
     },
   ],
 };
@@ -173,18 +146,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(profileStructuredData),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(profileStructuredData) }}
         />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
-                  var t = localStorage.getItem('portfolio-theme');
-                  if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
-                } catch(e) {}
+                  var theme = localStorage.getItem('portfolio-theme');
+                  if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+                } catch (error) {}
               })();
             `,
           }}

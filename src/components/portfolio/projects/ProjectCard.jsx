@@ -3,252 +3,92 @@ import React from 'react';
 import { ArrowUpRight, FileText, Github } from 'lucide-react';
 
 import { resolveProjectPdfPath } from '../../../lib/portfolio/pdf';
-import { MagneticElement } from '../../ui/MagneticElement';
 
-export function ProjectCard({ project, isActive, labels, onOpenPdf }) {
-  const repoLinks = getRepoLinks(project);
+export function ProjectCard({ project, labels }) {
+  const repoLinks = Array.isArray(project.repoLinks) ? project.repoLinks : [];
 
   return (
-    <div data-gsap-project-card data-project-slide className={`projects-horizontal-slide ${isActive ? 'is-active' : ''}`}>
-      <MagneticElement
-        strength={0.015}
-        spring="cubic-bezier(0.16, 1, 0.3, 1)"
-        className={`project-card-shell w-full h-full bg-[var(--bg-secondary)] border rounded-lg overflow-hidden transition-all duration-500 ${
-          isActive ? 'border-white/25 shadow-[0_25px_70px_rgba(0,0,0,0.42)]' : 'border-white/10 shadow-[var(--shadow-card)]'
-        }`}
-      >
-        <div className="flex flex-col lg:flex-row h-full pointer-events-none w-full">
-          <ProjectInfo project={project} labels={labels} repoLinks={repoLinks} onOpenPdf={onOpenPdf} />
-          <ProjectImage project={project} isActive={isActive} />
+    <article className="project-card" data-gsap-project-card>
+      <div className={`project-media project-media-${project.imageMode}`}>
+        <img
+          src={project.image}
+          alt={project.imageAlt}
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="project-media-meta" aria-hidden="true">
+          <span>{project.year}</span>
+          <span>{project.status}</span>
         </div>
-      </MagneticElement>
-    </div>
-  );
-}
-
-function ProjectInfo({ project, labels, repoLinks, onOpenPdf }) {
-  return (
-    <div className="project-info-panel w-full lg:w-5/12 p-7 md:p-9 flex flex-col justify-center border-r border-white/5 relative bg-gradient-to-br from-[var(--bg-elevated)] to-[var(--bg-primary)] min-h-0">
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.03),transparent_50%)]" />
-
-      <ProjectMeta project={project} />
-      <ProjectTitle project={project} />
-      <p className="text-gray-300/90 text-sm md:text-[0.95rem] leading-relaxed mb-4 relative z-10">{project.summary}</p>
-
-      <TagList tags={project.tags} />
-      <ProjectFitProof project={project} labels={labels} repoLinks={repoLinks} />
-      <ProjectDetails project={project} labels={labels} />
-      <StackIconGrid items={project.stackIcons} />
-      <TechStackList items={project.techStack} />
-
-      <ProjectActions project={project} labels={labels} repoLinks={repoLinks} onOpenPdf={onOpenPdf} />
-    </div>
-  );
-}
-
-function ProjectMeta({ project }) {
-  return (
-    <>
-      <div className="flex items-center gap-4 mb-5 text-xs md:text-sm font-bold tracking-widest uppercase text-gray-500 relative z-10">
-        <span>{project.year}</span>
-        <div className="w-12 h-[1px] bg-gray-700" />
-        <span className="text-blue-400">{project.category}</span>
       </div>
 
-      <p className="text-xs md:text-sm text-blue-200/80 tracking-wide mb-3 relative z-10 uppercase">
-        {project.duration}
-      </p>
-    </>
-  );
-}
-
-function ProjectTitle({ project }) {
-  const sizeClass = project.compactTitle
-    ? 'text-xl sm:text-2xl lg:text-4xl xl:text-5xl'
-    : 'text-2xl sm:text-3xl lg:text-5xl xl:text-6xl';
-
-  return (
-    <h3 className={`font-display font-bold mb-6 text-white relative z-10 tracking-tight leading-[1] break-normal ${sizeClass}`}>
-      {project.title}
-    </h3>
-  );
-}
-
-function TagList({ tags }) {
-  const visibleTags = tags.slice(0, 6);
-
-  return (
-    <div className="flex flex-wrap gap-2 mb-4 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
-      {visibleTags.map((tag) => (
-        <span key={tag} className="px-3 py-1.5 text-xs font-bold rounded-full bg-white/5 border border-white/10 text-gray-300 tracking-wide">
-          {tag}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function ProjectFitProof({ project, labels, repoLinks }) {
-  const proofSources = [
-    project.pdfPath ? labels.projectProofPdf : null,
-    repoLinks.length ? labels.projectProofRepo : null,
-    project.url ? labels.projectProofDemo : null,
-  ].filter(Boolean);
-
-  if (!project.fitTags?.length && !proofSources.length) return null;
-
-  return (
-    <div className="mb-4 relative z-10 space-y-2 rounded-lg border border-white/10 bg-white/[0.03] p-3 pointer-events-auto">
-      {project.fitTags?.length ? (
-        <p className="text-xs leading-relaxed text-gray-300">
-          <span className="text-blue-200/80 font-bold uppercase tracking-[0.16em]">{labels.projectFit}: </span>
-          {project.fitTags.join(' · ')}
-        </p>
-      ) : null}
-      {proofSources.length ? (
-        <p className="text-xs leading-relaxed text-gray-300">
-          <span className="text-blue-200/80 font-bold uppercase tracking-[0.16em]">{labels.projectProof}: </span>
-          {proofSources.join(' · ')}
-        </p>
-      ) : null}
-    </div>
-  );
-}
-
-function ProjectDetails({ project, labels }) {
-  const details = [
-    [labels.detailBackend, project.backendResponsibilities],
-    [labels.detailFrontend, project.frontendResponsibilities],
-    [labels.detailData, project.dataUsage],
-    [labels.detailLearned, project.learned],
-  ].filter(([, value]) => Boolean(value));
-
-  if (!details.length) return null;
-
-  return (
-    <div className="mb-4 relative z-10 max-h-36 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto space-y-2">
-      {details.slice(0, 2).map(([label, value]) => (
-        <p key={label} className="text-xs leading-relaxed text-gray-400">
-          <span className="text-blue-200/80 font-bold uppercase tracking-[0.16em]">{label}: </span>
-          {value}
-        </p>
-      ))}
-    </div>
-  );
-}
-
-function StackIconGrid({ items }) {
-  if (!items) return null;
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
-      {items.slice(0, 4).map((stackItem) => (
-        <div key={stackItem.label} className="inline-flex items-center gap-2 text-xs text-gray-300 bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2">
-          <span className="text-blue-300">{stackItem.icon}</span>
-          <span className="leading-tight">{stackItem.label}</span>
+      <div className="project-content">
+        <div className="project-heading-row">
+          <div>
+            <p className="project-category">
+              {project.category}
+              {project.isNew ? <span>{labels.newProject}</span> : null}
+            </p>
+            <h3>{project.title}</h3>
+          </div>
         </div>
-      ))}
-    </div>
+
+        <p className="project-summary">{project.summary}</p>
+
+        <div className="project-role">
+          <span>{labels.role}</span>
+          <p>{project.role}</p>
+        </div>
+
+        <ul className="project-highlights">
+          {project.highlights.map((highlight) => (
+            <li key={highlight}>{highlight}</li>
+          ))}
+        </ul>
+
+        <div className="project-tags" aria-label="Stack">
+          {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+        </div>
+
+        <div className="project-actions">
+          {project.demoUrl ? (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link text-link-primary"
+            >
+              {labels.liveDemo}
+              <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+          ) : null}
+
+          {repoLinks.map((repo) => (
+            <a
+              key={repo.url}
+              href={repo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+            >
+              <Github size={16} aria-hidden="true" />
+              {repoLinks.length > 1 ? repo.label : labels.sourceCode}
+            </a>
+          ))}
+
+          {project.pdfPath ? (
+            <a
+              href={resolveProjectPdfPath(project.pdfPath)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+            >
+              <FileText size={16} aria-hidden="true" />
+              {labels.technicalDoc}
+            </a>
+          ) : null}
+        </div>
+      </div>
+    </article>
   );
-}
-
-function TechStackList({ items }) {
-  if (!items) return null;
-
-  return (
-    <div className="flex flex-wrap gap-2 mb-5 relative z-10 max-h-28 overflow-y-hidden hover:overflow-y-auto overscroll-y-contain pr-1 pointer-events-auto">
-      {items.slice(0, 6).map((tech) => (
-        <span
-          key={tech.name}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-3 py-1.5 bg-white/[0.04] border border-white/10 text-gray-200 tracking-wide hover:bg-white/[0.08] transition-colors"
-        >
-          <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: tech.color }} />
-          {tech.name}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function ProjectActions({ project, labels, repoLinks, onOpenPdf }) {
-  const pdfHref = project.pdfPath ? resolveProjectPdfPath(project.pdfPath) : null;
-
-  return (
-    <div className="mt-auto relative z-10 pointer-events-auto w-full max-w-full flex flex-wrap items-center gap-3">
-      <MagneticElement inline strength={0.2}>
-        {project.pdfPath ? (
-          <button
-            type="button"
-            onClick={() => onOpenPdf(project.id)}
-            aria-label={`${labels.openPdfPreviewOf} ${project.title}`}
-            className="cursor-morph cta-btn flex items-center justify-center w-14 h-14 rounded-full bg-[var(--cta-bg)] text-[var(--cta-text)] hover:scale-110 hover:bg-[var(--cta-hover-bg)] transition-all shadow-[var(--cta-shadow)]"
-          >
-            <FileText size={22} />
-          </button>
-        ) : (
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${labels.openProjectOf} ${project.title}`}
-            className="cursor-morph cta-btn flex items-center justify-center w-14 h-14 rounded-full bg-[var(--cta-bg)] text-[var(--cta-text)] hover:scale-110 hover:bg-[var(--cta-hover-bg)] transition-all shadow-[var(--cta-shadow)]"
-          >
-            {project.ctaIcon === 'github' ? <Github size={22} /> : <ArrowUpRight size={24} />}
-          </a>
-        )}
-      </MagneticElement>
-
-      {pdfHref ? (
-        <MagneticElement inline strength={0.2}>
-          <a
-            href={pdfHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={labels.openPdf}
-            aria-label={`${labels.openPdf} ${project.title}`}
-            className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full border border-white/20 text-white hover:scale-110 hover:bg-white/10 transition-all"
-          >
-            <ArrowUpRight size={22} />
-          </a>
-        </MagneticElement>
-      ) : null}
-
-      {repoLinks.map((repoItem, repoIndex) => (
-        <MagneticElement inline strength={0.2} key={`${project.id}-repo-${repoItem.url}-${repoIndex}`}>
-          <a
-            href={repoItem.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={repoItem.label || 'GitHub'}
-            aria-label={`${labels.openRepoOf} ${project.title}${repoItem.label ? ` (${repoItem.label})` : ''}`}
-            className="cursor-morph flex items-center justify-center w-14 h-14 rounded-full border border-white/20 text-white hover:scale-110 hover:bg-white/10 transition-all"
-          >
-            <Github size={22} />
-          </a>
-        </MagneticElement>
-      ))}
-    </div>
-  );
-}
-
-function ProjectImage({ project, isActive }) {
-  return (
-    <div className="w-full lg:w-7/12 relative overflow-hidden group">
-      <div className={`absolute inset-0 transition-colors duration-700 z-10 pointer-events-auto ${isActive ? 'bg-black/10 group-hover:bg-transparent' : 'bg-black/35'}`} />
-      <img
-        src={project.image}
-        alt={project.title}
-        loading="lazy"
-        decoding="async"
-        style={{ transitionDuration: '1000ms' }}
-        className={`absolute inset-0 w-full h-full object-cover transition-all ease-out pointer-events-none ${isActive ? 'grayscale-[8%] scale-105' : 'grayscale-[38%] scale-100'}`}
-      />
-    </div>
-  );
-}
-
-function getRepoLinks(project) {
-  if (Array.isArray(project.repoLinks)) return project.repoLinks;
-  if (project.repoUrl) return [{ label: 'GitHub', url: project.repoUrl }];
-  return [];
 }

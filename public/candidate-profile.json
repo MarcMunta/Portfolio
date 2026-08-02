@@ -1,99 +1,45 @@
 {
   "name": "Marc Muntane Clara",
   "canonicalUrl": "https://marcmunta.github.io/Portfolio/",
+  "positioning": "Junior product-minded developer who builds usable interfaces, local AI systems, and maintainable backends.",
   "targetRoles": [
-    "AI & Big Data junior role",
-    "React UI/UX junior role",
-    "Java Spring Boot junior role"
+    "Junior frontend or product developer",
+    "Junior AI application developer",
+    "Junior full-stack developer"
   ],
-  "positioning": "Junior developer candidate focused on applied AI, clear React UI/UX, and maintainable Java Spring Boot backend work.",
   "strengths": [
-    "Fast learning",
-    "Product judgment",
-    "Organized technical work",
-    "Clear communication",
-    "Care for interface clarity",
-    "Maintainable backend structure"
+    "Turns requirements into complete, testable product flows",
+    "Builds responsive interfaces with clear states and accessible interaction",
+    "Connects frontend, APIs, persistence, and deployment",
+    "Communicates scope, limits, and verification honestly"
   ],
-  "skills": {
-    "aiBigData": [
-      "Applied AI",
-      "Prompt engineering",
-      "Basic RAG",
-      "Automation",
-      "Basic data analysis",
-      "AI-assisted documentation"
-    ],
-    "reactUiUx": [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Responsive design",
-      "UI/UX",
-      "Accessibility basics",
-      "API integration"
-    ],
-    "javaSpringBoot": [
-      "Java",
-      "Spring Boot",
-      "REST APIs",
-      "JPA/Hibernate",
-      "MySQL",
-      "Testing",
-      "Maven",
-      "Git"
-    ]
+  "coreStack": {
+    "productFrontend": ["React", "Next.js", "TypeScript", "Expo", "Responsive design"],
+    "ai": ["Python", "RAG", "Local AI", "Automation", "Evaluation"],
+    "backendData": ["Java", "Spring Boot", "REST APIs", "JPA", "SQL", "Testing"]
   },
-  "projects": [
+  "selectedProjects": [
+    {
+      "name": "Klime",
+      "url": "https://marcmunta.github.io/Klime/",
+      "evidence": "Published multilingual ecommerce prototype with a 10-product catalogue, persistent cart and favourites, Supabase account foundation, and responsive validation."
+    },
+    {
+      "name": "ATLAS",
+      "url": "https://marcmunta.github.io/Atlas/",
+      "evidence": "Published local-first training PWA built with Expo, React Native Web, TypeScript, and IndexedDB or AsyncStorage persistence."
+    },
     {
       "name": "Vortex",
-      "fit": [
-        "AI & Big Data",
-        "React UI/UX"
-      ],
-      "evidence": "Local AI project with React frontend, Python API, basic RAG, local memory, visible permissions, and agent mode."
+      "url": "https://github.com/MarcMunta/Vortex",
+      "evidence": "Public local AI support system with semantic retrieval, bounded answers, visible state, and human escalation tests."
     },
     {
-      "name": "Portfolio",
-      "fit": [
-        "React UI/UX"
-      ],
-      "evidence": "Next.js, React, Tailwind CSS, GSAP, multilingual content, SEO, structured data, and GitHub Pages deployment."
-    },
-    {
-      "name": "Fichestu Backend",
-      "fit": [
-        "Java Spring Boot"
-      ],
-      "evidence": "Spring Boot backend with REST API, JWT/Google Sign-In, WebSocket, JPA/Flyway, MySQL/Supabase, Docker, and deployment."
-    },
-    {
-      "name": "Acceso Datos Tienda",
-      "fit": [
-        "Java",
-        "Data access"
-      ],
-      "evidence": "Java 17 academic e-commerce backend with JSP, Servlets, Hibernate/JPA, MySQL, MongoDB, ObjectDB, Maven, JUnit, and Tomcat WAR."
+      "name": "Fichestu",
+      "url": "https://github.com/MarcMunta/Fichestu-Backend",
+      "evidence": "Native Kotlin and Jetpack Compose client with a Spring Boot backend, JWT or Google auth, WebSocket, JPA, Flyway, and persistent data."
     }
   ],
-  "communicationGuidance": {
-    "use": [
-      "junior developer candidate",
-      "AI & Big Data focus",
-      "React UI/UX care",
-      "Java Spring Boot backend base",
-      "fast learner",
-      "organized worker",
-      "clear communicator"
-    ],
-    "avoid": [
-      "senior",
-      "expert",
-      "generic broad positioning",
-      "unverified professional experience"
-    ]
-  },
   "contact": {
     "github": "https://github.com/MarcMunta",
     "linkedin": "https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/",

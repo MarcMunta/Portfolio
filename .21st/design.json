@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "project": {
+    "name": "portfolio-app",
+    "productType": "developer portfolio",
+    "stack": ["nextjs", "react", "tailwind-v3"]
+  },
+  "sources": {
+    "tokens": ["src/app/globals.css"],
+    "components": ["src/components/portfolio", "src/components/ui"],
+    "assets": ["public/images/projects"],
+    "instructions": ["README.md"]
+  },
+  "design": {
+    "colorMode": "dark",
+    "colors": {
+      "--bg": { "value": "#0b0d10", "source": "src/app/globals.css" },
+      "--surface": { "value": "#111419", "source": "src/app/globals.css" },
+      "--surface-muted": { "value": "#0f1216", "source": "src/app/globals.css" },
+      "--text": { "value": "#f4f6f8", "source": "src/app/globals.css" },
+      "--text-secondary": { "value": "#bac1cb", "source": "src/app/globals.css" },
+      "--text-muted": { "value": "#828b98", "source": "src/app/globals.css" },
+      "--border": { "value": "#252a33", "source": "src/app/globals.css" },
+      "--accent": { "value": "#87a8ff", "source": "src/app/globals.css" }
+    },
+    "typography": {
+      "display": { "value": "Space Grotesk", "source": "src/app/layout.tsx" },
+      "body": { "value": "Plus Jakarta Sans", "source": "src/app/layout.tsx" }
+    },
+    "spacing": {},
+    "radius": {
+      "navigation": { "value": "14px", "source": "src/app/globals.css" },
+      "project-card": { "value": "14px", "source": "src/app/globals.css" }
+    },
+    "shadows": {
+      "navigation": { "value": "0 12px 34px rgba(0, 0, 0, 0.2)", "source": "src/app/globals.css" }
+    },
+    "motion": {
+      "hero": { "value": "GSAP 0.85s power3.out stagger", "source": "src/hooks/portfolio/usePortfolioAnimations.js" }
+    },
+    "density": "comfortable"
+  },
+  "components": {
+    "installed": ["PortfolioNavbar", "ProjectCard", "FlagIcon"],
+    "preferredPrimitives": ["button", "text-link", "section-shell"],
+    "patterns": ["section-heading", "evidence-led project card", "bordered editorial list"]
+  },
+  "constraints": {
+    "must": [
+      "Keep Spanish, Catalan, and English content equivalent",
+      "Show only verifiable project claims and working links",
+      "Preserve visible keyboard focus and reduced motion"
+    ],
+    "avoid": [
+      "Long repeated positioning copy",
+      "Horizontal pinned project rails",
+      "Decorative gradients, glass, star fields, and custom cursors",
+      "Inner scrolling inside project cards"
+    ]
+  },
+  "decisions": [
+    "Use an editorial work-led layout with four selected projects",
+    "Use neutral surfaces and blue only as a navigation or emphasis signal",
+    "Keep one authored hero entrance; all core content is visible by default",
+    "Replace embedded CV previews with direct localized downloads"
+  ],
+  "evidence": [
+    { "fact": "project.stack", "source": "package.json" },
+    { "fact": "design.tokens", "source": "src/app/globals.css" },
+    { "fact": "content.selection", "source": "src/data/portfolioProjects.jsx" }
+  ],
+  "generatedAt": "2026-08-02T14:00:00.000Z"
+}

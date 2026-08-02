@@ -1,65 +1,25 @@
 import React from 'react';
 
-import { AboutSection } from './sections/AboutSection';
-import { BackendSection } from './sections/BackendSection';
-import { CandidateSignalSection } from './sections/CandidateSignalSection';
 import { ContactSection } from './sections/ContactSection';
-import { CurrentFocusSection } from './sections/CurrentFocusSection';
 import { CvSection } from './sections/CvSection';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { ExpertiseSection } from './sections/ExpertiseSection';
 import { HeroSection } from './sections/HeroSection';
-import { ProcessSection } from './sections/ProcessSection';
 import { ProjectsSection } from './sections/ProjectsSection';
-import { RolePathsSection } from './sections/RolePathsSection';
-import { SkillsMarquee } from './sections/SkillsMarquee';
 
 export function PortfolioMainSections({
   mainRef,
   locale,
-  theme,
-  activeProcessStep,
-  setActiveProcessStep,
-  activeProjectIndex,
   projects,
-  setActivePdfProjectId,
   scrollToSection,
-  projectsSectionRef,
-  projectsPinRef,
-  projectsTrackRef,
-  cvGeneralPreviewPages,
-  cvLocalizedPreviewPages,
 }) {
   return (
-    <main ref={mainRef} className="relative z-10">
+    <main ref={mainRef}>
       <HeroSection locale={locale} scrollToSection={scrollToSection} />
-      <RolePathsSection locale={locale} scrollToSection={scrollToSection} />
-      <SkillsMarquee theme={theme} />
+      <ProjectsSection locale={locale} projects={projects} />
       <ExpertiseSection locale={locale} />
-      <BackendSection locale={locale} scrollToSection={scrollToSection} />
-      <CandidateSignalSection locale={locale} />
-      <ProcessSection
-        locale={locale}
-        activeProcessStep={activeProcessStep}
-        setActiveProcessStep={setActiveProcessStep}
-      />
       <ExperienceSection locale={locale} />
-      <ProjectsSection
-        locale={locale}
-        projects={projects}
-        activeProjectIndex={activeProjectIndex}
-        setActivePdfProjectId={setActivePdfProjectId}
-        projectsSectionRef={projectsSectionRef}
-        projectsPinRef={projectsPinRef}
-          projectsTrackRef={projectsTrackRef}
-      />
-      <AboutSection locale={locale} />
-      <CurrentFocusSection locale={locale} />
-      <CvSection
-        locale={locale}
-        cvGeneralPreviewPages={cvGeneralPreviewPages}
-        cvLocalizedPreviewPages={cvLocalizedPreviewPages}
-      />
+      <CvSection locale={locale} />
       <ContactSection locale={locale} />
     </main>
   );

@@ -1,126 +1,42 @@
-# Portfolio - Marc Muntané Clarà
+# Portfolio — Marc Muntané Clarà
 
-Portfolio personal diseñado para presentar mi perfil como:
+Portfolio trilingüe orientado a mostrar trabajo verificable con una lectura corta.
 
-**Perfil junior centrado en IA & Big Data, React/UI/UX y Java Spring Boot.**
+## Trabajo seleccionado
 
-## Propósito
+- **Klime:** storefront editorial React/TypeScript con catálogo, variantes, cesta y base Supabase.
+- **ATLAS:** PWA local-first de planificación y seguimiento deportivo.
+- **Vortex:** IA local con RAG, validación de respuestas y escalado humano.
+- **Fichestu:** cliente Android Kotlin/Compose y backend Spring Boot.
 
-Este portfolio comunica una posición técnica clara: IA aplicada, producto visual y backend Java.
+Cada caso resume problema, aportación, evidencia y enlaces útiles. El contenido está disponible en español, catalán e inglés.
 
-La parte visual se mantiene simple, clara y moderna, con foco en proyectos verificables.
+## Stack del portfolio
 
-También está pensado para lectura humana y lectura automática: recruiters, hiring managers y LLMs pueden entender rápido qué roles encajan mejor.
+- Next.js 15 y React 19.
+- Tailwind CSS 3 y CSS propio.
+- GSAP para la entrada inicial y el progreso de lectura.
+- Export estático para GitHub Pages.
 
-## Tecnologías usadas
+## Desarrollo
 
-- Next.js
-- React
-- Tailwind CSS
-- GSAP
-- Lucide React
-- GitHub Pages
-
-## Posicionamiento técnico
-
-- IA & Big Data como línea de especialización, productividad y experimentación.
-- React/UI/UX para construir interfaces claras y usables.
-- Java y Spring Boot como base de programación y backend.
-- APIs REST, servicios, controladores, DTOs, validación y gestión de errores.
-- SQL, MySQL, JDBC, JPA/Hibernate y operaciones CRUD.
-- Frontend moderno con React, Next.js, HTML, CSS, JavaScript y TypeScript.
-- IA como herramienta de productividad, documentación, exploración e integración.
-
-## Estructura del proyecto
-
-```txt
-src/
-  app/
-    layout.tsx
-    globals.css
-    (routes)/page.jsx
-  components/
-    portfolio/
-      sections/
-      projects/
-      process/
-    ui/
-  data/
-    portfolioContent.jsx
-    portfolioProjects.jsx
-    portfolioSkills.js
-    portfolioTimeline.js
-  hooks/
-  lib/
-public/
-  docs/
-  images/
-scripts/
+```powershell
+npm.cmd ci
+npm.cmd run lint
+npm.cmd run build
+npm.cmd run dev
 ```
 
-## Secciones principales
+La app local abre en `http://localhost:3000`. La versión publicada vive en <https://marcmunta.github.io/Portfolio/>.
 
-- Rutas de lectura por rol: IA & Big Data, React/UI/UX y Java Spring Boot.
-- Hero con posicionamiento IA & Big Data, React/UI/UX y Java Spring Boot.
-- Stack técnico con tres líneas claras.
-- Tres pilares clave: IA, React/UI y Java Spring Boot.
-- Proyectos técnicos destacados.
-- Proceso de desarrollo.
-- Formación y trayectoria.
-- Proyectos de IA, frontend y backend.
-- Sobre mí.
-- Actualmente reforzando.
-- CV y contacto.
+## Contenido estructurado
 
-## Lectura para IA
-
-- `public/llms.txt`: resumen claro para modelos de lenguaje.
-- `public/candidate-profile.json`: perfil estructurado con roles objetivo, fortalezas, proyectos y contacto.
-- JSON-LD en `src/app/layout.tsx`: `Person` + `ProfilePage` con proyectos y tecnologías.
-
-## Ejecutar localmente
-
-```bash
-npm install
-npm run dev
-```
-
-Abrir:
-
-```txt
-http://localhost:3000
-```
-
-## Build
-
-```bash
-npm run build
-```
-
-## Lint
-
-```bash
-npm run lint
-```
-
-## Despliegue
-
-El portfolio está preparado para publicarse en GitHub Pages:
-
-https://marcmunta.github.io/Portfolio/
-
-## Mejoras futuras
-
-- Añadir más proyectos Java/Spring Boot verificables.
-- Añadir proyectos UI/UX documentados con decisiones de interfaz.
-- Añadir proyectos de IA & Big Data verificables.
-- Publicar una API REST Spring Boot con CRUD, DTOs, validación y tests.
-- Añadir un proyecto con Docker y despliegue backend documentado.
-- Mejorar cobertura de tests en proyectos Java.
-- Añadir capturas técnicas de APIs, bases de datos y arquitectura.
+- `public/llms.txt`: resumen breve para modelos de lenguaje.
+- `public/candidate-profile.json`: perfil y proyectos en JSON.
+- `src/app/layout.tsx`: metadatos y JSON-LD.
 
 ## Contacto
 
-- GitHub: https://github.com/MarcMunta
-- LinkedIn: https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/
-- Email: marcmclara@gmail.com
+- [GitHub](https://github.com/MarcMunta)
+- [LinkedIn](https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/)
+- [Email](mailto:marcmclara@gmail.com)

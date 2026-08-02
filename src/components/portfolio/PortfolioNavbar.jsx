@@ -2,18 +2,8 @@ import React from 'react';
 import { Moon, Sun } from 'lucide-react';
 
 import { FlagIcon } from '../ui/FlagIcon';
-import { MagneticElement } from '../ui/MagneticElement';
 
-export function PortfolioNavbar(props) {
-  return (
-    <>
-      <DesktopNavbar {...props} />
-      <MobileNavbar {...props} />
-    </>
-  );
-}
-
-function DesktopNavbar({
+export function PortfolioNavbar({
   showNav,
   clickedNav,
   activeSection,
@@ -27,85 +17,36 @@ function DesktopNavbar({
   onNavClick,
 }) {
   return (
-    <>
-      <div
-        className={`hidden md:flex fixed top-6 left-0 w-full justify-center z-50 pointer-events-none transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${
-          showNav ? 'translate-y-0 opacity-100' : '-translate-y-32 opacity-0'
-        }`}
-      >
-        <nav className="portfolio-nav pointer-events-auto flex items-center justify-between gap-6 md:gap-14 px-8 py-3.5 rounded-full bg-[var(--bg-nav)] backdrop-blur-xl border border-[var(--border-primary)] shadow-[var(--shadow-nav)] hover:border-[var(--border-primary)] transition-all duration-500">
-          <BrandLink clicked={clickedNav === 'hero'} onClick={(event) => onNavClick('hero', event)} />
+    <header className={`site-header ${showNav ? 'is-visible' : 'is-hidden'}`}>
+      <nav className="site-nav" aria-label="Portfolio">
+        <a
+          href="#hero"
+          onClick={(event) => onNavClick('hero', event)}
+          className={`brand-link ${clickedNav === 'hero' ? 'nav-clicked' : ''}`}
+          aria-label="Marc Muntané Clarà"
+        >
+          M<span>/</span>
+        </a>
 
-          <div className="flex gap-8 md:gap-10 text-sm md:text-base font-semibold text-gray-100">
-            {navItems.map((item) => (
-              <DesktopNavItem
-                key={item.id}
-                item={item}
-                labels={locale.labels}
-                clicked={clickedNav === item.id}
-                active={activeSection === item.id}
-                onNavClick={onNavClick}
-              />
-            ))}
-          </div>
-
-          <MagneticElement inline strength={0.1}>
+        <div className="nav-links">
+          {navItems.map((item) => (
             <a
-              href="#contact"
-              aria-label={locale.labels.goToContact}
-              onClick={(event) => onNavClick('contact', event)}
-              className={`cursor-morph cta-btn block bg-[var(--cta-bg)] text-[var(--cta-text)] px-6 py-2.5 rounded-full text-sm font-bold shadow-[var(--cta-shadow)] hover:bg-[var(--cta-hover-bg)] transition-all ${
-                clickedNav === 'contact' ? 'nav-clicked' : ''
+              key={item.id}
+              href={`#${item.id}`}
+              onClick={(event) => onNavClick(item.id, event)}
+              aria-label={`${locale.labels.goTo} ${item.label}`}
+              aria-current={activeSection === item.id ? 'location' : undefined}
+              className={`${activeSection === item.id ? 'is-active' : ''} ${
+                clickedNav === item.id ? 'nav-clicked' : ''
               }`}
             >
-              {locale.labels.talkButton}
+              {item.label}
             </a>
-          </MagneticElement>
-        </nav>
-      </div>
+          ))}
+        </div>
 
-      <div
-        className={`hidden md:block fixed top-6 right-6 z-50 pointer-events-auto transition-all duration-700 ${
-          showNav ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'
-        }`}
-      >
-        <LanguageThemeControls
-          languageOptions={languageOptions}
-          language={language}
-          setLanguage={setLanguage}
-          labels={locale.labels}
-          theme={theme}
-          toggleTheme={toggleTheme}
-        />
-      </div>
-    </>
-  );
-}
-
-function MobileNavbar({
-  showNav,
-  clickedNav,
-  activeSection,
-  navItems,
-  locale,
-  languageOptions,
-  language,
-  setLanguage,
-  theme,
-  toggleTheme,
-  onNavClick,
-}) {
-  return (
-    <div
-      className={`md:hidden fixed top-4 left-4 right-4 z-50 pointer-events-auto transition-all duration-700 ${
-        showNav ? 'translate-y-0 opacity-100' : '-translate-y-28 opacity-0'
-      }`}
-    >
-      <nav className="portfolio-nav rounded-[1.6rem] border border-[var(--border-primary)] bg-[var(--bg-nav)] backdrop-blur-xl shadow-[var(--shadow-nav)] p-2.5">
-        <div className="flex items-center justify-between gap-3">
-          <BrandLink clicked={clickedNav === 'hero'} onClick={(event) => onNavClick('hero', event)} />
+        <div className="nav-actions">
           <LanguageThemeControls
-            compact
             languageOptions={languageOptions}
             language={language}
             setLanguage={setLanguage}
@@ -113,78 +54,20 @@ function MobileNavbar({
             theme={theme}
             toggleTheme={toggleTheme}
           />
-        </div>
-
-        <div className="mt-2 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              aria-label={`${locale.labels.goTo} ${item.label}`}
-              onClick={(event) => onNavClick(item.id, event)}
-              className={`cursor-morph shrink-0 rounded-full px-3.5 py-2 text-xs font-semibold transition-colors ${
-                activeSection === item.id
-                  ? 'bg-[var(--cta-bg)] text-[var(--cta-text)]'
-                  : 'bg-white/[0.04] text-gray-200 hover:bg-white/10'
-              } ${clickedNav === item.id ? 'nav-clicked' : ''}`}
-            >
-              {item.label}
-            </a>
-          ))}
           <a
             href="#contact"
-            aria-label={locale.labels.goToContact}
             onClick={(event) => onNavClick('contact', event)}
-            className={`cursor-morph shrink-0 rounded-full px-3.5 py-2 text-xs font-semibold bg-[var(--cta-bg)] text-[var(--cta-text)] ${
-              clickedNav === 'contact' ? 'nav-clicked' : ''
-            }`}
+            className="nav-contact"
           >
             {locale.labels.talkButton}
           </a>
         </div>
       </nav>
-    </div>
-  );
-}
-
-function BrandLink({ clicked, onClick }) {
-  return (
-    <MagneticElement inline strength={0.15}>
-      <a
-        href="#hero"
-        onClick={onClick}
-        className={`font-display font-bold text-2xl tracking-tighter block cursor-morph px-2 ${clicked ? 'nav-clicked' : ''}`}
-      >
-        M<span className="text-blue-500">.</span>
-      </a>
-    </MagneticElement>
-  );
-}
-
-function DesktopNavItem({ item, labels, clicked, active, onNavClick }) {
-  return (
-    <MagneticElement inline strength={0.1}>
-      <a
-        href={`#${item.id}`}
-        aria-label={`${labels.goTo} ${item.label}`}
-        onClick={(event) => onNavClick(item.id, event)}
-        className={`portfolio-nav-link relative block px-3 py-1 cursor-morph tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.12)] transition-colors duration-300 ${
-          clicked ? 'nav-clicked' : ''
-        } ${active ? 'is-active text-white' : 'text-gray-100 hover:text-white'}`}
-      >
-        {item.label}
-        <span
-          className={`absolute -bottom-1 left-1/2 w-1.5 h-1.5 bg-blue-500 rounded-full -translate-x-1/2 transition-all duration-300 ${
-            active ? 'opacity-100 scale-100 shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 'opacity-0 scale-0'
-          }`}
-        />
-      </a>
-    </MagneticElement>
+    </header>
   );
 }
 
 function LanguageThemeControls({
-  compact = false,
   languageOptions,
   language,
   setLanguage,
@@ -192,34 +75,29 @@ function LanguageThemeControls({
   theme,
   toggleTheme,
 }) {
-  const buttonSize = compact ? 'w-8 h-8' : 'w-9 h-9';
-  const showLanguageButtons = languageOptions.length > 1;
-
   return (
-    <div className={`portfolio-control-group flex items-center gap-1.5 rounded-full border border-[var(--border-primary)] bg-[var(--bg-nav)] backdrop-blur-xl px-1.5 py-1 shadow-[var(--shadow-nav)]`}>
-      {showLanguageButtons
-        ? languageOptions.map((option) => (
-            <button
-              key={option.code}
-              type="button"
-              onClick={() => setLanguage(option.code)}
-              aria-label={`${labels.switchLanguageTo} ${option.label}`}
-              className={`portfolio-control-button cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all ${
-                language === option.code ? 'is-selected bg-[var(--process-active-bg)] scale-105' : 'bg-transparent hover:bg-[var(--process-active-bg)]'
-              }`}
-            >
-              <FlagIcon code={option.code} />
-            </button>
-          ))
-        : null}
-      {showLanguageButtons ? <div className="w-px h-5 bg-[var(--border-secondary)]" /> : null}
+    <div className="control-group">
+      <div className="language-controls">
+        {languageOptions.map((option) => (
+          <button
+            key={option.code}
+            type="button"
+            onClick={() => setLanguage(option.code)}
+            aria-label={`${labels.switchLanguageTo} ${option.label}`}
+            aria-pressed={language === option.code}
+            className={language === option.code ? 'is-selected' : ''}
+          >
+            <FlagIcon code={option.code} />
+          </button>
+        ))}
+      </div>
       <button
         type="button"
         onClick={toggleTheme}
         aria-label={theme === 'dark' ? labels.switchToLight : labels.switchToDark}
-        className={`portfolio-control-button cursor-morph ${buttonSize} rounded-full flex items-center justify-center transition-all hover:bg-[var(--process-active-bg)]`}
+        className="theme-toggle"
       >
-        {theme === 'dark' ? <Sun size={16} className="text-[var(--text-primary)]" /> : <Moon size={16} className="text-[var(--text-primary)]" />}
+        {theme === 'dark' ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
       </button>
     </div>
   );
