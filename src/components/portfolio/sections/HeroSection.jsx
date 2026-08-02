@@ -48,7 +48,7 @@ export function HeroSection({ locale, scrollToSection }) {
             <span className="portrait-node portrait-node-one" aria-hidden="true" />
             <span className="portrait-node portrait-node-two" aria-hidden="true" />
 
-            <div className="portrait-frame" data-cursor-morph>
+            <div className="portrait-frame">
               <img
                 src="images/profile/marc-muntane.jpg"
                 alt={locale.hero.portraitAlt}
@@ -56,6 +56,7 @@ export function HeroSection({ locale, scrollToSection }) {
                 height="460"
                 decoding="async"
                 fetchPriority="high"
+                draggable="false"
               />
             </div>
 

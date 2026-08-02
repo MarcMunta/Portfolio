@@ -3,6 +3,7 @@ export const SECTION_IDS = [
   'projects',
   'expertise',
   'experience',
+  'education',
   'cv',
   'contact',
 ];

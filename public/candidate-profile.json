@@ -19,6 +19,12 @@
     "ai": ["Python", "RAG", "Local AI", "Automation", "Evaluation"],
     "backendData": ["Java", "Spring Boot", "REST APIs", "JPA", "SQL", "Testing"]
   },
+  "education": [
+    "2026-2027: Master's in AI & Big Data at STUCOM",
+    "2025-2026: Cross-platform Application Development (DAM) at STUCOM",
+    "2023-2025: Web Application Development (DAW) at STUCOM",
+    "2021-2023: Microcomputer Systems and Networks (SMX) at STUCOM"
+  ],
   "selectedProjects": [
     {
       "name": "Klime",

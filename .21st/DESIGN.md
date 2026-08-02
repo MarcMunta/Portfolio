@@ -16,6 +16,8 @@ Help a recruiter or technical lead understand Marc’s work in under two minutes
 
 - Four selected projects: Klime, ATLAS, Vortex, and Fichestu.
 - Each case states what it is, Marc’s contribution, three pieces of evidence, and useful links.
+- Education is a dedicated timeline sourced from the CV, separate from professional experience.
+- The localized CV is previewable in-page before opening or downloading the PDF.
 - Spanish, Catalan, and English remain equivalent.
 - No repeated positioning, generic process explanation, or unverified production claim.
 
@@ -25,4 +27,5 @@ Help a recruiter or technical lead understand Marc’s work in under two minutes
 - GSAP drives one cinematic hero entrance, distinct section reveals, project depth, and slow orbital parallax.
 - Effects progressively enhance a complete static layout; core content is never interaction-gated.
 - Normal vertical document flow; no pinned project rail or inner card scrolling.
+- Portrait and document imagery are non-draggable and cannot show browser selection inversion.
 - Visible focus, 42 px minimum controls, reduced-motion support, and no horizontal overflow.

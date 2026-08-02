@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ContactSection } from './sections/ContactSection';
 import { CvSection } from './sections/CvSection';
+import { EducationSection } from './sections/EducationSection';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { ExpertiseSection } from './sections/ExpertiseSection';
 import { HeroSection } from './sections/HeroSection';
@@ -19,6 +20,7 @@ export function PortfolioMainSections({
       <ProjectsSection locale={locale} projects={projects} />
       <ExpertiseSection locale={locale} />
       <ExperienceSection locale={locale} />
+      <EducationSection locale={locale} />
       <CvSection locale={locale} />
       <ContactSection locale={locale} />
     </main>

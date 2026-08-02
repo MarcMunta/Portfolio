@@ -8,7 +8,7 @@
   "sources": {
     "tokens": ["src/app/globals.css"],
     "components": ["src/components/portfolio", "src/components/ui"],
-    "assets": ["public/images/projects"],
+    "assets": ["public/images/projects", "public/images/profile", "public/docs/cv-previews"],
     "instructions": ["README.md"]
   },
   "design": {
@@ -65,7 +65,10 @@
     "Integrate Marc's real portrait as the hero's visual anchor",
     "Restore a refined sparse star field and morphing bubble cursor on fine pointers",
     "Use distinct GSAP scroll choreography with complete static and reduced-motion fallbacks",
-    "Keep direct localized CV downloads"
+    "Keep direct localized CV downloads",
+    "Present education as a dedicated editorial timeline sourced from the CV",
+    "Show the localized CV preview in-page with separate open and download actions",
+    "Keep portrait and CV imagery non-draggable and non-selectable"
   ],
   "evidence": [
     { "fact": "project.stack", "source": "package.json" },

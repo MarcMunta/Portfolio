@@ -9,6 +9,12 @@ Core capabilities:
 - Applied AI: Python, local models, RAG, automation, evaluation, bounded system behavior.
 - Backend and data: Java, Spring Boot, REST APIs, JPA, SQL, validation, testing.
 
+Education:
+- 2026-2027: Master's in AI & Big Data at STUCOM.
+- 2025-2026: Cross-platform Application Development (DAM) at STUCOM.
+- 2023-2025: Web Application Development (DAW) at STUCOM.
+- 2021-2023: Microcomputer Systems and Networks (SMX) at STUCOM.
+
 Selected work:
 - Klime — https://marcmunta.github.io/Klime/
   Published multilingual ecommerce prototype with a 10-product catalogue, persistent cart and favourites, Supabase account foundation, and responsive validation.

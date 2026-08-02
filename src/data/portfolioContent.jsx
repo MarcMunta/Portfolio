@@ -12,6 +12,7 @@ const LOCALE_DATA = {
       { id: 'projects', label: 'Proyectos' },
       { id: 'expertise', label: 'Perfil' },
       { id: 'experience', label: 'Trayectoria' },
+      { id: 'education', label: 'Estudios' },
       { id: 'cv', label: 'CV' },
     ],
     labels: {
@@ -70,7 +71,7 @@ const LOCALE_DATA = {
     },
     experienceSection: {
       title: 'Trayectoria',
-      desc: 'Experiencia práctica y formación que explican cómo trabajo hoy.',
+      desc: 'Experiencia práctica en equipos reales, con responsabilidades concretas y contexto internacional.',
       items: [
         {
           period: '2025 — 2026',
@@ -84,20 +85,56 @@ const LOCALE_DATA = {
           meta: 'Web, hosting y soporte',
           description: 'Mantenimiento web, cuentas, incidencias y contacto con necesidades reales de negocio.',
         },
+      ],
+    },
+    educationSection: {
+      title: 'Estudios',
+      desc: 'Una progresión desde sistemas y redes hasta producto web, aplicaciones multiplataforma e inteligencia artificial.',
+      items: [
         {
-          period: '2021 — 2027',
-          title: 'STUCOM · SMX, DAW, DAM e IA & Big Data',
-          meta: 'Formación técnica continua',
-          description: 'Base en sistemas, desarrollo web y móvil, Java, datos e inteligencia artificial aplicada.',
+          period: '2026 — 2027',
+          title: 'Máster en IA & Big Data',
+          institution: 'STUCOM · Barcelona',
+          description: 'Modelos, datos y soluciones de inteligencia artificial aplicada.',
+        },
+        {
+          period: '2025 — 2026',
+          title: 'Desarrollo de Aplicaciones Multiplataforma (DAM)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Java, Kotlin, aplicaciones multiplataforma, persistencia y APIs.',
+        },
+        {
+          period: '2023 — 2025',
+          title: 'Desarrollo de Aplicaciones Web (DAW)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Frontend, backend, bases de datos y despliegue web.',
+        },
+        {
+          period: '2021 — 2023',
+          title: 'Sistemas Microinformáticos y Redes (SMX)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Sistemas, redes, hardware y soporte técnico.',
         },
       ],
     },
     cvSection: {
-      title: 'CV, sin rodeos',
-      desc: 'Experiencia, formación y contacto en un documento breve.',
-      localizedLabel: 'Descargar CV en español',
+      title: 'CV, de un vistazo',
+      desc: 'Previsualiza la versión en español y abre el documento completo cuando necesites el detalle.',
+      previewLabel: 'Vista previa · Español',
+      previewMeta: 'PDF · 1 página',
+      previewAlt: 'Primera página del CV de Marc Muntané Clarà en español',
+      summaryKicker: 'Perfil resumido',
+      summaryTitle: 'La información clave, sin obligarte a descargar nada.',
+      facts: [
+        'Frontend y producto · React, TypeScript y Flutter',
+        'Backend e IA · Java, Spring Boot y Python',
+        'Idiomas · Español y catalán nativos · inglés B2',
+      ],
+      openLabel: 'Abrir CV completo',
+      localizedLabel: 'Descargar PDF',
       generalLabel: 'Ver CV general',
       localizedPath: 'docs/cv/marc-muntane-clara-cv-es.pdf',
+      previewPath: 'docs/cv-previews/es/page-1.png',
       generalPath: 'docs/cv/marc-muntane-clara-cv.pdf',
     },
     contact: {
@@ -115,6 +152,7 @@ const LOCALE_DATA = {
       { id: 'projects', label: 'Projectes' },
       { id: 'expertise', label: 'Perfil' },
       { id: 'experience', label: 'Trajectòria' },
+      { id: 'education', label: 'Estudis' },
       { id: 'cv', label: 'CV' },
     ],
     labels: {
@@ -173,7 +211,7 @@ const LOCALE_DATA = {
     },
     experienceSection: {
       title: 'Trajectòria',
-      desc: 'Experiència pràctica i formació que expliquen com treballo avui.',
+      desc: 'Experiència pràctica en equips reals, amb responsabilitats concretes i context internacional.',
       items: [
         {
           period: '2025 — 2026',
@@ -187,20 +225,56 @@ const LOCALE_DATA = {
           meta: 'Web, hosting i suport',
           description: 'Manteniment web, comptes, incidències i contacte amb necessitats reals de negoci.',
         },
+      ],
+    },
+    educationSection: {
+      title: 'Estudis',
+      desc: 'Una progressió des de sistemes i xarxes fins a producte web, aplicacions multiplataforma i intel·ligència artificial.',
+      items: [
         {
-          period: '2021 — 2027',
-          title: 'STUCOM · SMX, DAW, DAM i IA & Big Data',
-          meta: 'Formació tècnica contínua',
-          description: 'Base en sistemes, desenvolupament web i mòbil, Java, dades i intel·ligència artificial aplicada.',
+          period: '2026 — 2027',
+          title: 'Màster en IA i Big Data',
+          institution: 'STUCOM · Barcelona',
+          description: 'Models, dades i solucions d’intel·ligència artificial aplicada.',
+        },
+        {
+          period: '2025 — 2026',
+          title: 'Desenvolupament d’Aplicacions Multiplataforma (DAM)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Java, Kotlin, aplicacions multiplataforma, persistència i APIs.',
+        },
+        {
+          period: '2023 — 2025',
+          title: 'Desenvolupament d’Aplicacions Web (DAW)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Frontend, backend, bases de dades i desplegament web.',
+        },
+        {
+          period: '2021 — 2023',
+          title: 'Sistemes Microinformàtics i Xarxes (SMX)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Sistemes, xarxes, hardware i suport tècnic.',
         },
       ],
     },
     cvSection: {
-      title: 'CV, sense voltes',
-      desc: 'Experiència, formació i contacte en un document breu.',
-      localizedLabel: 'Descarregar CV en català',
+      title: 'CV, d’un cop d’ull',
+      desc: 'Previsualitza la versió en català i obre el document complet quan necessitis el detall.',
+      previewLabel: 'Vista prèvia · Català',
+      previewMeta: 'PDF · 1 pàgina',
+      previewAlt: 'Primera pàgina del CV de Marc Muntané Clarà en català',
+      summaryKicker: 'Perfil resumit',
+      summaryTitle: 'La informació clau, sense obligar-te a descarregar res.',
+      facts: [
+        'Frontend i producte · React, TypeScript i Flutter',
+        'Backend i IA · Java, Spring Boot i Python',
+        'Idiomes · Castellà i català natius · anglès B2',
+      ],
+      openLabel: 'Obrir CV complet',
+      localizedLabel: 'Descarregar PDF',
       generalLabel: 'Veure CV general',
       localizedPath: 'docs/cv/marc-muntane-clara-cv-ca.pdf',
+      previewPath: 'docs/cv-previews/ca/page-1.png',
       generalPath: 'docs/cv/marc-muntane-clara-cv.pdf',
     },
     contact: {
@@ -218,6 +292,7 @@ const LOCALE_DATA = {
       { id: 'projects', label: 'Projects' },
       { id: 'expertise', label: 'Profile' },
       { id: 'experience', label: 'Experience' },
+      { id: 'education', label: 'Education' },
       { id: 'cv', label: 'CV' },
     ],
     labels: {
@@ -276,7 +351,7 @@ const LOCALE_DATA = {
     },
     experienceSection: {
       title: 'Experience',
-      desc: 'Practical experience and training that explain how I work today.',
+      desc: 'Hands-on experience in real teams, with concrete responsibilities and international context.',
       items: [
         {
           period: '2025 — 2026',
@@ -290,20 +365,56 @@ const LOCALE_DATA = {
           meta: 'Web, hosting, and support',
           description: 'Web maintenance, accounts, incidents, and direct contact with real business needs.',
         },
+      ],
+    },
+    educationSection: {
+      title: 'Education',
+      desc: 'A progression from systems and networks to web products, cross-platform applications, and artificial intelligence.',
+      items: [
         {
-          period: '2021 — 2027',
-          title: 'STUCOM · SMX, DAW, DAM, and AI & Big Data',
-          meta: 'Continuous technical training',
-          description: 'Foundation in systems, web and mobile development, Java, data, and applied AI.',
+          period: '2026 — 2027',
+          title: 'Master’s in AI & Big Data',
+          institution: 'STUCOM · Barcelona',
+          description: 'Models, data, and applied artificial intelligence solutions.',
+        },
+        {
+          period: '2025 — 2026',
+          title: 'Cross-platform Application Development (DAM)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Java, Kotlin, cross-platform applications, persistence, and APIs.',
+        },
+        {
+          period: '2023 — 2025',
+          title: 'Web Application Development (DAW)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Frontend, backend, databases, and web deployment.',
+        },
+        {
+          period: '2021 — 2023',
+          title: 'Microcomputer Systems and Networks (SMX)',
+          institution: 'STUCOM · Barcelona',
+          description: 'Systems, networks, hardware, and technical support.',
         },
       ],
     },
     cvSection: {
-      title: 'CV, straight to the point',
-      desc: 'Experience, education, and contact details in one concise document.',
-      localizedLabel: 'Download CV in English',
+      title: 'CV, at a glance',
+      desc: 'Preview the English version and open the complete document whenever you need the detail.',
+      previewLabel: 'Preview · English',
+      previewMeta: 'PDF · 1 page',
+      previewAlt: 'First page of Marc Muntané Clarà’s CV in English',
+      summaryKicker: 'Profile summary',
+      summaryTitle: 'The key information, without forcing a download.',
+      facts: [
+        'Frontend and product · React, TypeScript, and Flutter',
+        'Backend and AI · Java, Spring Boot, and Python',
+        'Languages · Native Spanish and Catalan · English B2',
+      ],
+      openLabel: 'Open full CV',
+      localizedLabel: 'Download PDF',
       generalLabel: 'View general CV',
       localizedPath: 'docs/cv/marc-muntane-clara-cv-en.pdf',
+      previewPath: 'docs/cv-previews/en/page-1.png',
       generalPath: 'docs/cv/marc-muntane-clara-cv.pdf',
     },
     contact: {

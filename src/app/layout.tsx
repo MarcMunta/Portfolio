@@ -128,6 +128,15 @@ const profileStructuredData = {
         "REST APIs",
         "SQL",
       ],
+      alumniOf: {
+        "@type": "EducationalOrganization",
+        name: "STUCOM",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Barcelona",
+          addressCountry: "ES",
+        },
+      },
       sameAs: [
         "https://github.com/MarcMunta",
         "https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/",

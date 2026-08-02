@@ -17,6 +17,8 @@ Cada caso resume problema, aportación, evidencia y enlaces útiles. El contenid
 - Tailwind CSS 3 y CSS propio.
 - GSAP para la entrada editorial, las revelaciones por scroll y el parallax orbital.
 - Retrato real, fondo espacial progresivo y cursor burbuja limitado a punteros precisos.
+- Trayectoria y estudios separados, con una línea académica breve y verificable.
+- Previsualización localizada del CV con apertura y descarga directa del PDF.
 - Export estático para GitHub Pages.
 
 ## Desarrollo
