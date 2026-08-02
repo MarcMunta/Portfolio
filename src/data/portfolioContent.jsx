@@ -39,6 +39,9 @@ const LOCALE_DATA = {
       viewProjects: 'Ver proyectos',
       downloadCv: 'Descargar CV',
       proofPoints: ['Producto y UI', 'IA local', 'Backend y datos'],
+      portraitAlt: 'Retrato de Marc Muntané Clarà',
+      portraitKicker: 'Barcelona · disponible',
+      portraitCaption: 'Producto, IA y desarrollo full-stack',
     },
     projectsSection: {
       title: 'Trabajo seleccionado',
@@ -139,6 +142,9 @@ const LOCALE_DATA = {
       viewProjects: 'Veure projectes',
       downloadCv: 'Descarregar CV',
       proofPoints: ['Producte i UI', 'IA local', 'Backend i dades'],
+      portraitAlt: 'Retrat de Marc Muntané Clarà',
+      portraitKicker: 'Barcelona · disponible',
+      portraitCaption: 'Producte, IA i desenvolupament full-stack',
     },
     projectsSection: {
       title: 'Treball seleccionat',
@@ -239,6 +245,9 @@ const LOCALE_DATA = {
       viewProjects: 'View projects',
       downloadCv: 'Download CV',
       proofPoints: ['Product and UI', 'Local AI', 'Backend and data'],
+      portraitAlt: 'Portrait of Marc Muntané Clarà',
+      portraitKicker: 'Barcelona · available',
+      portraitCaption: 'Product, AI, and full-stack development',
     },
     projectsSection: {
       title: 'Selected work',

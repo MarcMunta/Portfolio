@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { ArrowDownRight, Download } from 'lucide-react';
 
@@ -40,14 +41,39 @@ export function HeroSection({ locale, scrollToSection }) {
           </div>
         </div>
 
-        <aside data-gsap-hero className="hero-proof" aria-label={locale.expertise.title}>
-          {locale.hero.proofPoints.map((point, index) => (
-            <div key={point} className="proof-row">
-              <span aria-hidden="true">0{index + 1}</span>
-              <strong>{point}</strong>
+        <div className="hero-visual" data-gsap-portrait>
+          <figure className="hero-portrait">
+            <span className="portrait-orbit portrait-orbit-outer" aria-hidden="true" />
+            <span className="portrait-orbit portrait-orbit-inner" aria-hidden="true" />
+            <span className="portrait-node portrait-node-one" aria-hidden="true" />
+            <span className="portrait-node portrait-node-two" aria-hidden="true" />
+
+            <div className="portrait-frame" data-cursor-morph>
+              <img
+                src="images/profile/marc-muntane.jpg"
+                alt={locale.hero.portraitAlt}
+                width="460"
+                height="460"
+                decoding="async"
+                fetchPriority="high"
+              />
             </div>
-          ))}
-        </aside>
+
+            <figcaption className="portrait-caption">
+              <span>{locale.hero.portraitKicker}</span>
+              <strong>{locale.hero.portraitCaption}</strong>
+            </figcaption>
+          </figure>
+
+          <aside className="hero-proof" aria-label={locale.expertise.title}>
+            {locale.hero.proofPoints.map((point, index) => (
+              <div key={point} className="proof-row">
+                <span aria-hidden="true">0{index + 1}</span>
+                <strong>{point}</strong>
+              </div>
+            ))}
+          </aside>
+        </div>
       </div>
     </section>
   );

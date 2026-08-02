@@ -4,12 +4,12 @@ import { ArrowUpRight, FileText, Github } from 'lucide-react';
 
 import { resolveProjectPdfPath } from '../../../lib/portfolio/pdf';
 
-export function ProjectCard({ project, labels }) {
+export function ProjectCard({ project, labels, index }) {
   const repoLinks = Array.isArray(project.repoLinks) ? project.repoLinks : [];
 
   return (
-    <article className="project-card" data-gsap-project-card>
-      <div className={`project-media project-media-${project.imageMode}`}>
+    <article className="project-card" data-gsap-project-card data-project-index={index}>
+      <div className={`project-media project-media-${project.imageMode}`} data-project-media>
         <img
           src={project.image}
           alt={project.imageAlt}
@@ -25,6 +25,9 @@ export function ProjectCard({ project, labels }) {
       <div className="project-content">
         <div className="project-heading-row">
           <div>
+            <span className="project-sequence" aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
             <p className="project-category">
               {project.category}
               {project.isNew ? <span>{labels.newProject}</span> : null}

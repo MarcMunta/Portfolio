@@ -4,6 +4,8 @@ import React from 'react';
 
 import { PortfolioMainSections } from '../../components/portfolio/PortfolioMainSections';
 import { PortfolioNavbar } from '../../components/portfolio/PortfolioNavbar';
+import { BackgroundEffects } from '../../components/ui/BackgroundEffects';
+import { CustomCursor } from '../../components/ui/CustomCursor';
 import { usePortfolioController } from '../../hooks/usePortfolioController';
 
 export default function PortfolioPage() {
@@ -11,6 +13,9 @@ export default function PortfolioPage() {
 
   return (
     <div ref={refs.appRef} className="portfolio-app">
+      <BackgroundEffects />
+      <CustomCursor />
+
       <div className="scroll-progress" aria-hidden="true">
         <div ref={refs.scrollProgressRef} />
       </div>
@@ -29,7 +34,7 @@ export default function PortfolioPage() {
         onNavClick={actions.handleNavClick}
       />
 
-      <div ref={refs.contentRef}>
+      <div ref={refs.contentRef} className="portfolio-content">
         <PortfolioMainSections
           mainRef={refs.mainRef}
           locale={data.locale}

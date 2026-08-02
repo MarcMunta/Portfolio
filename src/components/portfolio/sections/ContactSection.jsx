@@ -3,9 +3,9 @@ import { ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 
 export function ContactSection({ locale }) {
   return (
-    <footer id="contact" className="contact-section">
+    <footer id="contact" className="contact-section" data-gsap-section>
       <div className="section-shell">
-        <div className="contact-main">
+        <div className="contact-main" data-gsap-section-heading>
           <div>
             <h2>{locale.contact.title}</h2>
             <p>{locale.contact.desc}</p>

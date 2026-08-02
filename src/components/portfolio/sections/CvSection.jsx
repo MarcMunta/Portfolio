@@ -3,8 +3,13 @@ import { ArrowUpRight, Download } from 'lucide-react';
 
 export function CvSection({ locale }) {
   return (
-    <section id="cv" className="portfolio-section section-muted" aria-labelledby="cv-title">
-      <div className="section-shell cv-layout">
+    <section
+      id="cv"
+      className="portfolio-section section-muted"
+      aria-labelledby="cv-title"
+      data-gsap-section
+    >
+      <div className="section-shell cv-layout" data-gsap-section-heading>
         <div>
           <h2 id="cv-title">{locale.cvSection.title}</h2>
           <p>{locale.cvSection.desc}</p>

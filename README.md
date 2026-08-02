@@ -15,7 +15,8 @@ Cada caso resume problema, aportación, evidencia y enlaces útiles. El contenid
 
 - Next.js 15 y React 19.
 - Tailwind CSS 3 y CSS propio.
-- GSAP para la entrada inicial y el progreso de lectura.
+- GSAP para la entrada editorial, las revelaciones por scroll y el parallax orbital.
+- Retrato real, fondo espacial progresivo y cursor burbuja limitado a punteros precisos.
 - Export estático para GitHub Pages.
 
 ## Desarrollo

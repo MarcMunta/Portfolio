@@ -18,7 +18,7 @@ export function PortfolioNavbar({
 }) {
   return (
     <header className={`site-header ${showNav ? 'is-visible' : 'is-hidden'}`}>
-      <nav className="site-nav" aria-label="Portfolio">
+      <nav className="site-nav" aria-label="Portfolio" data-gsap-nav>
         <a
           href="#hero"
           onClick={(event) => onNavClick('hero', event)}

@@ -44,6 +44,14 @@ export const metadata: Metadata = {
     siteName: "Portfolio Marc Muntané",
     locale: "es_ES",
     type: "website",
+    images: [
+      {
+        url: "https://marcmunta.github.io/Portfolio/images/profile/marc-muntane.jpg",
+        width: 460,
+        height: 460,
+        alt: "Retrato de Marc Muntané Clarà",
+      },
+    ],
   },
   icons: {
     icon: "/favicon.svg",
@@ -98,6 +106,7 @@ const profileStructuredData = {
       "@id": "https://marcmunta.github.io/Portfolio/#marc-muntane",
       name: "Marc Muntané Clarà",
       url: "https://marcmunta.github.io/Portfolio/",
+      image: "https://marcmunta.github.io/Portfolio/images/profile/marc-muntane.jpg",
       email: "mailto:marcmclara@gmail.com",
       jobTitle: "Junior product-minded software developer",
       description:
