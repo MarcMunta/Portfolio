@@ -15,8 +15,14 @@ export function ExperienceSection({ locale }) {
         </header>
 
         <div className="experience-list">
-          {locale.experienceSection.items.map((item) => (
+          <span className="experience-progress-rail" aria-hidden="true">
+            <span data-experience-progress />
+          </span>
+          {locale.experienceSection.items.map((item, index) => (
             <article key={`${item.period}-${item.title}`} className="experience-item" data-gsap-row>
+              <span className="experience-index" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
               <time>{item.period}</time>
               <div>
                 <h3>{item.title}</h3>

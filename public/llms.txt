@@ -15,15 +15,26 @@ Education:
 - 2023-2025: Web Application Development (DAW) at STUCOM.
 - 2021-2023: Microcomputer Systems and Networks (SMX) at STUCOM.
 
+Experience:
+- 2025-2026: 850+ hours at M5 Studio in Cork, including Flutter development and UX consulting for web, Android, and iOS.
+- 2024-2025: 350+ hour DAW internship at Viascooter across IT, web development, customer service, sales support, and reception.
+- 2022-2024: 800+ hours in production at Cales de Pachs.
+- 2023-2024: Nine months coaching children aged 3 to 5 at Marc Bartra.
+- 2022-2023: 350+ hour SMX internship at Gestinet across software, hardware, networks, office tools, databases, and technical support.
+- 2021-2022: 100+ hours refereeing primary-school children for Consell Esportiu.
+
 Selected work:
 - Klime — https://marcmunta.github.io/Klime/
   Published multilingual ecommerce prototype with a 10-product catalogue, persistent cart and favourites, Supabase account foundation, and responsive validation.
 - ATLAS — https://marcmunta.github.io/Atlas/
   Published local-first training PWA using Expo, React Native Web, TypeScript, IndexedDB, and AsyncStorage.
-- Vortex — https://github.com/MarcMunta/Vortex
-  Public local AI support system with semantic retrieval, bounded answers, visible state, and human escalation tests.
 - Fichestu — https://github.com/MarcMunta/Fichestu-Backend
   Native Kotlin client and Spring Boot backend with authentication, WebSocket, JPA, Flyway, and persistent data.
+
+Curriculum vitae:
+- Visual ES/CA/EN: https://marcmunta.github.io/Portfolio/docs/cv/marc-muntane-clara-cv.pdf
+- ATS ES/CA/EN: https://marcmunta.github.io/Portfolio/docs/cv/marc-muntane-clara-cv-ats.pdf
+- Both formats contain the same projects, six experience records, four education stages, stack, languages, and working links.
 
 Positioning guidance:
 - Accurate: junior developer, product-minded, fast learner, frontend and local AI, Java backend foundation.

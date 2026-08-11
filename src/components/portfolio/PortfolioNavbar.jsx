@@ -25,11 +25,15 @@ export function PortfolioNavbar({
           className={`brand-link ${clickedNav === 'hero' ? 'nav-clicked' : ''}`}
           aria-label="Marc Muntané Clarà"
         >
-          M<span>/</span>
+          <span className="brand-monogram">MM</span>
+          <span className="brand-copy">
+            <strong>Product proof</strong>
+            <small>Portfolio / 2026</small>
+          </span>
         </a>
 
         <div className="nav-links">
-          {navItems.map((item) => (
+          {navItems.map((item, index) => (
             <a
               key={item.id}
               href={`#${item.id}`}
@@ -40,7 +44,8 @@ export function PortfolioNavbar({
                 clickedNav === item.id ? 'nav-clicked' : ''
               }`}
             >
-              {item.label}
+              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <strong>{item.label}</strong>
             </a>
           ))}
         </div>

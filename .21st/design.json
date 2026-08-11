@@ -3,77 +3,79 @@
   "project": {
     "name": "portfolio-app",
     "productType": "developer portfolio",
-    "stack": ["nextjs", "react", "tailwind-v3"]
+    "stack": ["nextjs", "react", "css", "gsap"]
   },
   "sources": {
     "tokens": ["src/app/globals.css"],
     "components": ["src/components/portfolio", "src/components/ui"],
     "assets": ["public/images/projects", "public/images/profile", "public/docs/cv-previews"],
-    "instructions": ["README.md"]
+    "instructions": ["PRODUCT.md", "DESIGN.md", "README.md"]
   },
   "design": {
-    "colorMode": "dark",
+    "direction": "Product Proof Lab",
+    "colorMode": "dark with accessible light alternative",
     "colors": {
-      "--bg": { "value": "#080a0f", "source": "src/app/globals.css" },
-      "--surface": { "value": "#10131a", "source": "src/app/globals.css" },
-      "--surface-muted": { "value": "#0d1016", "source": "src/app/globals.css" },
-      "--text": { "value": "#f4f6f8", "source": "src/app/globals.css" },
-      "--text-secondary": { "value": "#c1c6d0", "source": "src/app/globals.css" },
-      "--text-muted": { "value": "#858e9d", "source": "src/app/globals.css" },
-      "--border": { "value": "#242936", "source": "src/app/globals.css" },
-      "--accent": { "value": "#91adff", "source": "src/app/globals.css" },
-      "--accent-violet": { "value": "#c8a8ff", "source": "src/app/globals.css" }
+      "--bg": "#070806",
+      "--bg-raised": "#10110e",
+      "--ink": "#f1efe8",
+      "--paper": "#eeece5",
+      "--accent": "#d8ff3e",
+      "--cobalt": "#6b8cff",
+      "--orange": "#ff6a3d",
+      "--accent-text-light": "#496100"
     },
     "typography": {
-      "display": { "value": "Space Grotesk", "source": "src/app/layout.tsx" },
-      "body": { "value": "Plus Jakarta Sans", "source": "src/app/layout.tsx" }
+      "display": "Barlow Condensed",
+      "body": "Manrope"
     },
-    "spacing": {},
-    "radius": {
-      "navigation": { "value": "14px", "source": "src/app/globals.css" },
-      "project-card": { "value": "14px", "source": "src/app/globals.css" }
-    },
-    "shadows": {
-      "navigation": { "value": "0 12px 34px rgba(0, 0, 0, 0.2)", "source": "src/app/globals.css" }
+    "layout": {
+      "desktop": "identity board plus synchronized evidence index, irregular specimens, and capability matrix",
+      "mobile": "single measured track with two-by-two project index",
+      "shell": "min(94vw, 1500px)"
     },
     "motion": {
-      "hero": { "value": "GSAP clip, blur, portrait reveal and power4.out stagger", "source": "src/hooks/portfolio/usePortfolioAnimations.js" },
-      "scroll": { "value": "GSAP section, project, row and orbital parallax", "source": "src/hooks/portfolio/usePortfolioAnimations.js" }
-    },
-    "density": "comfortable"
+      "hero": "single staged GSAP calibration with split-line resolve, registration sweep, and clip reveal",
+      "projects": "short directional shutters, one-shot evidence reveals, active index, and scroll-synchronized scan reticles",
+      "telemetry": "global reading percentage, moving progress marker, and a trajectory rail that fills through the chapter",
+      "atmosphere": "slow orbital parallax plus a restrained pointer inspection light",
+      "fallback": "complete static layout with reduced motion"
+    }
   },
   "components": {
-    "installed": ["PortfolioNavbar", "ProjectCard", "FlagIcon"],
-    "preferredPrimitives": ["button", "text-link", "section-shell"],
-    "patterns": ["section-heading", "evidence-led project card", "bordered editorial list"]
-  },
-  "constraints": {
-    "must": [
-      "Keep Spanish, Catalan, and English content equivalent",
-      "Show only verifiable project claims and working links",
-      "Preserve visible keyboard focus and reduced motion"
-    ],
-    "avoid": [
-      "Long repeated positioning copy",
-      "Horizontal pinned project rails",
-      "Dense particle fields, competing effects, or cursor replacement on touch/reduced motion",
-      "Inner scrolling inside project cards"
-    ]
+    "installed": ["PortfolioNavbar", "HeroSection", "ProjectsSection", "ProjectCard", "CvSection", "FlagIcon"],
+    "patterns": ["identity board", "active evidence index", "project specimen", "capability matrix", "academic dossier", "offset record", "signal email surface"]
   },
   "decisions": [
-    "Use an orbital editorial layout with four selected projects",
-    "Integrate Marc's real portrait as the hero's visual anchor",
-    "Restore a refined sparse star field and morphing bubble cursor on fine pointers",
-    "Use distinct GSAP scroll choreography with complete static and reduced-motion fallbacks",
-    "Keep direct localized CV downloads",
-    "Present education as a dedicated editorial timeline sourced from the CV",
-    "Show the localized CV preview in-page with separate open and download actions",
-    "Keep portrait and CV imagery non-draggable and non-selectable"
+    "Desktop navigation labels include chapter numbers; mobile navigation remains compact.",
+    "Education is one mineral academic dossier with four numbered records and a cobalt lead record.",
+    "The CV preview retains original colors while the summary uses cobalt with navy text.",
+    "The hero closes with one lime kinetic capability rail driven by scroll; it reuses existing proof points and stops under reduced motion.",
+    "Project media carries an oversized real project title, while the evidence index inherits the active project's signal color.",
+    "Capabilities use three staggered horizontal scanner rows with numbered proof skills instead of equal cards.",
+    "Experience uses six alternating CV-backed records with oversized chapter numerals, and contact opens with a factual availability signal bar.",
+    "Education closes with a factual SMX to AI progression rail, and the CV bar links directly to ES, CA, and EN documents.",
+    "Mobile opens with a panoramic identity portrait before the thesis so Marc is visible in the first viewport.",
+    "Motion behaves as calibration: one hero scan, scroll-synchronized project inspection, measured progress, no new ambient loops, and a static reduced-motion fallback."
   ],
+  "constraints": {
+    "must": [
+      "Keep Spanish, Catalan, and English equivalent",
+      "Use only verifiable project claims and working links",
+      "Preserve bubble cursor, atmospheric background, keyboard focus, and reduced motion",
+      "Preserve portrait, CV, and flag colors"
+    ],
+    "avoid": [
+      "Repeated equal project cards",
+      "Invented metrics, clients, screenshots, or outcomes",
+      "Decorative dashboards, fake terminals, carousels, or modals",
+      "Horizontal scrolling or hover-only proof"
+    ]
+  },
   "evidence": [
     { "fact": "project.stack", "source": "package.json" },
     { "fact": "design.tokens", "source": "src/app/globals.css" },
-    { "fact": "content.selection", "source": "src/data/portfolioProjects.jsx" }
+    { "fact": "content.selection", "source": "src/data/portfolioProjects.jsx" },
+    { "fact": "product.constraints", "source": "PRODUCT.md" }
   ],
-  "generatedAt": "2026-08-02T14:00:00.000Z"
+  "generatedAt": "2026-08-10T00:00:00+02:00"
 }

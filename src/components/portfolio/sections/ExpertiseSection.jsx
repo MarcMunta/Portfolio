@@ -18,13 +18,19 @@ export function ExpertiseSection({ locale }) {
           {locale.expertise.groups.map((group, index) => (
             <article key={group.title} className="expertise-item" data-gsap-row>
               <span className="expertise-index" aria-hidden="true">0{index + 1}</span>
-              <div>
+              <div className="expertise-copy">
                 <h3>{group.title}</h3>
                 <p>{group.description}</p>
               </div>
               <ul>
-                {group.skills.map((skill) => <li key={skill}>{skill}</li>)}
+                {group.skills.map((skill, skillIndex) => (
+                  <li key={skill}>
+                    <span aria-hidden="true">{String(skillIndex + 1).padStart(2, '0')}</span>
+                    {skill}
+                  </li>
+                ))}
               </ul>
+              <span className={`expertise-sigil expertise-sigil-${index + 1}`} aria-hidden="true" />
             </article>
           ))}
         </div>

@@ -25,6 +25,14 @@
     "2023-2025: Web Application Development (DAW) at STUCOM",
     "2021-2023: Microcomputer Systems and Networks (SMX) at STUCOM"
   ],
+  "experience": [
+    "2025-2026: Developed and advised UX flows in Flutter for web, Android, and iOS at M5 Studio in Cork · 850+ hours, including 600+ remote",
+    "2024-2025: Combined IT support, web development, customer service, sales support, and reception at Viascooter · 350+ hours",
+    "2023-2024: Planned and led sessions for children aged 3 to 5 at Marc Bartra · 9 months",
+    "2022-2024: Operated drying processes in lime production at Cales de Pachs · 800+ hours",
+    "2022-2023: Handled software, hardware, networks, office tools, databases, and technical support at Gestinet · 350+ hours",
+    "2021-2022: Refereed primary-school matches for Consell Esportiu · 100+ hours"
+  ],
   "selectedProjects": [
     {
       "name": "Klime",
@@ -37,16 +45,23 @@
       "evidence": "Published local-first training PWA built with Expo, React Native Web, TypeScript, and IndexedDB or AsyncStorage persistence."
     },
     {
-      "name": "Vortex",
-      "url": "https://github.com/MarcMunta/Vortex",
-      "evidence": "Public local AI support system with semantic retrieval, bounded answers, visible state, and human escalation tests."
-    },
-    {
       "name": "Fichestu",
       "url": "https://github.com/MarcMunta/Fichestu-Backend",
       "evidence": "Native Kotlin and Jetpack Compose client with a Spring Boot backend, JWT or Google auth, WebSocket, JPA, Flyway, and persistent data."
     }
   ],
+  "curriculum": {
+    "visual": {
+      "es": "https://marcmunta.github.io/Portfolio/docs/cv/marc-muntane-clara-cv-es.pdf",
+      "ca": "https://marcmunta.github.io/Portfolio/docs/cv/marc-muntane-clara-cv-ca.pdf",
+      "en": "https://marcmunta.github.io/Portfolio/docs/cv/marc-muntane-clara-cv-en.pdf"
+    },
+    "ats": {
+      "es": "https://marcmunta.github.io/Portfolio/docs/cv/marc-muntane-clara-cv-es-ats.pdf",
+      "ca": "https://marcmunta.github.io/Portfolio/docs/cv/marc-muntane-clara-cv-ca-ats.pdf",
+      "en": "https://marcmunta.github.io/Portfolio/docs/cv/marc-muntane-clara-cv-en-ats.pdf"
+    }
+  },
   "contact": {
     "github": "https://github.com/MarcMunta",
     "linkedin": "https://www.linkedin.com/in/marc-muntan%C3%A9-clar%C3%A0-ab6a0a276/",

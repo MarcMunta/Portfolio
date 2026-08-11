@@ -16,17 +16,6 @@ const PROJECT_BASE = {
     tags: ['React Native', 'Expo', 'TypeScript', 'IndexedDB'],
     demoUrl: 'https://marcmunta.github.io/Atlas/',
   },
-  vortex: {
-    id: 'vortex',
-    year: '2026',
-    image: 'images/projects/vortex-cover.png',
-    imageMode: 'cover',
-    tags: ['Python', 'React', 'RAG', 'Local AI'],
-    repoLinks: [
-      { label: 'GitHub', url: 'https://github.com/MarcMunta/Vortex' },
-    ],
-    pdfPath: 'docs/vortex-ia-local-marc-muntane.pdf',
-  },
   fichestu: {
     id: 'fichestu',
     year: '2026',
@@ -41,7 +30,7 @@ const PROJECT_BASE = {
   },
 };
 
-const PROJECT_ORDER = ['klime', 'atlas', 'vortex', 'fichestu'];
+const PROJECT_ORDER = ['klime', 'atlas', 'fichestu'];
 
 const PROJECT_COPY = {
   es: {
@@ -72,20 +61,6 @@ const PROJECT_COPY = {
         'Base compartida entre web y móvil con Expo, React Native Web y TypeScript.',
       ],
       imageAlt: 'Identidad visual de la aplicación ATLAS',
-    },
-    vortex: {
-      title: 'Vortex',
-      category: 'IA local · RAG',
-      status: 'Código público',
-      role: 'Arquitectura local, backend Python e interfaz React',
-      summary:
-        'Sistema de IA local orientado a soporte técnico: recupera contexto propio, limita respuestas inseguras y escala cuando debe intervenir una persona.',
-      highlights: [
-        'Pipeline separado para limpieza, recuperación semántica, prompting, validación y escalado.',
-        'Memoria y ejecución locales, con permisos y estado visibles desde la interfaz.',
-        'Casos automatizados para FAQ, contexto ausente, errores y consultas complejas.',
-      ],
-      imageAlt: 'Interfaz del proyecto de IA local Vortex',
     },
     fichestu: {
       title: 'Fichestu',
@@ -131,20 +106,6 @@ const PROJECT_COPY = {
       ],
       imageAlt: 'Identitat visual de l’aplicació ATLAS',
     },
-    vortex: {
-      title: 'Vortex',
-      category: 'IA local · RAG',
-      status: 'Codi públic',
-      role: 'Arquitectura local, backend Python i interfície React',
-      summary:
-        'Sistema d’IA local orientat a suport tècnic: recupera context propi, limita respostes insegures i escala quan ha d’intervenir una persona.',
-      highlights: [
-        'Pipeline separat per a neteja, recuperació semàntica, prompting, validació i escalat.',
-        'Memòria i execució locals, amb permisos i estat visibles des de la interfície.',
-        'Casos automatitzats per a FAQ, context absent, errors i consultes complexes.',
-      ],
-      imageAlt: 'Interfície del projecte d’IA local Vortex',
-    },
     fichestu: {
       title: 'Fichestu',
       category: 'Mòbil · backend Java',
@@ -188,20 +149,6 @@ const PROJECT_COPY = {
         'Shared web and mobile foundation with Expo, React Native Web, and TypeScript.',
       ],
       imageAlt: 'ATLAS application visual identity',
-    },
-    vortex: {
-      title: 'Vortex',
-      category: 'Local AI · RAG',
-      status: 'Public code',
-      role: 'Local architecture, Python backend, and React interface',
-      summary:
-        'A local AI system for technical support: it retrieves owned context, blocks unsafe answers, and escalates when a person should take over.',
-      highlights: [
-        'Separate pipeline for cleaning, semantic retrieval, prompting, validation, and escalation.',
-        'Local memory and execution, with permissions and system state visible in the interface.',
-        'Automated cases for FAQs, missing context, errors, and complex requests.',
-      ],
-      imageAlt: 'Vortex local AI project interface',
     },
     fichestu: {
       title: 'Fichestu',

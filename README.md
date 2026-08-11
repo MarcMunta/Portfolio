@@ -6,19 +6,20 @@ Portfolio trilingüe orientado a mostrar trabajo verificable con una lectura cor
 
 - **Klime:** storefront editorial React/TypeScript con catálogo, variantes, cesta y base Supabase.
 - **ATLAS:** PWA local-first de planificación y seguimiento deportivo.
-- **Vortex:** IA local con RAG, validación de respuestas y escalado humano.
 - **Fichestu:** cliente Android Kotlin/Compose y backend Spring Boot.
 
-Cada caso resume problema, aportación, evidencia y enlaces útiles. El contenido está disponible en español, catalán e inglés.
+Cada caso resume aportación, evidencia y enlaces útiles en una composición propia. El contenido está disponible en español, catalán e inglés.
 
 ## Stack del portfolio
 
 - Next.js 15 y React 19.
-- Tailwind CSS 3 y CSS propio.
-- GSAP para la entrada editorial, las revelaciones por scroll y el parallax orbital.
+- Sistema visual propio “Product Proof Lab” en CSS: lámina de identidad, índice de lectura sincronizado y tres especímenes de proyecto no repetidos.
+- Barlow Condensed y Manrope mediante `next/font`.
+- GSAP para la entrada editorial, las aperturas breves de proyecto, el índice activo y el parallax orbital.
 - Retrato real, fondo espacial progresivo y cursor burbuja limitado a punteros precisos.
-- Trayectoria y estudios separados, con una línea académica breve y verificable.
-- Previsualización localizada del CV con apertura y descarga directa del PDF.
+- Matriz visual de capacidades, trayectoria asimétrica y expediente académico mineral, con información breve y verificable.
+- CV dual: los tres diseños Canva originales para lectura humana y una versión ATS de una columna para procesos de selección.
+- Selector accesible, previsualizaciones reales y packs trilingües ES/CA/EN sin alterar los colores del documento.
 - Export estático para GitHub Pages.
 
 ## Desarrollo
@@ -26,11 +27,15 @@ Cada caso resume problema, aportación, evidencia y enlaces útiles. El contenid
 ```powershell
 npm.cmd ci
 npm.cmd run lint
+npm.cmd run cv:build
+npm.cmd run cv:verify
 npm.cmd run build
 npm.cmd run dev
 ```
 
 La app local abre en `http://localhost:3000`. La versión publicada vive en <https://marcmunta.github.io/Portfolio/>.
+
+La generación del CV usa Python. Los tres Canva de `E:\Cole\Currículum` son las fuentes maestras de la edición visual y nunca se sobrescriben; `cv:build` los copia, genera la edición ATS, crea ambos packs trilingües y actualiza las previsualizaciones. `cv:verify` comprueba A4, fidelidad a los Canva, lectura ATS, enlaces y sincronización pública.
 
 ## Contenido estructurado
 

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "cross-env NEXT_SKIP_DEPENDENCY_CHECK=1 next build",
     "start": "next start",
-    "lint": "cross-env NEXT_SKIP_DEPENDENCY_CHECK=1 eslint ."
+    "lint": "cross-env NEXT_SKIP_DEPENDENCY_CHECK=1 eslint .",
+    "cv:build": "python scripts/generate_cv.py",
+    "cv:verify": "python scripts/verify_cv.py"
   },
   "dependencies": {
     "gsap": "^3.15.0",

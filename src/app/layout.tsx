@@ -1,18 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
+import { Barlow_Condensed, Manrope } from "next/font/google";
 
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-display",
   display: "swap",
 });
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Marc Muntané Clarà | Portfolio",
     description:
-      "Productos digitales verificables: Klime, ATLAS, Vortex y Fichestu.",
+      "Productos digitales verificables: Klime, ATLAS y Fichestu.",
     url: "https://marcmunta.github.io/Portfolio/",
     siteName: "Portfolio Marc Muntané",
     locale: "es_ES",
@@ -79,14 +79,6 @@ const selectedWork = [
     description:
       "Local-first training planning and progress PWA built with Expo, React Native Web, TypeScript, and IndexedDB.",
     url: "https://marcmunta.github.io/Atlas/",
-  },
-  {
-    "@type": "SoftwareSourceCode",
-    name: "Vortex",
-    programmingLanguage: ["Python", "TypeScript"],
-    description:
-      "Local AI support system with semantic retrieval, bounded answers, and human escalation.",
-    url: "https://github.com/MarcMunta/Vortex",
   },
   {
     "@type": "SoftwareSourceCode",
@@ -179,7 +171,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${plusJakartaSans.variable} ${spaceGrotesk.variable}`}>{children}</body>
+      <body className={`${manrope.variable} ${barlowCondensed.variable}`}>{children}</body>
     </html>
   );
 }

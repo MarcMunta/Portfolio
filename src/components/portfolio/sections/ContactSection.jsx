@@ -5,15 +5,27 @@ export function ContactSection({ locale }) {
   return (
     <footer id="contact" className="contact-section" data-gsap-section>
       <div className="section-shell">
+        <div className="contact-signal" data-gsap-row>
+          <span>
+            <strong>MM—CONTACT</strong>
+            <small>/ {new Date().getFullYear()}</small>
+          </span>
+          <span><i aria-hidden="true" />{locale.hero.availability}</span>
+          <span>{locale.hero.portraitKicker}</span>
+        </div>
+
         <div className="contact-main" data-gsap-section-heading>
           <div>
             <h2>{locale.contact.title}</h2>
             <p>{locale.contact.desc}</p>
           </div>
-          <a href="mailto:marcmclara@gmail.com" className="button button-primary">
-            <Mail size={18} aria-hidden="true" />
-            {locale.contact.emailLabel}
-            <ArrowUpRight size={18} aria-hidden="true" />
+          <a href="mailto:marcmclara@gmail.com" className="contact-email">
+            <span>
+              <Mail size={18} aria-hidden="true" />
+              {locale.contact.emailLabel}
+            </span>
+            <strong>marcmclara@gmail.com</strong>
+            <ArrowUpRight className="contact-email-arrow" size={30} aria-hidden="true" />
           </a>
         </div>
 

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "name": "Portfolio Proof Lab",
+  "northStar": "A measured product archive where real work is inspected at full scale.",
+  "tokens": {
+    "background": "#070806",
+    "surface": "#10110e",
+    "ink": "#f1efe8",
+    "paper": "#eeece5",
+    "inspection": "#d8ff3e",
+    "cobalt": "#6b8cff",
+    "signalOrange": "#ff6a3d",
+    "displayFont": "Barlow Condensed",
+    "bodyFont": "Manrope",
+    "shell": "min(94vw, 1500px)"
+  },
+  "signature": [
+    "mineral identity board",
+    "first-viewport panoramic mobile portrait",
+    "scroll-synchronized evidence index",
+    "lime scroll-driven capability rail",
+    "three non-repeating project specimens",
+    "oversized project identities inside authentic media plates",
+    "staggered horizontal capability scanner",
+    "mineral academic dossier",
+    "SMX to AI learning path rail",
+    "cobalt CV inspection surface",
+    "direct ES CA EN CV document selector",
+    "availability signal bar before contact CTA",
+    "six alternating CV-backed experience records",
+    "registration marks and measured rules",
+    "calibration sweep, project scan reticles, and reading telemetry",
+    "atmospheric orbits, pointer light, and bubble cursor"
+  ],
+  "requirements": [
+    "real project imagery and verifiable links",
+    "equivalent ES CA EN content",
+    "responsive single-track mobile layout",
+    "visible focus and reduced-motion fallback",
+    "original CV portrait and flag colors"
+  ]
+}
